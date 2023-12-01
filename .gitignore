@@ -1,0 +1,16 @@
+# IDE specific files
+.ionide/
+.vscode/
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# Code Coverage results
+**/lcov.info
+
+# Test databases
+**/*.db
+
+
+

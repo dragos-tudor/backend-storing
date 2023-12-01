@@ -1,0 +1,17 @@
+{
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+  "customizations": {
+    "vscode": {
+	    "extensions": [ "ms-dotnettools.csharp", "ryanluker.vscode-coverage-gutters" ]
+	  }
+	},
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+	],
+	"runArgs": [
+		"--name=backend-storing",
+		"--hostname=storing"
+	]
+}

@@ -1,0 +1,44 @@
+<Project>
+
+  <PropertyGroup Label="Project props">
+    <TargetFramework>net8.0</TargetFramework>
+
+    <!-- compiling -->
+    <ImplicitUsings>disable</ImplicitUsings>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Nullable>enable</Nullable>
+
+    <!-- packing -->
+    <IsPackable>true</IsPackable>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+
+    <!-- package -->
+    <Authors>Dragos Tudor</Authors>
+    <Company>$(Authors)</Company>
+    <Copyright>Copyright @2024</Copyright>
+    <Version>1.0.0-alpha1</Version>
+
+    <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
+    <RepositoryUrl>https://github.com/dragos-tudor/backend-storing.git</RepositoryUrl>
+    <PackageLicense>$(RepositoryUrl)/blob/master/LICENSE</PackageLicense>
+    <PackageProjectUrl>$(RepositoryUrl)/$(MSBuildProjectName)</PackageProjectUrl>
+
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <ItemGroup Label="Testing packages" Condition="'$(Configuration)'=='Debug'">
+    <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+    <PackageReference Include="xunit"/>
+    <PackageReference Include="xunit.runner.visualstudio">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.msbuild"/>
+    <PackageReference Include="coverlet.collector">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+</Project>

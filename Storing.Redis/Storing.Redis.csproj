@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <NoWarn>xUnit1013,IDE1006</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="stackexchange.redis"/>
+    <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <Compile Remove="**/*.Tests.cs" />
+  </ItemGroup>
+
+  <ItemGroup  Condition="'$(Configuration)'!='Release'">
+    <ProjectReference Include="..\Docker.Extensions\Docker.Extensions.csproj" />
+  </ItemGroup>
+
+</Project>
