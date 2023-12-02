@@ -21,7 +21,7 @@ static partial class TestContainers
     using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
 
     await CreateDockerImageAsync(client.Images, imageName, cts.Token);
-    var containerId = await StartContainerAsync(client.Containers, imageName, containerName, default, cts.Token);
+    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, default, cts.Token);
     var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
 
     await WaitForOpenPort(client.Exec, containerId, serverPort, TimeSpan.FromMinutes(1), cts.Token);

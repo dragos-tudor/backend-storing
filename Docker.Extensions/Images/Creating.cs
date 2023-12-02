@@ -1,4 +1,5 @@
 using System.Threading;
+using static Docker.Extensions.Messages;
 
 namespace Docker.Extensions;
 
@@ -18,7 +19,7 @@ public static partial class Images
         Tag = GetImageTag(imageName) ?? "latest",
       },
       null,
-      new Progress<JSONMessage>(HandleProgressMessage),
+      new Progress<JSONMessage>(LogMessages(10)),
       cancellationToken);
 
     return true;

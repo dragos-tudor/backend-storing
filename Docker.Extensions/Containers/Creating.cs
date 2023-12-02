@@ -6,10 +6,15 @@ static partial class Containers
 {
   static async Task<string> CreateContainerAsync(
     IContainerOperations containers,
-    CreateContainerParameters createContainerParameters,
+    string imageName,
+    string containerName,
+    Action<CreateContainerParameters>? setContainerParams = default,
     CancellationToken cancellationToken = default)
   {
-    var containerCreated = await containers.CreateContainerAsync(createContainerParameters, cancellationToken);
+    var createContainerParams = new CreateContainerParameters() { Image = imageName, Name = containerName };
+    setContainerParams?.Invoke(createContainerParams);
+
+    var containerCreated = await containers.CreateContainerAsync(createContainerParams, cancellationToken);
     return containerCreated.ID;
   }
 }

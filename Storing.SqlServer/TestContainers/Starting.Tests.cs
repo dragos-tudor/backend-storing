@@ -22,7 +22,7 @@ static partial class TestContainers
     using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
 
     await CreateDockerImageAsync(client.Images, imageName, cts.Token);
-    var containerId = await StartContainerAsync(client.Containers, imageName, containerName, (@params) => @params.Env = ["ACCEPT_EULA=Y", $"SA_PASSWORD={adminPassword}"], cts.Token);
+    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, (@params) => @params.Env = ["ACCEPT_EULA=Y", $"SA_PASSWORD={adminPassword}"], cts.Token);
     var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
 
     await WaitForOpenPort(client.Exec, containerId, serverPort, TimeSpan.FromMinutes(3), cts.Token);
