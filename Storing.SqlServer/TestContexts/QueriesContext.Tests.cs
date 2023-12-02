@@ -6,19 +6,16 @@ public record Filter {
   public string Text { get; init; } = string.Empty;
   public bool? Bool { get; init; }
   public DateTime? Date { get; init; }
-  public Guid GroupId { get; init; }
 }
 
 public record Order {
   public int OrderId { get; init; }
   public string Text { get; init; } = string.Empty;
-  public Guid GroupId { get; init; }
 }
 
 public record Page {
   public int PageId { get; init; }
   public string Text { get; init; } = string.Empty;
-  public Guid GroupId { get; init; }
 }
 
 
