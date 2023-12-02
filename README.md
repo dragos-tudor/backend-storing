@@ -1,4 +1,4 @@
-## Backend databases library.
+## Backend storing library.
 - convenient functions for SQLServer, MongoDb and Redis databases.
 - functional-style library [OOP-free].
 - using docker API for testing containers [docker componse free].
@@ -7,11 +7,14 @@
 ### Usage [sql server]
 ```cs
 
-  // adding to entity M2M collection
+  var connString = CreateSqlConnection("Library", "username", "P@ssw0rd!", "127.0.0.1:1433");
+  var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
+
+  // add to entity M2M collection
   var book = new Book { BookId = 1 };
   var author = new Author { Books = new [] { book } };
 
-  using var dbContext = await CreateEntitiesContext();
+  using var dbContext = CreateLibraryContext(dbContextOptions);
   AddEntity(dbContext, author);
 
   Assert.Equal(EntityState.Added, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
@@ -22,7 +25,7 @@
   // update modified entity properties [partial update]
   var author = new Author{ AuthorId = Guid.NewGuid(), AuthorName = "name", BirthDate = DateTime.Now };
 
-  using var dbContext = await CreateEntitiesContext();
+  using var dbContext = CreateLibraryContext(dbContextOptions);
   UpdateEntity(dbContext, author, (author) => {
     author.AuthorName = "updated";
     author.BirthDate = author.BirthDate;
@@ -31,11 +34,13 @@
   Assert.True(dbContext.Entry(author).Property(s => s.AuthorName).IsModified);
   Assert.False(dbContext.Entry(author).Property(s => s.BirthDate).IsModified);
 
+
+
   // update modified entity M2M collection [partial update]
   var book = new Book { BookId = 0 };
   var author = new Author{ AuthorId = Guid.NewGuid() };
 
-  using var dbContext = await CreateLibraryContext();
+  using var dbContext = CreateLibraryContext(dbContextOptions);
   UpdateEntity(dbContext, author, (author) => author.Books = [ book ]);
 
   Assert.Equal(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
@@ -47,7 +52,7 @@
   var book = new Book { BookId = 1 };
   var author = new Author { AuthorId = Guid.NewGuid(), Books = new [] { book } };
 
-  using var dbContext = await CreateEntitiesContext();
+  using var dbContext = CreateLibraryContext(dbContextOptions);
   DeleteEntity(dbContext, author);
 
   Assert.Equal(EntityState.Deleted, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
@@ -55,5 +60,5 @@
 ```
 
 ### Remarks
-- sql server entity functions could be unit-testable.
-- all integration tests use dynamically [non-ephemeral] created testing containers.
+- sql server entity functions are unit-testable.
+- all integration tests use dynamically created [non-ephemeral] database docker containers.
