@@ -24,7 +24,5 @@ public sealed class TrackingContext : DbContext {
   public DbSet<Course> Courses => Set<Course>();
   public DbSet<Professor> Professors => Set<Professor>();
 
-  public TrackingContext(DbContextOptions<TrackingContext> options) : base(options) =>
-    Database.EnsureCreated();
-
+  public TrackingContext(DbContextOptions<TrackingContext> options) : base(options) {}
 }

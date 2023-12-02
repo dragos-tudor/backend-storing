@@ -17,6 +17,5 @@ public sealed class EntitiesContext : DbContext {
   public DbSet<Author> Authors => Set<Author>();
   public DbSet<Book> Books => Set<Book>();
 
-  public EntitiesContext(DbContextOptions<EntitiesContext> options) : base(options) =>
-    Database.EnsureCreated();
+  public EntitiesContext(DbContextOptions<EntitiesContext> options) : base(options) {}
 }
