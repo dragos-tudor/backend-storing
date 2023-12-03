@@ -1,3 +1,4 @@
+using static Storing.SqlServer.SqlEntities;
 using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
@@ -32,8 +33,9 @@ partial class SqlQueriesTests
       DELETE FROM AuthorBook;
       DELETE FROM Authors;
       DELETE FROM Books");
-    dbContext.Authors.AddRange(authors);
-    dbContext.Books.AddRange(books);
+    foreach(var book in books)
+      AddEntity(dbContext, book);
+
     await dbContext.SaveChangesAsync();
 
     var query = new BookQueryDto() {

@@ -82,8 +82,8 @@
   ];
 
   using var dbContext = CreateLibraryContext(dbContextOptions);
-  dbContext.Authors.AddRange(authors);
-  dbContext.Books.AddRange(books);
+  foreach(var book in books)
+    AddEntity(dbContext, book);
   await dbContext.SaveChangesAsync();
 
   var query = new BookQueryDto() {
