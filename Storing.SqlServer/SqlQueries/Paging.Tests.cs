@@ -25,6 +25,7 @@ partial class SqlQueriesTests {
     Assert.Equal([ "3" ], await query.Page(3, 1).Select(x => x.Text).ToListAsync());
     Assert.Equal([], await query.Page(2, 2).Select(x => x.Text).ToListAsync());
     Assert.Equal([ "0", "1" ], await query.Page(2).Select(x => x.Text).ToListAsync());
+    Assert.Equal([ "0", "1", "2", "3" ], await query.Page(null, null).Select(x => x.Text).ToListAsync());
   }
 
 }
