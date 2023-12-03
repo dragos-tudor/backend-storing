@@ -58,6 +58,7 @@
   Assert.Equal(EntityState.Deleted, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
   Assert.Equal(EntityState.Unchanged, dbContext.Entry(book)?.State);
 
+
   // querying with nullable props
   public record BookQueryDto
   {
@@ -80,7 +81,7 @@
     new() { BookName = "Scrinul negru", Authors = [authors[1]] }
   ];
 
-  using var dbContext = CreateLibrariesContext();
+  using var dbContext = CreateLibraryContext(dbContextOptions);
   dbContext.Authors.AddRange(authors);
   dbContext.Books.AddRange(books);
   await dbContext.SaveChangesAsync();
