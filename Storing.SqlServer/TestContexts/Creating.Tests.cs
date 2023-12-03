@@ -10,8 +10,8 @@ static partial class TestContexts
       CreateInMemoryContextOptions<TContext>(dbName):
       CreateSqlContextOptions<TContext>(await CreateDbConnectionString(dbName));
 
-  internal static async Task<EntitiesContext> CreateEntitiesContext () =>
-    new (await CreateDbContextOptions<EntitiesContext>("entities"));
+  internal static async Task<EntitiesContext> CreateEntitiesContext (bool? shouldEnsureDatabase = false) =>
+    new (await CreateDbContextOptions<EntitiesContext>("entities"), shouldEnsureDatabase);
 
   internal static async Task<QueriesContext> CreateQueriesContext () =>
     new (await CreateDbContextOptions<QueriesContext>("queries"));
