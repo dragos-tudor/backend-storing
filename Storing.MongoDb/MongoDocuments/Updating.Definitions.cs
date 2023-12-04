@@ -1,9 +1,8 @@
 namespace Storing.MongoDb;
 
-public partial class MongoDocumentsTests {
+public partial class MongoDocuments {
 
-  static readonly ConcurrentDictionary<string, object> UpdateBuilders =
-    new ConcurrentDictionary<string, object>();
+  static readonly ConcurrentDictionary<string, object> UpdateBuilders = new ();
 
   static UpdateDefinitionBuilder<T> GetUpdateBuilder<T> () =>
     ((UpdateDefinitionBuilder<T>)UpdateBuilders
