@@ -103,6 +103,100 @@
   Assert.Contains(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
 ```
 
+### Usage [mongodb]
+```cs
+  using static Storing.MongoDb.MongoIdentities;
+  using static Storing.MongoDb.MongoCollections;
+  using static Storing.MongoDb.MongoDocuments;
+  ...
+
+  var connString = "mongodb://172.17,0,3:27017";
+  var mongodb = CreateMongoClient();
+  var db = mongodb.GetDatabase("Test");
+
+
+
+  // modify book document props
+  var id = Guid.NewGuid().ToString();
+  var books = GetCollection<Book>(db, "books");
+  var original = new Book { _id = id, BookName = "a", ReleaseYear = 2023 };
+  var modified = new { BookName = "b", ReleaseYear = 2024 };
+
+  await InsertDocument(books, original);
+  await UpdateDocument(books, original, CombineDefinitions(
+    SetFieldDefinition<Book, string>(nameof(Book.BookName), modified.BookName),
+    SetFieldDefinition<Book, int>(nameof(Book.ReleaseYear), modified.ReleaseYear)
+  ));
+
+  var actual = await books
+    .AsQueryable()
+    .FirstAsync(x => x._id == id);
+  Assert.Equal("b", actual.BookName);
+  Assert.Equal(2024, actual.ReleaseYear);
+
+
+
+  // grant additionally roles to user
+  var userName = Guid.NewGuid().ToString();
+  await CreateUser(db, GetCreateUserCommand(userName, "pass", ["read"]));
+  await GrantRolesToUser(db, GetGrantRolesToUserCommand(userName, ["readWrite"]));
+
+  var actual = await FindUser(db, GetFindUserCommand(userName));
+  Assert.Equal(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+
+
+
+  // work with discriminated documents on same collection
+  [BsonDiscriminator(discriminator: nameof(Discriminated), Required = true)]
+  record Discriminated: Id<string> { }
+
+  record NonDiscriminated: Id<string> { }
+
+  var discriminatedColl = GetCollection<Discriminated>(db, "test");
+  var nonDiscriminatedColl = GetCollection<NonDiscriminated>(db, "test");
+  var discriminated = new [] {
+    new Discriminated { _id = Guid.NewGuid().ToString() },
+    new Discriminated { _id = Guid.NewGuid().ToString() }
+  };
+  var nonDiscriminated = new [] {
+    new NonDiscriminated { _id = Guid.NewGuid().ToString() },
+  };
+
+  await InsertDocuments(discriminatedColl, discriminated);
+  await InsertDocuments(nonDiscriminatedColl, nonDiscriminated);
+
+  var actual = await discriminatedColl.AsDiscriminable().CountAsync();
+  Assert.Equal(2, actual);
+```
+
+### Usage [redis]
+```cs
+  using StackExchange.Redis;
+  using static Storing.Redis.RedisConnections;
+  using static Storing.Redis.RedisOptions;
+  using static Storing.Redis.RedisCache;
+  ...
+
+  var endpoints = "172.17.0.5:6379";
+  var configOptions = CreateConfigurationOptions(endpoints, clientName: "test");
+  var redisOptions = CreateRedisOptions(configOptions);
+  using var redis = CreateRedisConnection(redisOptions);
+  var db = redis.GetDatabase(0);
+
+  // absolute cahe entry expiration
+  var key = "key1";
+  var text = "some text";
+
+  var futureExpiration = TimeSpan.FromSeconds(1);
+  bar cacheEntryOptions = new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration);
+
+  await SetStringCacheAsync(db, key, text, cacheEntryOptions);
+  Assert.Equal(value, await GetStringCacheAsync(db, key));
+
+  await Task.Delay(TimeSpan.FromSeconds(1.5));
+  Assert.Null(await GetStringCacheAsync(db, key));
+```
+
 ### Remarks
 - sql server entity functions are unit-testable.
 - all integration tests use dynamically created [non-ephemeral] database docker containers [[Docker.DotNet](https://github.com/dotnet/dotnet-docker) package instead of [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet)].
