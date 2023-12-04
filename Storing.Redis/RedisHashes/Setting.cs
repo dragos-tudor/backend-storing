@@ -17,8 +17,6 @@ public static partial class RedisHashes
     TimeProvider? timeProvider = default,
     CancellationToken? cancellationToken = default)
   {
-    cancellationToken?.ThrowIfCancellationRequested();
-
     var creationTime = (timeProvider ?? TimeProvider.System).GetUtcNow();
     if(!IsAbsoluteExpirationInFuture(creationTime, options))
       throw new AbsoluteExpirationException(options);
@@ -27,17 +25,18 @@ public static partial class RedisHashes
     var relativeExpr = ResolveRelativeExpiration(creationTime, absoluteExpr, options);
 		var slidingExpr = options.SlidingExpiration;
 
-    return (string[]?) await db.ScriptEvaluateAsync(
-      setHashScript,
-      [ key ],
-      [
-        absoluteExpr?.ToUnixTimeSeconds() ?? noExpiration,
-        (long?) slidingExpr?.TotalSeconds ?? noExpiration,
-        (long?) relativeExpr?.TotalSeconds ?? noExpiration,
-        value
-      ]
-    );
-
+    return (string[]?)
+      await db
+        .ScriptEvaluateAsync(
+          setHashScript,
+          [ key ],
+          [
+            absoluteExpr?.ToUnixTimeSeconds() ?? noExpiration,
+            (long?) slidingExpr?.TotalSeconds ?? noExpiration,
+            (long?) relativeExpr?.TotalSeconds ?? noExpiration,
+            value
+        ])
+        .WaitAsync(cancellationToken ?? CancellationToken.None);
   }
 
 }

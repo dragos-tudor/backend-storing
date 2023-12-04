@@ -11,14 +11,12 @@ public static partial class RedisHashes {
     TimeProvider? timeProvider = default,
     CancellationToken? cancellationToken = default)
   {
-    cancellationToken?.ThrowIfCancellationRequested();
 		var absoluteExpr = (timeProvider ?? TimeProvider.System).GetUtcNow();
 
-    return (byte[]?) await db.ScriptEvaluateAsync(
-      getHashScript,
-      [ key ],
-      [ absoluteExpr.ToUnixTimeSeconds() ]
-    );
+    return (byte[]?)
+      await db
+        .ScriptEvaluateAsync(getHashScript, [ key ], [ absoluteExpr.ToUnixTimeSeconds() ])
+        .WaitAsync(cancellationToken ?? CancellationToken.None);
   }
 
 }
