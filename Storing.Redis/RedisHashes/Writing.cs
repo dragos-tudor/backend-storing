@@ -5,18 +5,21 @@ using static Storing.Redis.RedisExpirations;
 
 namespace Storing.Redis;
 
-public static partial class RedisHashes {
+public static partial class RedisHashes
+{
+  const long noExpiration = -1;
 
-  public static async Task<string[]?> HashSetAsync(
+  public static async Task<string[]?> SetHashAsync(
     IDatabase db,
     string key,
     byte[] value,
     DistributedCacheEntryOptions options,
-    CancellationToken token = default)
+    TimeProvider? timeProvider = default,
+    CancellationToken? cancellationToken = default)
   {
-    token.ThrowIfCancellationRequested();
+    cancellationToken?.ThrowIfCancellationRequested();
 
-    var creationTime = DateTimeOffset.UtcNow;
+    var creationTime = (timeProvider ?? TimeProvider.System).GetUtcNow();
     if(!IsAbsoluteExpirationInFuture(creationTime, options))
       throw new AbsoluteExpirationException(options);
 
@@ -25,15 +28,14 @@ public static partial class RedisHashes {
 		var slidingExpr = options.SlidingExpiration;
 
     return (string[]?) await db.ScriptEvaluateAsync(
-      hashSetScript,
-      new RedisKey[] { key },
-      new RedisValue[]
-      {
-        absoluteExpr?.ToUnixTimeSeconds() ?? notPresent,
-        (long?) slidingExpr?.TotalSeconds ?? notPresent,
-        (long?) relativeExpr?.TotalSeconds ?? notPresent,
+      setHashScript,
+      [ key ],
+      [
+        absoluteExpr?.ToUnixTimeSeconds() ?? noExpiration,
+        (long?) slidingExpr?.TotalSeconds ?? noExpiration,
+        (long?) relativeExpr?.TotalSeconds ?? noExpiration,
         value
-      }
+      ]
     );
 
   }

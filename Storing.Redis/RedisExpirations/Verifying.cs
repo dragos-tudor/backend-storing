@@ -7,8 +7,7 @@ static partial class RedisExpirations {
   internal static bool IsAbsoluteExpirationInFuture (
     DateTimeOffset creationTime,
     DistributedCacheEntryOptions options) =>
-      options.AbsoluteExpiration is not null?
-        options.AbsoluteExpiration > creationTime:
-        true;
+      options.AbsoluteExpiration is null ||
+      options.AbsoluteExpiration > creationTime;
 
 }

@@ -1,32 +1,33 @@
-using static Storing.Redis.RedisExpirations;
-
 namespace Storing.Redis;
 
-public static partial class RedisHashes {
+public static partial class RedisHashes
+{
+  const string absoluteExprKey = "absexp";
+  const string slidingExprKey = "sldexp";
+  const string dataKey = "data";
 
-  static readonly string hashGetScript = GenerateHashGetScript();
+  static readonly string getHashScript = GenerateGetHashScript();
+  static readonly string setHashScript = GenerateSetHashScript();
 
-  static readonly string hashSetScript = GenerateHashSetScript();
-
-  static string GenerateHashGetScript () => $@"
+  static string GenerateGetHashScript () => $@"
     local result = redis.call('HGETALL', KEYS[1])
     if(result[1] == nil) then
       return nil
     end
 
-    local {absExprKey} = result[2]
-    local {sldExprKey} = result[4]
-    if {sldExprKey} ~= '-1' then
-      if {absExprKey} ~= '-1' then
-        redis.call('EXPIRE', KEYS[1], {absExprKey} - ARGV[1])
+    local {absoluteExprKey} = result[2]
+    local {slidingExprKey} = result[4]
+    if {slidingExprKey} ~= '-1' then
+      if {absoluteExprKey} ~= '-1' then
+        redis.call('EXPIRE', KEYS[1], {absoluteExprKey} - ARGV[1])
       else
-        redis.call('EXPIRE', KEYS[1], {sldExprKey})
+        redis.call('EXPIRE', KEYS[1], {slidingExprKey})
       end
     end
     return result[6]";
 
-  static string GenerateHashSetScript () => $@"
-    redis.call('HSET', KEYS[1], '{absExprKey}', ARGV[1], '{sldExprKey}', ARGV[2], '{dataKey}', ARGV[4])
+  static string GenerateSetHashScript () => $@"
+    redis.call('HSET', KEYS[1], '{absoluteExprKey}', ARGV[1], '{slidingExprKey}', ARGV[2], '{dataKey}', ARGV[4])
     if ARGV[3] ~= '-1' then
       redis.call('EXPIRE', KEYS[1], ARGV[3])
     end

@@ -9,7 +9,7 @@ public static partial class RedisCache {
   public static Task<bool> RemoveCacheAsync(
     IDatabase db,
     string key,
-    CancellationToken token = default) =>
-      RemoveKeyAsync(db, key, token);
+    CancellationToken cancellationToken = default) =>
+      RemoveKeyAsync(db, key, cancellationToken);
 
 }

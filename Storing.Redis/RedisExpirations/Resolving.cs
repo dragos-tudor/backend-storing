@@ -29,7 +29,7 @@ static partial class RedisExpirations {
     var slidingExpr = options.SlidingExpiration;
     return (absoluteExpr, slidingExpr) switch {
       (not null, not null) => GetMinimumExpiration(creationTime, absoluteExpr.Value, slidingExpr.Value),
-      (not null, null) => (absoluteExpr.Value - creationTime),
+      (not null, null) => absoluteExpr.Value - creationTime,
       (null, not null) => slidingExpr.Value,
       _ => null
     };

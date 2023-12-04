@@ -4,12 +4,13 @@ namespace Storing.Redis;
 
 public static partial class RedisConnections {
 
-  public static IConnectionMultiplexer CreateRedisConnection(RedisOptions options) {
+  public static IConnectionMultiplexer CreateRedisConnection(RedisOptions options)
+  {
     var connection = ConnectionMultiplexer.Connect(options.ConfigurationOptions);
+    if(options.ProfilingSession is null)
+      return connection;
 
-    if(options.ProfilingSession is not null)
-      connection.RegisterProfiler(options.ProfilingSession);
-
+    connection.RegisterProfiler(options.ProfilingSession);
     return connection;
   }
 

@@ -8,20 +8,24 @@ namespace Storing.Redis;
 
 public static partial class RedisCache {
 
+  static byte[] ToBytes(string text) => Encoding.UTF8.GetBytes(text ?? string.Empty);
+
   public static Task SetCacheAsync(
     IDatabase db,
     string key,
     byte[] value,
     DistributedCacheEntryOptions? options = default,
-    CancellationToken token = default) =>
-      HashSetAsync(db, key, value, options ?? new DistributedCacheEntryOptions(), token);
+    TimeProvider? timeProvider = default,
+    CancellationToken cancellationToken = default) =>
+      SetHashAsync(db, key, value, options ?? new DistributedCacheEntryOptions(), timeProvider, cancellationToken);
 
   public static Task SetStringCacheAsync(
     IDatabase db,
     string key,
     string value,
     DistributedCacheEntryOptions? options = default,
-    CancellationToken token = default) =>
-      HashSetAsync(db, key, Encoding.UTF8.GetBytes(value ?? String.Empty), options ?? new DistributedCacheEntryOptions(), token);
+    TimeProvider? timeProvider = default,
+    CancellationToken cancellationToken = default) =>
+      SetHashAsync(db, key, ToBytes(value), options ?? new DistributedCacheEntryOptions(), timeProvider, cancellationToken);
 
 }

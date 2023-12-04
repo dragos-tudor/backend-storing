@@ -5,18 +5,19 @@ namespace Storing.Redis;
 
 public static partial class RedisHashes {
 
-  public static async Task<byte[]?> HashGetAsync(
+  public static async Task<byte[]?> GetHashAsync(
     IDatabase db,
     string key,
-    CancellationToken token = default)
+    TimeProvider? timeProvider = default,
+    CancellationToken? cancellationToken = default)
   {
-    token.ThrowIfCancellationRequested();
-		var absoluteExpr = DateTimeOffset.UtcNow;
-		
+    cancellationToken?.ThrowIfCancellationRequested();
+		var absoluteExpr = (timeProvider ?? TimeProvider.System).GetUtcNow();
+
     return (byte[]?) await db.ScriptEvaluateAsync(
-      hashGetScript,
-      new RedisKey[] { key },
-      new RedisValue[] { absoluteExpr.ToUnixTimeSeconds() }
+      getHashScript,
+      [ key ],
+      [ absoluteExpr.ToUnixTimeSeconds() ]
     );
   }
 
