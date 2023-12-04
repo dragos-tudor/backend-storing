@@ -8,10 +8,10 @@ public static partial class MongoDocuments {
     IMongoCollection<T> collection,
     T document,
     DeleteOptions? options = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T: Id {
       var filter = GetIdFilterDefinition<T>(document);
-      return await collection.DeleteOneAsync(filter, options, token);
+      return await collection.DeleteOneAsync(filter, options, cancellationToken);
     }
 
 }

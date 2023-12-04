@@ -9,22 +9,22 @@ public static partial class MongoUsers {
     IMongoDatabase db,
     CreateUserCommand command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default) =>
-      RunCommandAsync<CreateUserCommand, BsonDocument> (db, command, readPreference, token);
+    CancellationToken cancellationToken = default) =>
+      RunCommandAsync<CreateUserCommand, BsonDocument> (db, command, readPreference, cancellationToken);
 
   public static Task<BsonDocument> CreateUserForDatabases (
     IMongoDatabase db,
     CreateUserForDatabasesCommand command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default) =>
-      RunCommandAsync<CreateUserForDatabasesCommand, BsonDocument> (db, command, readPreference, token);
+    CancellationToken cancellationToken = default) =>
+      RunCommandAsync<CreateUserForDatabasesCommand, BsonDocument> (db, command, readPreference, cancellationToken);
 
   public static CreateUserCommand GetCreateUserCommand (
     string userName,
     string password,
     IEnumerable<string> roles,
     WriteConcern? writeConcern = null) =>
-      new CreateUserCommand ( new BsonDocument {
+      new ( new BsonDocument {
         { "createUser", userName },
         { "pwd", password },
         { "roles", new BsonArray(roles) },
@@ -36,7 +36,7 @@ public static partial class MongoUsers {
     string password,
     IEnumerable<UserRole> roles,
     WriteConcern? writeConcern = null) =>
-      new CreateUserForDatabasesCommand ( new BsonDocument {
+      new ( new BsonDocument {
         { "createUser", userName },
         { "pwd", password },
         { "roles", new BsonArray(roles.Select(ToBsonDocument)) },

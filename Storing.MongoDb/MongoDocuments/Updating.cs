@@ -9,10 +9,10 @@ public static partial class MongoDocuments {
     T document,
     UpdateDefinition<T> updateDefinition,
     UpdateOptions? options = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T : Id {
       var filter = GetIdFilterDefinition<T>(document);
-      return await collection.UpdateOneAsync(filter, updateDefinition, options, token);
+      return await collection.UpdateOneAsync(filter, updateDefinition, options, cancellationToken);
   }
 
 }

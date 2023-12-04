@@ -9,7 +9,7 @@ public static partial class MongoUsers {
     string userName,
     IEnumerable<UserRole> roles,
     WriteConcern? writeConcern = null) =>
-      new RevokeRolesFromUserCommand ( new BsonDocument {
+      new ( new BsonDocument {
         { "revokeRolesFromUser", userName },
         { "roles", new BsonArray(roles.Select(role => new BsonDocument
           { { "role", role.role} , { "db",  role.db } }))
@@ -21,7 +21,7 @@ public static partial class MongoUsers {
     string userName,
     IEnumerable<string> roles,
     WriteConcern? writeConcern = null) =>
-      new RevokeRolesFromUserCommand ( new BsonDocument {
+      new ( new BsonDocument {
         { "revokeRolesFromUser", userName },
         { "roles", new BsonArray(roles) },
         { "writeConcern", ToBsonDocument(writeConcern) }
@@ -31,7 +31,7 @@ public static partial class MongoUsers {
     IMongoDatabase db,
     RevokeRolesFromUserCommand command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default) =>
-      RunCommandAsync<RevokeRolesFromUserCommand, BsonDocument> (db, command, readPreference, token);
+    CancellationToken cancellationToken = default) =>
+      RunCommandAsync<RevokeRolesFromUserCommand, BsonDocument> (db, command, readPreference, cancellationToken);
 
 }

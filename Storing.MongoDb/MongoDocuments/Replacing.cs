@@ -8,10 +8,10 @@ public static partial class MongoDocuments {
     IMongoCollection<T> collection,
     T document,
     ReplaceOptions? options = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T: Id {
       var filter = GetIdFilterDefinition<T>(document);
-      return collection.ReplaceOneAsync(filter, document, options, token);
+      return collection.ReplaceOneAsync(filter, document, options, cancellationToken);
     }
 
 }

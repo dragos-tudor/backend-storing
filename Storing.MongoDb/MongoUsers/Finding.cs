@@ -11,7 +11,7 @@ public static partial class MongoUsers {
     IMongoDatabase db,
     FindUserCommand command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default) =>
-      RunCommandAsync<FindUserCommand, UserInfoResult>(db, command, readPreference, token);
+    CancellationToken cancellationToken = default) =>
+      RunCommandAsync<FindUserCommand, UserInfoResult>(db, command, readPreference, cancellationToken);
 
 }

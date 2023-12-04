@@ -9,23 +9,23 @@ public static partial class MongoUsers {
     IMongoDatabase db,
     DropUserCommand command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default) =>
-      RunCommandAsync<DropUserCommand, BsonDocument> (db, command, readPreference, token);
+    CancellationToken cancellationToken = default) =>
+      RunCommandAsync<DropUserCommand, BsonDocument> (db, command, readPreference, cancellationToken);
 
   public static BsonDocument DropAllUsers (
     IMongoDatabase db,
     DropAllUsersCommand command,
-    CancellationToken token = default) =>
-      RunCommand<DropAllUsersCommand, BsonDocument> (db, command, null, token);
+    CancellationToken cancellationToken = default) =>
+      RunCommand<DropAllUsersCommand, BsonDocument> (db, command, null, cancellationToken);
 
   public static DropUserCommand GetDropUserCommand (string userName, WriteConcern? writeConcern = null) =>
-    new DropUserCommand ( new BsonDocument {
+    new ( new BsonDocument {
       { "dropUser", userName },
       { "writeConcern", ToBsonDocument(writeConcern) }
     });
 
   public static DropAllUsersCommand GetDropAllUsersCommand (WriteConcern? writeConcern = null) =>
-    new DropAllUsersCommand ( new BsonDocument {
+    new ( new BsonDocument {
       { "dropAllUsersFromDatabase", 1 },
       { "writeConcern", ToBsonDocument(writeConcern) }
     });

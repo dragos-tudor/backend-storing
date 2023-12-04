@@ -7,16 +7,16 @@ public static partial class MongoCommands {
     IMongoDatabase db,
     T1 command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T1: Command<T2> =>
-      db.RunCommand<T2>(command, readPreference, token);
+      db.RunCommand<T2>(command, readPreference, cancellationToken);
 
   public static Task<T2> RunCommandAsync<T1, T2> (
     IMongoDatabase db,
     T1 command,
     ReadPreference? readPreference = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T1: Command<T2> =>
-      db.RunCommandAsync<T2>(command, readPreference, token);
+      db.RunCommandAsync<T2>(command, readPreference, cancellationToken);
 
 }

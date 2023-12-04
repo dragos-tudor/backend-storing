@@ -7,10 +7,10 @@ public static partial class MongoTransactions {
     IMongoClient client,
     ClientSessionOptions? sessionOptions = null,
     TransactionOptions? transactionOptions = null,
-    CancellationToken token = default,
+    CancellationToken cancellationToken = default,
     params Func<IClientSession, Task>[] operations)
   {
-    using var session = client.StartSession(sessionOptions, token);
+    using var session = client.StartSession(sessionOptions, cancellationToken);
 
     try {
       session.StartTransaction(transactionOptions);
@@ -18,11 +18,11 @@ public static partial class MongoTransactions {
       foreach(var operation in operations)
         await operation(session);
 
-      await session.CommitTransactionAsync(token);
+      await session.CommitTransactionAsync(cancellationToken);
     }
     catch {
       if(session.IsInTransaction)
-        await session.AbortTransactionAsync(token);
+        await session.AbortTransactionAsync(cancellationToken);
       throw;
     }
   }

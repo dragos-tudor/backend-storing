@@ -8,17 +8,17 @@ public static partial class MongoDocuments {
     IMongoCollection<T> collection,
     T document,
     InsertOneOptions? options = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T: Id =>
-      collection.InsertOneAsync(document, options, token);
+      collection.InsertOneAsync(document, options, cancellationToken);
 
   public static Task InsertDocuments<T> (
     IMongoCollection<T> collection,
     IEnumerable<T> documents,
     InsertManyOptions? options = null,
-    CancellationToken token = default)
+    CancellationToken cancellationToken = default)
     where T: Id =>
-      collection.InsertManyAsync(documents, options, token);
+      collection.InsertManyAsync(documents, options, cancellationToken);
 
 
 }

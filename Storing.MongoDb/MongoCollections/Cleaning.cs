@@ -7,9 +7,10 @@ public static partial class MongoCollections {
     .GetCollection<BsonDocument>(collName)
     .DeleteMany(FilterDefinition<BsonDocument>.Empty);
 
-  public static void CleanupCollections (IMongoDatabase db, params string[] collNames) =>
-    collNames
-    .Select(collName => CleanupCollection(db, collName))
-    .ToList();
+  public static void CleanupCollections (IMongoDatabase db, params string[] collNames)
+  {
+    foreach(var collName in collNames)
+      CleanupCollection(db, collName);
+  }
 
 }
