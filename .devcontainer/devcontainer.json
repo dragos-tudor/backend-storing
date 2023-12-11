@@ -12,7 +12,6 @@
   },
 	"mounts": [
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-		"source=dotnet,target=/home/vscode/.dotnet",
 		"source=nuget,target=/home/vscode/.nuget"
 	],
 	"runArgs": [
