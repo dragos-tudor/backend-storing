@@ -1,8 +1,8 @@
 
 namespace Storing.SqlServer;
 
-public static partial class SqlQueries {
-
+public static partial class SqlQueries
+{
   public static IQueryable<T> Page<T>(
     this IQueryable<T> source,
     short? limit = 10,
@@ -14,5 +14,4 @@ public static partial class SqlQueries {
       source.Take(limitValue):
       source.Skip(pageValue * limitValue).Take(limitValue);
   }
-
 }

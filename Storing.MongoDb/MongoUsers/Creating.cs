@@ -3,8 +3,8 @@ using static Storing.MongoDb.MongoDocuments;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers {
-
+public static partial class MongoUsers
+{
   public static Task<BsonDocument> CreateUser (
     IMongoDatabase db,
     CreateUserCommand command,
@@ -19,7 +19,7 @@ public static partial class MongoUsers {
     CancellationToken cancellationToken = default) =>
       RunCommandAsync<CreateUserForDatabasesCommand, BsonDocument> (db, command, readPreference, cancellationToken);
 
-  public static CreateUserCommand GetCreateUserCommand (
+  public static CreateUserCommand CreateCreateUserCommand (
     string userName,
     string password,
     IEnumerable<string> roles,
@@ -31,7 +31,7 @@ public static partial class MongoUsers {
         { "writeConcern", ToBsonDocument(writeConcern) }
       });
 
-  public static CreateUserForDatabasesCommand GetCreateUserForDatabasesCommand (
+  public static CreateUserForDatabasesCommand CreateCreateUserForDatabasesCommand (
     string userName,
     string password,
     IEnumerable<UserRole> roles,
@@ -42,5 +42,4 @@ public static partial class MongoUsers {
         { "roles", new BsonArray(roles.Select(ToBsonDocument)) },
         { "writeConcern", ToBsonDocument(writeConcern) }
       });
-
 }

@@ -5,7 +5,7 @@ namespace Storing.SqlServer;
 
 partial class SqlQueriesTests
 {
-  internal record BookQueryDto
+  sealed internal record BookQueryDto
   {
     public string? AuthorName {get; init;}
     public DateTime? ReleaseDateGreater {get; init;}
@@ -14,7 +14,7 @@ partial class SqlQueriesTests
     public short? PageNo {get; init;}
   }
 
-  [Fact]
+  [TestMethod]
   public async Task filter_sort_page_entitites__query_entities__query_result ()
   {
     Author[] authors = [
@@ -52,7 +52,7 @@ partial class SqlQueriesTests
       .Select(book => book.BookName)
       .ToArrayAsync();
 
-    Assert.Contains(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
+    AssertExtensions.AreEqual(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
   }
 
 }

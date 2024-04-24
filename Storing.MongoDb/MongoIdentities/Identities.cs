@@ -1,12 +1,11 @@
+#pragma warning disable CA1707
+
 namespace Storing.MongoDb;
 
-public static partial class MongoIdentities {
+public abstract record Id { }
 
-  public abstract record Id { }
-
-  public abstract record Id<T> : Id {
-    public T? _id { get; init; }
-
-  }
-
+public abstract record Id<T>: Id
+{
+  [BsonId]
+  public T? _Id { get; init; }
 }

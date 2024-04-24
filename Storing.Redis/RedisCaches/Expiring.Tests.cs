@@ -8,11 +8,11 @@ using static Storing.Redis.RedisCache;
 
 namespace Storing.Redis;
 
-// run tests in parallel [use different test classes]
-public class RedisCacheTests1 {
-
-  [Fact]
-  internal async Task AbsoluteExpirationExpires()
+[TestClass]
+public class RedisCacheTests1
+{
+  [TestMethod]
+  public async Task AbsoluteExpirationExpires()
   {
     var db = await GetRedisDatabase();
     var key = "expKey1";
@@ -21,15 +21,15 @@ public class RedisCacheTests1 {
     var futureExpiration = TimeSpan.FromSeconds(1);
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration));
 
-    Assert.Equal(value, await GetCacheAsync(db, key));
+    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
 
-  [Fact]
-  internal async Task AbsoluteSubSecondExpirationExpiresImmediately()
+  [TestMethod]
+  public async Task AbsoluteSubSecondExpirationExpiresImmediately()
   {
     var db = await GetRedisDatabase();
     var key = "expKey2";
@@ -38,14 +38,15 @@ public class RedisCacheTests1 {
     var immediatelyExpiration = TimeSpan.FromSeconds(0.25);
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(immediatelyExpiration));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
 }
 
-public class RedisCacheTests2 {
-
-  [Fact]
-  internal async Task RelativeExpirationExpires()
+[TestClass]
+public class RedisCacheTests2
+{
+  [TestMethod]
+  public async Task RelativeExpirationExpires()
   {
     var db = await GetRedisDatabase();
     var key = "expKey3";
@@ -53,15 +54,15 @@ public class RedisCacheTests2 {
 
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(1)));
 
-    Assert.Equal(value, await GetCacheAsync(db, key));
+    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
 
-  [Fact]
-  internal async Task RelativeSubSecondExpirationExpiresImmediately()
+  [TestMethod]
+  public async Task RelativeSubSecondExpirationExpiresImmediately()
   {
     var db = await GetRedisDatabase();
     var key = "expKey4";
@@ -69,15 +70,15 @@ public class RedisCacheTests2 {
 
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(0.25)));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
-
 }
 
-public class RedisCacheTests3 {
-
-  [Fact]
-  internal async Task SlidingExpirationExpiresIfNotAccessed()
+[TestClass]
+public class RedisCacheTests3
+{
+  [TestMethod]
+  public async Task SlidingExpirationExpiresIfNotAccessed()
   {
     var db = await GetRedisDatabase();
     var key = "expKey5";
@@ -85,15 +86,15 @@ public class RedisCacheTests3 {
 
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(1)));
 
-    Assert.Equal(value, await GetCacheAsync(db, key));
+    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
 
-  [Fact]
-  internal async Task SlidingSubSecondExpirationExpiresImmediately()
+  [TestMethod]
+  public async Task SlidingSubSecondExpirationExpiresImmediately()
   {
     var db = await GetRedisDatabase();
     var key = "expKey6";
@@ -101,15 +102,15 @@ public class RedisCacheTests3 {
 
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(0.25)));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
-
 }
 
-public class RedisCacheTests4 {
-
-  [Fact]
-  internal async Task SlidingExpirationRenewedByAccess()
+[TestClass]
+public class RedisCacheTests4
+{
+  [TestMethod]
+  public async Task SlidingExpirationRenewedByAccess()
   {
     if(Environment.GetEnvironmentVariable("IN_MEMORY")! == "true")
       return;
@@ -122,22 +123,22 @@ public class RedisCacheTests4 {
 
     for (int i = 0; i < 4; i++)
     {
-      Assert.Equal(value, await GetCacheAsync(db, key));
+      AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
 
       await Task.Delay(TimeSpan.FromSeconds(0.5));
     }
 
     await Task.Delay(TimeSpan.FromSeconds(1));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
-
 }
 
-public class RedisCacheTests5 {
-
-  [Fact]
-  internal async Task SlidingExpirationRenewedByAccessUntilAbsoluteExpiration()
+[TestClass]
+public class RedisCacheTests5
+{
+  [TestMethod]
+  public async Task SlidingExpirationRenewedByAccessUntilAbsoluteExpiration()
   {
     if(Environment.GetEnvironmentVariable("IN_MEMORY")! == "true")
       return;
@@ -152,74 +153,73 @@ public class RedisCacheTests5 {
 
     for (int i = 0; i < 4; i++)
     {
-      Assert.Equal(value, await GetCacheAsync(db, key));
+      AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
 
       await Task.Delay(TimeSpan.FromSeconds(0.5));
     }
 
     await Task.Delay(TimeSpan.FromSeconds(1));
 
-    Assert.Null(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(db, key));
   }
 
-  [Fact]
-  internal async Task AbsoluteExpirationInThePastThrows()
+  [TestMethod]
+  public async Task AbsoluteExpirationInThePastThrows()
   {
     var db = await GetRedisDatabase();
     var key = "expKey9";
     var value = new byte[1];
 
     var pastExpiration = DateTimeOffset.Now - TimeSpan.FromMinutes(1);
-    await Assert.ThrowsAsync<AbsoluteExpirationException>(() =>
+    await Assert.ThrowsExceptionAsync<AbsoluteExpirationException>(() =>
       SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(pastExpiration)));
   }
 
-  [Fact]
-  internal async Task NegativeRelativeExpirationThrows()
+  [TestMethod]
+  public async Task NegativeRelativeExpirationThrows()
   {
     var db = await GetRedisDatabase();
     var key = "expKey10";
     var value = new byte[1];
 
     var negativeExpiration = TimeSpan.FromMinutes(-1);
-    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(negativeExpiration)));
   }
 
-  [Fact]
-  internal async Task ZeroRelativeExpirationThrows()
+  [TestMethod]
+  public async Task ZeroRelativeExpirationThrows()
   {
     var db = await GetRedisDatabase();
     var key = "expKey11";
     var value = new byte[1];
 
     var zeroExpiration = TimeSpan.Zero;
-    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(zeroExpiration)));
   }
 
-  [Fact]
-  internal async Task NegativeSlidingExpirationThrows()
+  [TestMethod]
+  public async Task NegativeSlidingExpirationThrows()
   {
     var db = await GetRedisDatabase();
     var key = "expKey12";
     var value = new byte[1];
 
     var negativeExpration = TimeSpan.FromMinutes(-1);
-    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(negativeExpration)));
   }
 
-  [Fact]
-  internal async Task ZeroSlidingExpirationThrows()
+  [TestMethod]
+  public async Task ZeroSlidingExpirationThrows()
   {
     var db = await GetRedisDatabase();
     var key = "expKey13";
     var value = new byte[1];
 
     var zeroExpiration = TimeSpan.Zero;
-    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(zeroExpiration)));
   }
-
 }

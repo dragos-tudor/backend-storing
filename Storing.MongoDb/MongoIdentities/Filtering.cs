@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoIdentities {
-
+public static partial class MongoIdentities
+{
   static BsonMemberMap GetIdMemberMap<T>() =>
     BsonClassMap.LookupClassMap(typeof(T)).IdMemberMap;
 
@@ -13,7 +13,6 @@ public static partial class MongoIdentities {
     return new FilterDefinitionBuilder<T>()
       .Eq(fieldDefinition, fieldValue);
   }
-
 }
 
 

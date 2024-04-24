@@ -1,9 +1,8 @@
-using static Storing.SqlServer.SqlContexts;
 
 namespace Storing.SqlServer;
 
-public partial class SqlEntities {
-
+partial class SqlEntities
+{
   public static void DeleteEntity<TContext, T> (TContext dbContext, T entity)
     where TContext: DbContext
     where T: class {
@@ -12,5 +11,4 @@ public partial class SqlEntities {
       TrackEntity(dbContext, entity);
       dbContext.Remove(entity);
     }
-
 }

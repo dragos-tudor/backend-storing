@@ -1,8 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers {
-
-  static MongoUsers() =>
-    MapUserClassTypes();
-
+public static partial class MongoUsers
+{
+  static MongoUsers() => MapUserClassTypes();
 }

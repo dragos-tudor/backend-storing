@@ -1,9 +1,8 @@
-using static Storing.MongoDb.MongoIdentities;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoDocuments {
-
+public static partial class MongoDocuments
+{
   public static Task InsertDocument<T> (
     IMongoCollection<T> collection,
     T document,
@@ -19,6 +18,4 @@ public static partial class MongoDocuments {
     CancellationToken cancellationToken = default)
     where T: Id =>
       collection.InsertManyAsync(documents, options, cancellationToken);
-
-
 }

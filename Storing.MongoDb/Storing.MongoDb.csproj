@@ -1,18 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <NoWarn>xUnit1013,IDE1006</NoWarn>
-  </PropertyGroup>
+  <Import Project="../Directory.Testing.props" />
 
   <ItemGroup>
     <PackageReference Include="MongoDb.Driver" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <Compile Remove="**/*.Tests.cs" />
-  </ItemGroup>
-
-  <ItemGroup  Condition="'$(Configuration)'!='Release'">
+  <ItemGroup Condition="'$(Configuration)'!='Release'">
     <ProjectReference Include="..\Docker.Extensions\Docker.Extensions.csproj" />
   </ItemGroup>
 

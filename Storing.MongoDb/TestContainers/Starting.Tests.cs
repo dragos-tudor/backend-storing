@@ -8,26 +8,26 @@ namespace Storing.MongoDb;
 
 static partial class TestContainers
 {
-  const string imageName = "mongo:4.2.24";
-  const string containerName = "storing-mongo";
-  const int serverPort = 27017;
+  const string ImageName = "mongo:4.2.24";
+  const string ContainerName = "storing-mongo";
+  static readonly TimeSpan DockerTimeout = TimeSpan.FromMinutes(5);
+  static readonly TimeSpan OpenPortTimeout = TimeSpan.FromMinutes(1);
 
-  static string GetConnectionString(NetworkSettings network, int serverPort) =>
-    $"mongodb://{network.IPAddress}:{serverPort}";
-
-  static async Task<string> StartMongoContainerAsync(string imageName, string containerName, int serverPort)
+  internal static async Task<NetworkSettings> StartMongoContainerAsync (
+    int serverPort,
+    string imageName = ImageName,
+    string containerName = ContainerName,
+    TimeSpan? dockerTimeout = default,
+    TimeSpan? openPortTimeout = default)
   {
     using var client = CreateDockerClient();
-    using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    using var dockerToken = new CancellationTokenSource(dockerTimeout ?? DockerTimeout);
 
-    await CreateDockerImageAsync(client.Images, imageName, cts.Token);
-    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, default, cts.Token);
-    var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
+    await CreateDockerImageAsync(client.Images, imageName, dockerToken.Token);
+    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, default, dockerToken.Token);
+    var container = await InspectContainerAsync(client.Containers, containerId, dockerToken.Token);
 
-    await WaitForOpenPort(client.Exec, containerId, serverPort, TimeSpan.FromMinutes(1), cts.Token);
-    return GetConnectionString(container!.NetworkSettings, serverPort);
+    await WaitForOpenPort(client.Exec, containerId, serverPort, openPortTimeout ?? OpenPortTimeout);
+    return container!.NetworkSettings;
   }
-
-  internal static Task<string> StartMongoContainerAsync() =>
-    StartMongoContainerAsync(imageName, containerName, serverPort);
 }

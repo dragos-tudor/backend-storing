@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoQueries {
-
+public static partial class MongoQueries
+{
   public static IMongoQueryable<T1> Order<T1, T2>(
     this IMongoQueryable<T1> source,
     bool? ascending,
@@ -13,5 +13,4 @@ public static partial class MongoQueries {
         },
         false => source
       };
-
 }

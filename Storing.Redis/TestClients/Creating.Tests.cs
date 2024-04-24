@@ -5,16 +5,16 @@ using static Storing.Redis.TestContainers;
 
 namespace Storing.Redis;
 
-static partial class TestDatabases
+public static partial class TestClients
 {
-  static readonly Lazy<Task<IConnectionMultiplexer>> redisClient = new (CreateRedisClient);
+  const int ServerPort = 6379;
 
-  static async Task<IConnectionMultiplexer> CreateRedisClient() =>
+  internal static async Task<IConnectionMultiplexer> CreateRedisClient(string clientName) =>
     CreateRedisConnection(
       CreateRedisOptions(
         CreateConfigurationOptions(
-          await StartRedisContainerAsync(),
-          clientName: "test"
+          GetRedisEndpoints(await StartRedisContainerAsync(ServerPort), ServerPort),
+          clientName: clientName
         ))
     );
 }

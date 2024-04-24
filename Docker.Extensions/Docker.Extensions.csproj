@@ -1,16 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project="../Directory.Testing.props" />
+
   <PropertyGroup>
-    <NoWarn>xUnit1013,IDE1006</NoWarn>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Docker.DotNet" />
-    <PackageReference Include="NSubstitute" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <Compile Remove="**/*.Tests.cs" />
   </ItemGroup>
 
 </Project>

@@ -3,8 +3,8 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static partial class RedisKeys {
-
+public static partial class RedisKeys
+{
   public static Task<bool> RemoveKeyAsync(
     IDatabase db,
     string key,
@@ -13,5 +13,4 @@ public static partial class RedisKeys {
     cancellationToken.ThrowIfCancellationRequested();
     return db.KeyDeleteAsync(key);
   }
-
 }

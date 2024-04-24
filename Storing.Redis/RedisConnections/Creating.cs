@@ -2,8 +2,8 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static partial class RedisConnections {
-
+public static partial class RedisConnections
+{
   public static IConnectionMultiplexer CreateRedisConnection(RedisOptions options)
   {
     var connection = ConnectionMultiplexer.Connect(options.ConfigurationOptions);
@@ -13,5 +13,4 @@ public static partial class RedisConnections {
     connection.RegisterProfiler(options.ProfilingSession);
     return connection;
   }
-
 }

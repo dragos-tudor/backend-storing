@@ -7,7 +7,7 @@ namespace Storing.Redis;
 
 public static partial class RedisHashes
 {
-  const long noExpiration = -1;
+  const long NoExpiration = -1;
 
   public static async Task<string[]?> SetHashAsync(
     IDatabase db,
@@ -28,15 +28,14 @@ public static partial class RedisHashes
     return (string[]?)
       await db
         .ScriptEvaluateAsync(
-          setHashScript,
+          SetHashScript,
           [ key ],
           [
-            absoluteExpr?.ToUnixTimeSeconds() ?? noExpiration,
-            (long?) slidingExpr?.TotalSeconds ?? noExpiration,
-            (long?) relativeExpr?.TotalSeconds ?? noExpiration,
+            absoluteExpr?.ToUnixTimeSeconds() ?? NoExpiration,
+            (long?) slidingExpr?.TotalSeconds ?? NoExpiration,
+            (long?) relativeExpr?.TotalSeconds ?? NoExpiration,
             value
         ])
         .WaitAsync(cancellationToken ?? CancellationToken.None);
   }
-
 }

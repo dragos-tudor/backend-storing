@@ -3,8 +3,8 @@ using StackExchange.Redis.Profiling;
 
 namespace Storing.Redis;
 
-public partial class RedisOptions {
-
+public partial class RedisOptions
+{
   public static ConfigurationOptions CreateConfigurationOptions(
     string endPoints,
     int? dbId = 0,
@@ -41,5 +41,4 @@ public partial class RedisOptions {
         InstanceName = options.ClientName,
         ProfilingSession = profilingSession
       };
-
 }

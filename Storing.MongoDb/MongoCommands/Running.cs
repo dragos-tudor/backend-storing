@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoCommands {
-
+public static partial class MongoCommands
+{
   [ExcludeFromCodeCoverage]
   internal static T2 RunCommand<T1, T2> (
     IMongoDatabase db,
@@ -9,7 +9,7 @@ public static partial class MongoCommands {
     ReadPreference? readPreference = null,
     CancellationToken cancellationToken = default)
     where T1: Command<T2> =>
-      db.RunCommand<T2>(command, readPreference, cancellationToken);
+      db.RunCommand(command, readPreference, cancellationToken);
 
   public static Task<T2> RunCommandAsync<T1, T2> (
     IMongoDatabase db,
@@ -17,6 +17,5 @@ public static partial class MongoCommands {
     ReadPreference? readPreference = null,
     CancellationToken cancellationToken = default)
     where T1: Command<T2> =>
-      db.RunCommandAsync<T2>(command, readPreference, cancellationToken);
-
+      db.RunCommandAsync(command, readPreference, cancellationToken);
 }

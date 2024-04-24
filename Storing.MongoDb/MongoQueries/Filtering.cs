@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoQueries {
-
+public static partial class MongoQueries
+{
   public static IMongoQueryable<T1> Filter<T1, T2> (
     this IMongoQueryable<T1> source,
     T2 value,
@@ -10,5 +10,4 @@ public static partial class MongoQueries {
         true => source,
         false => source.Where(expression(value))
       };
-
 }

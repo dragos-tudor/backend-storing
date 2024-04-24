@@ -7,28 +7,28 @@ using static Docker.Extensions.Images;
 
 namespace Storing.Redis;
 
-static partial class TestContainers
+public static partial class TestContainers
 {
-  const string imageName = "redis:7.2.3";
-  const string containerName = "storing-redis";
-  const int serverPort = 6379;
+  const string ImageName = "redis:7.2.3";
+  const string ContainerName = "storing-redis";
+  static readonly TimeSpan DockerTimeout = TimeSpan.FromMinutes(5);
+  static readonly TimeSpan OpenPortTimeout = TimeSpan.FromMinutes(1);
 
-  static string GetRedisEndpoints(NetworkSettings network, int serverPort) =>
-    $"{network.IPAddress}:{serverPort}";
-
-  static async Task<string> StartRedisContainerAsync(string imageName, string containerName, int serverPort)
+  internal static async Task<NetworkSettings> StartRedisContainerAsync (
+    int serverPort,
+    string imageName = ImageName,
+    string containerName = ContainerName,
+    TimeSpan? dockerTimeout = default,
+    TimeSpan? openPortTimeout = default)
   {
     using var client = CreateDockerClient();
-    using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    using var cts = new CancellationTokenSource(dockerTimeout ?? DockerTimeout);
 
     await CreateDockerImageAsync(client.Images, imageName, cts.Token);
     var containerId = await UseContainerAsync(client.Containers, imageName, containerName, default, cts.Token);
     var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
 
-    await WaitForOpenPort(client.Exec, containerId, serverPort, TimeSpan.FromMinutes(1), cts.Token);
-    return GetRedisEndpoints(container!.NetworkSettings, serverPort);
+    await WaitForOpenPort(client.Exec, containerId, serverPort, openPortTimeout ?? OpenPortTimeout);
+    return container!.NetworkSettings;
   }
-
-  internal static Task<string> StartRedisContainerAsync() =>
-    StartRedisContainerAsync(imageName, containerName, serverPort);
 }

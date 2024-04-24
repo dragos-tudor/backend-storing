@@ -3,21 +3,21 @@ using static Storing.MongoDb.MongoDocuments;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers {
-
-  public static GrantRolesToUserCommand GetGrantRolesToUserCommand (
+public static partial class MongoUsers
+{
+  public static GrantRolesToUserCommand CreateGrantRolesToUserCommand (
     string userName,
     IEnumerable<UserRole> roles,
     WriteConcern? writeConcern = null) =>
       new ( new BsonDocument {
         { "grantRolesToUser", userName },
         { "roles", new BsonArray(roles.Select(role => new BsonDocument
-          { { "role", role.role} , { "db",  role.db } }))
+          { { "role", role.Role} , { "db",  role.Db } }))
         },
         { "writeConcern", ToBsonDocument(writeConcern) }
       });
 
-  public static GrantRolesToUserCommand GetGrantRolesToUserCommand (
+  public static GrantRolesToUserCommand CreateGrantRolesToUserCommand (
     string userName,
     IEnumerable<string> roles,
     WriteConcern? writeConcern = null) =>
@@ -33,5 +33,4 @@ public static partial class MongoUsers {
     ReadPreference? readPreference = null,
     CancellationToken cancellationToken = default) =>
       RunCommandAsync<GrantRolesToUserCommand, BsonDocument> (db, command, readPreference, cancellationToken);
-
 }

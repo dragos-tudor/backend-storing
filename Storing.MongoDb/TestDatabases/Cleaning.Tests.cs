@@ -5,10 +5,13 @@ namespace Storing.MongoDb;
 
 static partial class TestDatabases
 {
-  static void CleanMongoDatabase (MongoClient client)
+  internal static void CleanMongoDatabase (
+    MongoClient client,
+    string dbName,
+    params string[] collections)
   {
-    var database = client.GetDatabase("storing");
-    CleanupCollections(database, dbCollection);
-    DropAllUsers(database, GetDropAllUsersCommand());
+    var database = client.GetDatabase(dbName);
+    CleanupCollections(database, collections);
+    DropAllUsers(database, CreateDropAllUsersCommand());
   }
 }

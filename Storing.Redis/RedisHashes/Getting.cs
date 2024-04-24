@@ -3,8 +3,8 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static partial class RedisHashes {
-
+public static partial class RedisHashes
+{
   public static async Task<byte[]?> GetHashAsync(
     IDatabase db,
     string key,
@@ -15,8 +15,7 @@ public static partial class RedisHashes {
 
     return (byte[]?)
       await db
-        .ScriptEvaluateAsync(getHashScript, [ key ], [ absoluteExpr.ToUnixTimeSeconds() ])
+        .ScriptEvaluateAsync(GetHashScript, [ key ], [ absoluteExpr.ToUnixTimeSeconds() ])
         .WaitAsync(cancellationToken ?? CancellationToken.None);
   }
-
 }

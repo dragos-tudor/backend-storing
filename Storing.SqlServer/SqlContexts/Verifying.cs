@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlContexts
+partial class SqlContexts
 {
   static bool IsEntityLinkEquality<T> (
     EntityEntry entry,

@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoCollections {
-
+public static partial class MongoCollections
+{
   public static DeleteResult CleanupCollection (IMongoDatabase db, string collName) =>
     db
     .GetCollection<BsonDocument>(collName)
@@ -12,5 +12,4 @@ public static partial class MongoCollections {
     foreach(var collName in collNames)
       CleanupCollection(db, collName);
   }
-
 }

@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoMappers {
-
+public static partial class MongoMappers
+{
   public static void MapClassType<T> (BsonClassMap<T> classMap) {
     classMap.AutoMap();
     classMap.SetIgnoreExtraElements(true);
@@ -15,5 +15,4 @@ public static partial class MongoMappers {
     classMap.SetIgnoreExtraElements(true);
     classMap.Freeze();
   }
-
 }

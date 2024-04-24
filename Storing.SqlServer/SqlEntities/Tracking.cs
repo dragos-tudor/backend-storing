@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Storing.SqlServer;
 
-public partial class SqlEntities {
-
+partial class SqlEntities
+{
   static void TrackEntities<TContext> (
     TContext dbContext,
     IEnumerable<object> entities)
@@ -40,5 +40,4 @@ public partial class SqlEntities {
         if(navigation.CurrentValue is not null && !navigation.Metadata.IsCollection)
           TrackEntity(dbContext, navigation.CurrentValue);
     }
-
 }

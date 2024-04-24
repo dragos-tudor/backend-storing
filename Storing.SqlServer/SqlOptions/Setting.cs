@@ -2,18 +2,18 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlOptions {
-
-  const int maxRetryCount = 3;
-  const int maxRetryDelay = 5;
-  const int commandTimeout = 10;
+public static partial class SqlOptions
+{
+  const int MaxRetryCount = 3;
+  const int MaxRetryDelay = 5;
+  const int CommandTimeout = 10;
 
   static readonly Action<SqlServerDbContextOptionsBuilder> SetSqlContextOptions = options =>
     options
       .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)
       .UseRelationalNulls()
-      .EnableRetryOnFailure(maxRetryCount, TimeSpan.FromSeconds(maxRetryDelay), default)
-      .CommandTimeout(commandTimeout);
+      .EnableRetryOnFailure(MaxRetryCount, TimeSpan.FromSeconds(MaxRetryDelay), default)
+      .CommandTimeout(CommandTimeout);
 
   static DbContextOptionsBuilder<TContext> TrySetSqlContextOptions<TContext> (
     this DbContextOptionsBuilder<TContext> builder,
@@ -24,5 +24,4 @@ public static partial class SqlOptions {
       setDbContextOptions(builder);
     return builder;
   }
-
 }

@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoTransactions {
-
+public static partial class MongoTransactions
+{
   [ExcludeFromCodeCoverage]
   public static async Task TransactOperations (
     IMongoClient client,
@@ -10,7 +10,7 @@ public static partial class MongoTransactions {
     CancellationToken cancellationToken = default,
     params Func<IClientSession, Task>[] operations)
   {
-    using var session = client.StartSession(sessionOptions, cancellationToken);
+    using var session = await client.StartSessionAsync(sessionOptions, cancellationToken);
 
     try {
       session.StartTransaction(transactionOptions);
@@ -26,5 +26,4 @@ public static partial class MongoTransactions {
       throw;
     }
   }
-
 }

@@ -2,9 +2,9 @@ using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
 
-partial class SqlQueriesTests {
-
-  [Fact]
+partial class SqlQueriesTests
+{
+  [TestMethod]
   public async Task all_items__page__items_page ()
   {
     var pages = new [] {
@@ -20,12 +20,11 @@ partial class SqlQueriesTests {
     await dbContext.SaveChangesAsync();
     var query = dbContext.Pages;
 
-    Assert.Equal([ "0", "1" ], await query.Page(2, 0).Select(x => x.Text).ToListAsync());
-    Assert.Equal([ "2", "3" ], await query.Page(2, 1).Select(x => x.Text).ToListAsync());
-    Assert.Equal([ "3" ], await query.Page(3, 1).Select(x => x.Text).ToListAsync());
-    Assert.Equal([], await query.Page(2, 2).Select(x => x.Text).ToListAsync());
-    Assert.Equal([ "0", "1" ], await query.Page(2).Select(x => x.Text).ToListAsync());
-    Assert.Equal([ "0", "1", "2", "3" ], await query.Page(null, null).Select(x => x.Text).ToListAsync());
+    AssertExtensions.AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.Text).ToListAsync());
+    AssertExtensions.AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.Text).ToListAsync());
+    AssertExtensions.AreEqual([ "3" ], await query.Page(3, 1).Select(x => x.Text).ToListAsync());
+    AssertExtensions.AreEqual([], await query.Page(2, 2).Select(x => x.Text).ToListAsync());
+    AssertExtensions.AreEqual([ "0", "1" ], await query.Page(2).Select(x => x.Text).ToListAsync());
+    AssertExtensions.AreEqual([ "0", "1", "2", "3" ], await query.Page(null, null).Select(x => x.Text).ToListAsync());
   }
-
 }

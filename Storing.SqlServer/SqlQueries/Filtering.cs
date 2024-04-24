@@ -1,7 +1,7 @@
 namespace Storing.SqlServer;
 
-public static partial class SqlQueries {
-
+public static partial class SqlQueries
+{
   public static IQueryable<T1> Filter<T1, T2> (
     this IQueryable<T1> source,
     T2 value,
@@ -10,5 +10,4 @@ public static partial class SqlQueries {
         null => source,
         not null => source.Where(expression(value))
       };
-
 }

@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public partial class MongoDocuments {
-
+public partial class MongoDocuments
+{
   static readonly ConcurrentDictionary<string, object> UpdateBuilders = new ();
 
   static UpdateDefinitionBuilder<T> GetUpdateBuilder<T> () =>
@@ -26,5 +26,4 @@ public partial class MongoDocuments {
     FieldDefinition<T1, T2> field,
     T2 value) =>
       GetUpdateBuilder<T1>().Set(field, value);
-
 }

@@ -5,8 +5,8 @@ using static Storing.Redis.RedisHashes;
 
 namespace Storing.Redis;
 
-public static partial class RedisCache {
-
+public static partial class RedisCache
+{
   public static Task<byte[]?> GetCacheAsync(
     IDatabase db,
     string key,
@@ -25,5 +25,4 @@ public static partial class RedisCache {
       Encoding.UTF8.GetString(result):
       default;
   }
-
 }

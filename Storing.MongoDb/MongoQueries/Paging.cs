@@ -1,7 +1,7 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoQueries {
-
+public static partial class MongoQueries
+{
   public static IMongoQueryable<T> Page<T> (
     this IMongoQueryable<T> source,
     int pageSize,
@@ -10,5 +10,4 @@ public static partial class MongoQueries {
         true => source.Skip(pageIndex.Value * pageSize).Take(pageSize),
         false => source.Take(pageSize)
       };
-
 }

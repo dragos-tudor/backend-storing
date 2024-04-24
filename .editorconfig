@@ -1,0 +1,10 @@
+[*.Tests.cs]
+dotnet_diagnostic.CA1707.severity = none # Naming: Identifiers should not contain underscores
+dotnet_diagnostic.IDE1006.severity = none
+
+[*.cs]
+dotnet_diagnostic.CA1062.severity = none # Design: Validate arguments of public methods [non-nullable reference types => clear intention => no rule]
+dotnet_diagnostic.CA2007.severity = none # Reliability: Do not directly await a Task
+dotnet_diagnostic.CA2007.exclude_async_void_methods = false # CA2007 rule option
+dotnet_diagnostic.CA1303.severity = none # Globalization: Do not pass literals as localized parameters
+

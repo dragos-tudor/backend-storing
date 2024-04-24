@@ -1,13 +1,13 @@
 ## Backend storing library.
 - convenient functions for SQLServer, MongoDb and Redis databases.
 - functional-style library [OOP-free].
-- using docker API for testing containers [docker componse free].
+- using docker API for testing containers [docker compose free].
 - docker-outside-of-docker.
 
 ### Usage [sql server]
 ```cs
 
-  var connString = CreateSqlConnection("Library", "username", "P@ssw0rd!", "127.0.0.1:1433");
+  var connString = CreateSqlConnection("Library", "127.0.0.1:1433", "username", "P@ssw0rd!");
   var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
 
   // add to entity M2M collection
@@ -110,8 +110,8 @@
   using static Storing.MongoDb.MongoDocuments;
   ...
 
-  var connString = "mongodb://172.17,0,3:27017";
-  var mongodb = CreateMongoClient();
+  var connString = "mongodb://172.17.0.3:27017";
+  var mongodb = CreateMongoClient(connString);
   var db = mongodb.GetDatabase("Test");
 
 

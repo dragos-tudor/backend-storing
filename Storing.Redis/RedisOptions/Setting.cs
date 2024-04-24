@@ -2,8 +2,8 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static class RedisOptionsExtensions {
-
+public static class RedisOptionsExtensions
+{
   internal static ConfigurationOptions TrySetConfigurationOptions (
     this ConfigurationOptions builder,
     Action<ConfigurationOptions>? configOptions = default) {
@@ -11,5 +11,4 @@ public static class RedisOptionsExtensions {
         configOptions(builder);
       return builder;
     }
-
 }

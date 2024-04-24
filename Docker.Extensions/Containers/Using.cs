@@ -4,7 +4,6 @@ namespace Docker.Extensions;
 
 static partial class Containers
 {
-
   public static async Task<string> UseContainerAsync(
     IContainerOperations containers,
     string imageName,
@@ -30,5 +29,4 @@ static partial class Containers
 
     return await StartContainerAsync(containers, container!.ID, cancellationToken);
   }
-
 }
