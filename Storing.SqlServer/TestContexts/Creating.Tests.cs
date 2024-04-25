@@ -1,14 +1,13 @@
 using static Storing.SqlServer.SqlOptions;
 using static Storing.SqlServer.SqlContexts;
-using static Storing.SqlServer.TestContainers;
+using static Storing.SqlServer.TestServers;
 
 namespace Storing.SqlServer;
 
 static partial class TestContexts
 {
-  const string AdminName = "sa";
-  const string AdminPassword = "admin.P@ssw0rd";
-  const int ServerPort = 1433;
+  internal const string AdminName = "sa";
+  internal const string AdminPassword = "admin.P@ssw0rd";
 
   static async Task<DbContextOptions<TContext>> CreateDbContextOptions<TContext> (string dbName) where TContext: DbContext =>
     IsInMemoryContext()?
@@ -16,7 +15,7 @@ static partial class TestContexts
       CreateSqlContextOptions<TContext>(
         CreateDbConnectionString(
           dbName,
-          GetDbServerIpAddress(await StartSqlContainerAsync(ServerPort, AdminPassword)),
+          await ServerIpAddress.Value,
           AdminName,
           AdminPassword));
 
