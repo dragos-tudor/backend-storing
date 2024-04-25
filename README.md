@@ -17,8 +17,8 @@
   using var dbContext = CreateLibraryContext(dbContextOptions);
   AddEntity(dbContext, author);
 
-  Assert.Equal(EntityState.Added, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
-  Assert.Equal(EntityState.Unchanged, dbContext.Entry(book).State);
+  Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
+  Assert.AreEqual(EntityState.Unchanged, dbContext.Entry(book).State);
 
 
 
@@ -31,8 +31,8 @@
     author.BirthDate = author.BirthDate;
   });
 
-  Assert.True(dbContext.Entry(author).Property(s => s.AuthorName).IsModified);
-  Assert.False(dbContext.Entry(author).Property(s => s.BirthDate).IsModified);
+  Assert.IsTrue(dbContext.Entry(author).Property(s => s.AuthorName).IsModified);
+  Assert.IsFalse(dbContext.Entry(author).Property(s => s.BirthDate).IsModified);
 
 
 
@@ -43,8 +43,8 @@
   using var dbContext = CreateLibraryContext(dbContextOptions);
   UpdateEntity(dbContext, author, (author) => author.Books = [ book ]);
 
-  Assert.Equal(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
-  Assert.Equal(EntityState.Added, dbContext.Entry(book)?.State);
+  Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
+  Assert.AreEqual(EntityState.Added, dbContext.Entry(book)?.State);
 
 
 
@@ -55,8 +55,8 @@
   using var dbContext = CreateLibraryContext(dbContextOptions);
   DeleteEntity(dbContext, author);
 
-  Assert.Equal(EntityState.Deleted, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
-  Assert.Equal(EntityState.Unchanged, dbContext.Entry(book)?.State);
+  Assert.AreEqual(EntityState.Deleted, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
+  Assert.AreEqual(EntityState.Unchanged, dbContext.Entry(book)?.State);
 
 
   // querying with nullable props
@@ -100,7 +100,7 @@
     .Select(book => book.BookName)
     .ToArrayAsync();
 
-  Assert.Contains(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
+  AssertExtensions.AreEqual(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
 ```
 
 ### Usage [mongodb]
@@ -131,8 +131,8 @@
   var actual = await books
     .AsQueryable()
     .FirstAsync(x => x._id == id);
-  Assert.Equal("b", actual.BookName);
-  Assert.Equal(2024, actual.ReleaseYear);
+  Assert.AreEqual("b", actual.BookName);
+  Assert.AreEqual(2024, actual.ReleaseYear);
 
 
 
@@ -142,7 +142,7 @@
   await GrantRolesToUser(db, GetGrantRolesToUserCommand(userName, ["readWrite"]));
 
   var actual = await FindUser(db, GetFindUserCommand(userName));
-  Assert.Equal(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+  AssertExtensions.AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
 
 
 
@@ -166,7 +166,7 @@
   await InsertDocuments(nonDiscriminatedColl, nonDiscriminated);
 
   var actual = await discriminatedColl.AsDiscriminable().CountAsync();
-  Assert.Equal(2, actual);
+  Assert.AreEqual(2, actual);
 ```
 
 ### Usage [redis]
@@ -191,10 +191,10 @@
   bar cacheEntryOptions = new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration);
 
   await SetStringCacheAsync(db, key, text, cacheEntryOptions);
-  Assert.Equal(value, await GetStringCacheAsync(db, key));
+  Assert.AreEqual(text, await GetStringCacheAsync(db, key));
 
   await Task.Delay(TimeSpan.FromSeconds(1.5));
-  Assert.Null(await GetStringCacheAsync(db, key));
+  Assert.IsNull(await GetStringCacheAsync(db, key));
 ```
 
 ### Remarks
