@@ -3,10 +3,11 @@ namespace Docker.Extensions;
 
 public static partial class Clients
 {
+  public const string HttpEndpointUri = "http://localhost:2375";
   public const string UnixEndpointUri = "unix:///var/run/docker.sock";
   public const string WindowsEndpointUri = "npipe://./pipe/docker_engine";
 
   public static DockerClient CreateDockerClient(Uri? uri = default) =>
-    new DockerClientConfiguration(uri ?? new Uri(UnixEndpointUri))
+    new DockerClientConfiguration(uri ?? new Uri(HttpEndpointUri))
       .CreateClient();
 }
