@@ -30,6 +30,7 @@ Connecting to host docker server from **dev container** over `tcp 2375` [solutio
 systemctl daemon-reload
 systemctl restart docker.service
 ```
+- add *"runArgs": ["--net=host"]* to `.devcontainer.json`.
 
 ### Test containers library
 [Test containers](https://dotnet.testcontainers.org/) library was built to programatically use **ephemeral containers** for testing instead of using *docker compose* so.
