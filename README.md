@@ -138,11 +138,11 @@
 
   // grant additionally roles to user
   var userName = Guid.NewGuid().ToString();
-  await CreateUser(db, GetCreateUserCommand(userName, "pass", ["read"]));
-  await GrantRolesToUser(db, GetGrantRolesToUserCommand(userName, ["readWrite"]));
+  await CreateUser(db, CreateCreateUserCommand(userName, "pass", ["read"]));
+  await GrantRolesToUser(db, CreateGrantRolesToUserCommand(userName, ["readWrite"]));
 
-  var actual = await FindUser(db, GetFindUserCommand(userName));
-  AssertExtensions.AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+  var actual = await FindUser(db, CreateFindUserCommand(userName));
+  AssertExtensions.AreEqual(["read", "readWrite"], CreateUserRoles(userName, actual).OrderBy(x => x));
 
 
 
