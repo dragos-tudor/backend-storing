@@ -2,7 +2,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlConnections
+partial class SqlServerFuncs
 {
   static SqlConnectionStringBuilder TrySetSqlConnectionStringBuilder (
     this SqlConnectionStringBuilder builder,

@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace Docker.Extensions;
 
-public static partial class Containers
+partial class DockerFuncs
 {
   public static async Task<ContainerInspectResponse?> InspectContainerAsync(
     IContainerOperations containers,

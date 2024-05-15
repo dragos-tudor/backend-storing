@@ -1,4 +1,3 @@
-using static Storing.SqlServer.SqlConnections;
 
 namespace Storing.SqlServer;
 

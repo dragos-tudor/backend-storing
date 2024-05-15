@@ -1,5 +1,3 @@
-using static Storing.SqlServer.SqlOptions;
-using static Storing.SqlServer.SqlContexts;
 using static Storing.SqlServer.TestServers;
 
 namespace Storing.SqlServer;

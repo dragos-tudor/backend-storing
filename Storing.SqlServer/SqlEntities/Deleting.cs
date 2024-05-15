@@ -1,7 +1,7 @@
 
 namespace Storing.SqlServer;
 
-partial class SqlEntities
+partial class SqlServerFuncs
 {
   public static void DeleteEntity<TContext, T> (TContext dbContext, T entity)
     where TContext: DbContext

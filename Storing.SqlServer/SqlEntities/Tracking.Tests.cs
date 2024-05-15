@@ -1,4 +1,3 @@
-using static Storing.SqlServer.SqlEntities;
 using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;

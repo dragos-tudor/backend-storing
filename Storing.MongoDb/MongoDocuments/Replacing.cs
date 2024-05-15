@@ -1,8 +1,7 @@
-using static Storing.MongoDb.MongoIdentities;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoDocuments
+partial class MongoFuncs
 {
   public static Task ReplaceDocument<T> (
     IMongoCollection<T> collection,

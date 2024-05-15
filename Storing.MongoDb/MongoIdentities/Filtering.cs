@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoIdentities
+partial class MongoFuncs
 {
   static BsonMemberMap GetIdMemberMap<T>() =>
     BsonClassMap.LookupClassMap(typeof(T)).IdMemberMap;

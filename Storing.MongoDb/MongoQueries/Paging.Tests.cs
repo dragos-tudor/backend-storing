@@ -1,6 +1,3 @@
-using static Storing.MongoDb.MongoIdentities;
-using static Storing.MongoDb.MongoDocuments;
-using static Storing.MongoDb.MongoCollections;
 
 namespace Storing.MongoDb;
 
@@ -25,10 +22,10 @@ public partial class MongoQueriesTests
       new Page { _Id = Guid.NewGuid().ToString(), text = "3" }
     });
 
-    AssertExtensions.AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([ "3" ], await query.Page(3, 1).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([], await query.Page(2, 2).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([ "0", "1" ], await query.Page(2, null).Select(x => x.text).ToListAsync());
+    AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.text).ToListAsync());
+    AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.text).ToListAsync());
+    AreEqual([ "3" ], await query.Page(3, 1).Select(x => x.text).ToListAsync());
+    AreEqual([], await query.Page(2, 2).Select(x => x.text).ToListAsync());
+    AreEqual([ "0", "1" ], await query.Page(2, null).Select(x => x.text).ToListAsync());
   }
 }

@@ -7,7 +7,7 @@ namespace Storing.Redis;
 
 public partial class RedisOptions
 {
-  public ConfigurationOptions ConfigurationOptions { get; private set; } = default!;
-  public string? InstanceName { get; private set; }
-  public Func<ProfilingSession>? ProfilingSession { get; private set; }
+  public ConfigurationOptions ConfigurationOptions { get; internal set; } = default!;
+  public string? InstanceName { get; internal set; }
+  public Func<ProfilingSession>? ProfilingSession { get; internal set; }
 }

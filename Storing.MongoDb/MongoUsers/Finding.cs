@@ -1,8 +1,7 @@
-using static Storing.MongoDb.MongoCommands;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers
+partial class MongoFuncs
 {
   public static FindUserCommand CreateFindUserCommand (string userName) =>
     new (new BsonDocument("usersInfo", userName));

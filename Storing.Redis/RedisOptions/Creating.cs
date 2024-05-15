@@ -3,7 +3,7 @@ using StackExchange.Redis.Profiling;
 
 namespace Storing.Redis;
 
-public partial class RedisOptions
+partial class RedisFuncs
 {
   public static ConfigurationOptions CreateConfigurationOptions(
     string endPoints,

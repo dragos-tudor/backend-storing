@@ -1,11 +1,10 @@
 using System.Threading;
 using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
-using static Storing.Redis.RedisExpirations;
 
 namespace Storing.Redis;
 
-public static partial class RedisHashes
+partial class RedisFuncs
 {
   const long NoExpiration = -1;
 

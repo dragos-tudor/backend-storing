@@ -1,4 +1,3 @@
-using static Storing.MongoDb.MongoUsers;
 
 namespace Storing.MongoDb;
 
@@ -13,7 +12,7 @@ public partial class MongoUsersTests
     await RevokeRolesFromUser(db, CreateRevokeRolesFromUserCommand(id, [ "readWrite" ]));
 
     var actual = await FindUser(db, CreateFindUserCommand(id));
-    AssertExtensions.AreEqual(["read"], GetUserRoles(id, actual));
+    AreEqual(["read"], GetUserRoles(id, actual));
   }
 
   [TestMethod]
@@ -26,6 +25,6 @@ public partial class MongoUsersTests
     await RevokeRolesFromUser(db, CreateRevokeRolesFromUserCommand(id, new [] { new UserRole{ Role = "readWrite", Db = dbName } }));
 
     var actual = await FindUser(db, CreateFindUserCommand(id));
-    AssertExtensions.AreEqual(["read"], GetUserRoles(id, actual));
+    AreEqual(["read"], GetUserRoles(id, actual));
   }
 }

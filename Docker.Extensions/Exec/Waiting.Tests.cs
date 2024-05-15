@@ -1,8 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using static Docker.Extensions.Clients;
-using static Docker.Extensions.Containers;
-using static Docker.Extensions.Exec;
-using static Docker.Extensions.Images;
 
 namespace Docker.Extensions;
 

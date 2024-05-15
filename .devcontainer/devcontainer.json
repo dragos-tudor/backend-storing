@@ -17,5 +17,8 @@
 		"--hostname=storing",
 		"--net=host"
 	],
+  "containerEnv": {
+    "DOCKER_PORT": "${localEnv:DOCKER_PORT:2375}"
+  },
 	"remoteUser": "vscode"
 }

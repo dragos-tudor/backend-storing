@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlOptions
+partial class SqlServerFuncs
 {
   public static DbContextOptions<T> CreateSqlContextOptions<T> (
     string connString,

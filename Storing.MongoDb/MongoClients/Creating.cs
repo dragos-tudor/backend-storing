@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoClients
+partial class MongoFuncs
 {
   public static MongoClient CreateMongoClient (
     string connection,

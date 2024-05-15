@@ -1,6 +1,6 @@
 namespace Docker.Extensions;
 
-static partial class Messages
+partial class DockerFuncs
 {
   internal static string FormatDockerMessage (JSONMessage message) =>
     $"{message.Status} {message.ProgressMessage}";

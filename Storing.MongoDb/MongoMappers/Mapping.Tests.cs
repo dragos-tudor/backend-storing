@@ -1,4 +1,3 @@
-using static Storing.MongoDb.MongoMappers;
 #pragma warning disable CA1812
 
 namespace Storing.MongoDb;

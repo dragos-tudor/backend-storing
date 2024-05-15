@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace Docker.Extensions;
 
-static partial class Tasks
+partial class DockerFuncs
 {
   internal static async Task WaitWhileAsync(
     Func<Task<bool>> wait,

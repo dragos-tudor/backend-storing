@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoDocuments
+partial class MongoFuncs
 {
   public static BsonDocument ToBsonDocument<T> (T? document) =>
     (document is null) switch {

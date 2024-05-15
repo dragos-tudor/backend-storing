@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers
+partial class MongoFuncs
 {
   public static IEnumerable<string> GetUserRoles (
     string userName,

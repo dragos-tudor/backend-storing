@@ -1,4 +1,3 @@
-using static Storing.SqlServer.SqlEntities;
 using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
@@ -52,7 +51,7 @@ partial class SqlQueriesTests
       .Select(book => book.BookName)
       .ToArrayAsync();
 
-    AssertExtensions.AreEqual(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
+    AreEqual(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
   }
 
 }

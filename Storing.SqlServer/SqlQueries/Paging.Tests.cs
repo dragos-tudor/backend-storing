@@ -20,11 +20,11 @@ partial class SqlQueriesTests
     await dbContext.SaveChangesAsync();
     var query = dbContext.Pages;
 
-    AssertExtensions.AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.Text).ToListAsync());
-    AssertExtensions.AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.Text).ToListAsync());
-    AssertExtensions.AreEqual([ "3" ], await query.Page(3, 1).Select(x => x.Text).ToListAsync());
-    AssertExtensions.AreEqual([], await query.Page(2, 2).Select(x => x.Text).ToListAsync());
-    AssertExtensions.AreEqual([ "0", "1" ], await query.Page(2).Select(x => x.Text).ToListAsync());
-    AssertExtensions.AreEqual([ "0", "1", "2", "3" ], await query.Page(null, null).Select(x => x.Text).ToListAsync());
+    AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.Text).ToListAsync());
+    AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.Text).ToListAsync());
+    AreEqual([ "3" ], await query.Page(3, 1).Select(x => x.Text).ToListAsync());
+    AreEqual([], await query.Page(2, 2).Select(x => x.Text).ToListAsync());
+    AreEqual([ "0", "1" ], await query.Page(2).Select(x => x.Text).ToListAsync());
+    AreEqual([ "0", "1", "2", "3" ], await query.Page(null, null).Select(x => x.Text).ToListAsync());
   }
 }

@@ -2,7 +2,7 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace Storing.Redis;
 
-static partial class RedisExpirations
+partial class RedisFuncs
 {
   static TimeSpan GetMinimumExpiration(
     DateTimeOffset creationTime,

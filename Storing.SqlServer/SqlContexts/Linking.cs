@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Storing.SqlServer;
 
-partial class SqlContexts
+partial class SqlServerFuncs
 {
   public static EntityEntry? EntityEntry<T>(
     this DbContext dbContext,

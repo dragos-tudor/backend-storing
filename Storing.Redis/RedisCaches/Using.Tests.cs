@@ -1,6 +1,5 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
-using static Storing.Redis.RedisCache;
 
 namespace Storing.Redis;
 
@@ -25,7 +24,7 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(db, key, value);
 
-    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(db, key));
   }
 
   [TestMethod]
@@ -38,7 +37,7 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(db, key1, value);
 
-    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key1));
+    AreEqual(value, await GetCacheAsync(db, key1));
     Assert.IsNull(await GetCacheAsync(db, key2));
   }
 
@@ -51,12 +50,12 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(db, key, value1);
 
-    AssertExtensions.AreEqual(value1, await GetCacheAsync(db, key));
+    AreEqual(value1, await GetCacheAsync(db, key));
 
     var value2 = new byte[1] { 2 };
     await SetCacheAsync(db, key, value2);
 
-    AssertExtensions.AreEqual(value2, await GetCacheAsync(db, key));
+    AreEqual(value2, await GetCacheAsync(db, key));
   }
 
   [TestMethod]
@@ -120,7 +119,7 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(db, key, value);
 
-    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(db, key));
 
     await RemoveCacheAsync(db, key);
 

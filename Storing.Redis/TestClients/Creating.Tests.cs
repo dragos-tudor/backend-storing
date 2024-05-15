@@ -1,6 +1,4 @@
 using StackExchange.Redis;
-using static Storing.Redis.RedisConnections;
-using static Storing.Redis.RedisOptions;
 using static Storing.Redis.TestContainers;
 
 namespace Storing.Redis;

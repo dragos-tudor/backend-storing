@@ -1,6 +1,3 @@
-using static Storing.MongoDb.MongoIdentities;
-using static Storing.MongoDb.MongoDocuments;
-using static Storing.MongoDb.MongoCollections;
 
 namespace Storing.MongoDb;
 
@@ -30,27 +27,27 @@ public partial class MongoQueriesTests
     ]);
 
     Func<int?, Expression<Func<Filter, bool>>> filterInt = val => x => x.@int >= val;
-    AssertExtensions.AreEqual([1, 2], await query.Filter(1, filterInt).Select(x => x.@int).ToListAsync());
-    AssertExtensions.AreEqual([2], await query.Filter(2, filterInt).Select(x => x.@int).ToListAsync());
-    AssertExtensions.AreEqual([], await query.Filter(3, filterInt).Select(x => x.@int).ToListAsync());
-    AssertExtensions.AreEqual([0, 1, 2], await query.Filter(null, filterInt).Select(x => x.@int).ToListAsync());
+    AreEqual([1, 2], await query.Filter(1, filterInt).Select(x => x.@int).ToListAsync());
+    AreEqual([2], await query.Filter(2, filterInt).Select(x => x.@int).ToListAsync());
+    AreEqual([], await query.Filter(3, filterInt).Select(x => x.@int).ToListAsync());
+    AreEqual([0, 1, 2], await query.Filter(null, filterInt).Select(x => x.@int).ToListAsync());
 
     Func<string?, Expression<Func<Filter, bool>>> filterString = val => x => x.text.Contains(val!);
-    AssertExtensions.AreEqual([ "ab", "abc" ], await query.Filter("ab", filterString).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([ "abc" ], await query.Filter("abc", filterString).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([ ], await query.Filter("abcd", filterString).Select(x => x.text).ToListAsync());
-    AssertExtensions.AreEqual([ "a", "ab", "abc" ], await query.Filter(null, filterString).Select(x => x.text).ToListAsync());
+    AreEqual([ "ab", "abc" ], await query.Filter("ab", filterString).Select(x => x.text).ToListAsync());
+    AreEqual([ "abc" ], await query.Filter("abc", filterString).Select(x => x.text).ToListAsync());
+    AreEqual([ ], await query.Filter("abcd", filterString).Select(x => x.text).ToListAsync());
+    AreEqual([ "a", "ab", "abc" ], await query.Filter(null, filterString).Select(x => x.text).ToListAsync());
 
     Func<bool?, Expression<Func<Filter, bool>>> filterBool = val => x => x.@bool == val!;
-    AssertExtensions.AreEqual([ true ], await query.Filter(true, filterBool).Select(x => x.@bool).ToListAsync());
-    AssertExtensions.AreEqual([ false ], await query.Filter(false, filterBool).Select(x => x.@bool).ToListAsync());
-    AssertExtensions.AreEqual([ true, false, null ], await query.Filter(null, filterBool).Select(x => x.@bool).ToListAsync());
-    AssertExtensions.AreEqual([ null ], await query.Where(x => x.@bool == null).Select(x => x.@bool).ToListAsync());
+    AreEqual([ true ], await query.Filter(true, filterBool).Select(x => x.@bool).ToListAsync());
+    AreEqual([ false ], await query.Filter(false, filterBool).Select(x => x.@bool).ToListAsync());
+    AreEqual([ true, false, null ], await query.Filter(null, filterBool).Select(x => x.@bool).ToListAsync());
+    AreEqual([ null ], await query.Where(x => x.@bool == null).Select(x => x.@bool).ToListAsync());
 
     Func<DateTime?, Expression<Func<Filter, bool>>> filterDate = val => x => x.date == val!;
-    AssertExtensions.AreEqual([ dates[0] ], await query.Filter(dates[0], filterDate).Select(x => x.date).ToListAsync());
-    AssertExtensions.AreEqual([ dates[1] ], await query.Filter(dates[1], filterDate).Select(x => x.date).ToListAsync());
-    AssertExtensions.AreEqual([ dates[0], dates[1], null ], await query.Filter(null, filterDate).Select(x => x.date).ToListAsync());
-    AssertExtensions.AreEqual([ null ], await query.Where(x => x.date == null).Select(x => x.date).ToListAsync());
+    AreEqual([ dates[0] ], await query.Filter(dates[0], filterDate).Select(x => x.date).ToListAsync());
+    AreEqual([ dates[1] ], await query.Filter(dates[1], filterDate).Select(x => x.date).ToListAsync());
+    AreEqual([ dates[0], dates[1], null ], await query.Filter(null, filterDate).Select(x => x.date).ToListAsync());
+    AreEqual([ null ], await query.Where(x => x.date == null).Select(x => x.date).ToListAsync());
   }
 }

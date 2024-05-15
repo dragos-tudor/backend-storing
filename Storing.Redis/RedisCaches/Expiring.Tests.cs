@@ -3,8 +3,6 @@
 
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.Memory;
-using static Storing.Redis.RedisExpirations;
-using static Storing.Redis.RedisCache;
 
 namespace Storing.Redis;
 
@@ -21,7 +19,7 @@ public class RedisCacheTests1
     var futureExpiration = TimeSpan.FromSeconds(1);
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration));
 
-    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(db, key));
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
@@ -54,7 +52,7 @@ public class RedisCacheTests2
 
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(1)));
 
-    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(db, key));
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
@@ -86,7 +84,7 @@ public class RedisCacheTests3
 
     await SetCacheAsync(db, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(1)));
 
-    AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(db, key));
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
@@ -123,7 +121,7 @@ public class RedisCacheTests4
 
     for (int i = 0; i < 4; i++)
     {
-      AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+      AreEqual(value, await GetCacheAsync(db, key));
 
       await Task.Delay(TimeSpan.FromSeconds(0.5));
     }
@@ -153,7 +151,7 @@ public class RedisCacheTests5
 
     for (int i = 0; i < 4; i++)
     {
-      AssertExtensions.AreEqual(value, await GetCacheAsync(db, key));
+      AreEqual(value, await GetCacheAsync(db, key));
 
       await Task.Delay(TimeSpan.FromSeconds(0.5));
     }

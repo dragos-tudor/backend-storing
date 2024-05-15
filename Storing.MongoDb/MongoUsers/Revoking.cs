@@ -1,9 +1,7 @@
-using static Storing.MongoDb.MongoCommands;
-using static Storing.MongoDb.MongoDocuments;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers
+partial class MongoFuncs
 {
   public static RevokeRolesFromUserCommand CreateRevokeRolesFromUserCommand (
     string userName,

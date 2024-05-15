@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Docker.Extensions;
 
-public static class AssertExtensions
+partial class DockerFuncs
 {
   public static void AreEqual<T>(
     IEnumerable<T> expected,

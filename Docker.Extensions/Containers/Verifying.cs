@@ -1,6 +1,6 @@
 namespace Docker.Extensions;
 
-static partial class Containers
+partial class DockerFuncs
 {
   static bool IsExistingContainer<T>(T? container) where T: class => container is not null;
 

@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-public static partial class MongoDocuments
+partial class MongoFuncs
 {
   public static Task InsertDocument<T> (
     IMongoCollection<T> collection,

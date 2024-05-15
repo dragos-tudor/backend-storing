@@ -3,7 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace Storing.Redis;
 
-static partial class RedisExpirations
+partial class RedisFuncs
 {
   internal const string ExpirationMessage = "The absolute expiration value must be in the future.";
 }
@@ -11,5 +11,5 @@ static partial class RedisExpirations
 public sealed class AbsoluteExpirationException (DistributedCacheEntryOptions options) : ArgumentOutOfRangeException(
   nameof(DistributedCacheEntryOptions.AbsoluteExpiration),
   options.AbsoluteExpiration!.Value,
-  RedisExpirations.ExpirationMessage)
+  ExpirationMessage)
 { }

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Storing.SqlServer;
 
-partial class SqlEntities
+partial class SqlServerFuncs
 {
   static void TrackEntities<TContext> (
     TContext dbContext,

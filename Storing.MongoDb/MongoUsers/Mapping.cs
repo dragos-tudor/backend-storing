@@ -1,8 +1,7 @@
-using static Storing.MongoDb.MongoMappers;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoUsers
+partial class MongoFuncs
 {
   public static void MapUserClassTypes () {
     BsonClassMap.RegisterClassMap<UserInfo>(MapClassType);

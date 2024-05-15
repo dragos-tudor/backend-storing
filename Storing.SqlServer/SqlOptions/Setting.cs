@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlOptions
+partial class SqlServerFuncs
 {
   const int MaxRetryCount = 3;
   const int MaxRetryDelay = 5;

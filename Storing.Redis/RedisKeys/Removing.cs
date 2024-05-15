@@ -3,7 +3,7 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static partial class RedisKeys
+partial class RedisFuncs
 {
   public static Task<bool> RemoveKeyAsync(
     IDatabase db,

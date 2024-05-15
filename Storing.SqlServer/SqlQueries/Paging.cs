@@ -1,7 +1,7 @@
 
 namespace Storing.SqlServer;
 
-public static partial class SqlQueries
+partial class SqlServerFuncs
 {
   public static IQueryable<T> Page<T>(
     this IQueryable<T> source,

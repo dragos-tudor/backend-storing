@@ -1,4 +1,3 @@
-using static Storing.MongoDb.MongoUsers;
 
 namespace Storing.MongoDb;
 
@@ -13,7 +12,7 @@ public partial class MongoUsersTests
     await GrantRolesToUser(db, CreateGrantRolesToUserCommand(userName, ["readWrite"]));
 
     var actual = await FindUser(db, CreateFindUserCommand(userName));
-    AssertExtensions.AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+    AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
   }
 
   [TestMethod]
@@ -26,6 +25,6 @@ public partial class MongoUsersTests
     await GrantRolesToUser(db, CreateGrantRolesToUserCommand(userName, [ new UserRole{ Role = "readWrite", Db = dbName }] ));
 
     var actual = await FindUser(db, CreateFindUserCommand(userName));
-    AssertExtensions.AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+    AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
   }
 }

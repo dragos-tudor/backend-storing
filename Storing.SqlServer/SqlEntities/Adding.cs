@@ -1,7 +1,7 @@
 
 namespace Storing.SqlServer;
 
-public static partial class SqlEntities
+partial class SqlServerFuncs
 {
   public static void AddEntity<T> (DbContext dbContext, T entity)
     where T: class {

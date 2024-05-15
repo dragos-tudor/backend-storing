@@ -1,9 +1,9 @@
 namespace Docker.Extensions;
 #pragma warning disable CA2000
 
-public static partial class Clients
+partial class DockerFuncs
 {
-  public const string HttpEndpointUri = "http://localhost:2375";
+  public static readonly string HttpEndpointUri = $"http://localhost:{Environment.GetEnvironmentVariable("DOCKER_PORT")}";
   public const string UnixEndpointUri = "unix:///var/run/docker.sock";
   public const string WindowsEndpointUri = "npipe://./pipe/docker_engine";
 

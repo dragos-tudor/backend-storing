@@ -1,9 +1,7 @@
-using static Docker.Extensions.Commands;
-using static Docker.Extensions.Tasks;
 
 namespace Docker.Extensions;
 
-partial class Exec
+partial class DockerFuncs
 {
   public async static Task WaitForOpenPort (
     IExecOperations exec,

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlContexts
+partial class SqlServerFuncs
 {
   public static PooledDbContextFactory<T> CreateDbContextFactory<T>(DbContextOptions<T> options) where T: DbContext =>
     new (options);

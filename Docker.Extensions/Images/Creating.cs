@@ -1,9 +1,8 @@
 using System.Threading;
-using static Docker.Extensions.Loggers;
 
 namespace Docker.Extensions;
 
-public static partial class Images
+partial class DockerFuncs
 {
   public static async Task<bool> CreateDockerImageAsync (
     IImageOperations images,

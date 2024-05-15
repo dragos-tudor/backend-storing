@@ -2,7 +2,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Storing.SqlServer;
 
-public static partial class SqlConnections
+partial class SqlServerFuncs
 {
   public static string CreateSqlConnection(
     string dbName,

@@ -1,6 +1,3 @@
-using static Storing.MongoDb.MongoIdentities;
-using static Storing.MongoDb.MongoCollections;
-using static Storing.MongoDb.MongoDocuments;
 
 namespace Storing.MongoDb;
 
@@ -79,7 +76,7 @@ public partial class MongoDocumentsTests
     var actual = await coll
       .AsQueryable()
       .FirstAsync(x => x._Id == id);
-    AssertExtensions.AreEqual([1, 2, 3], actual.u2coll);
+    AreEqual([1, 2, 3], actual.u2coll);
   }
 
   [TestMethod]
@@ -97,7 +94,7 @@ public partial class MongoDocumentsTests
     var actual = await coll
       .AsQueryable()
       .FirstAsync(x => x._Id == id);
-    AssertExtensions.AreEqual([1], actual.u2coll);
+    AreEqual([1], actual.u2coll);
   }
 
   [TestMethod]
@@ -115,7 +112,7 @@ public partial class MongoDocumentsTests
     var actual = await coll
       .AsQueryable()
       .FirstAsync(x => x._Id == id);
-    AssertExtensions.AreEqual([1, 2, 3], actual.u3coll.Select(x => x._Id).ToArray());
+    AreEqual([1, 2, 3], actual.u3coll.Select(x => x._Id).ToArray());
   }
 
   [TestMethod]
@@ -133,7 +130,7 @@ public partial class MongoDocumentsTests
     var actual = await coll
       .AsQueryable()
       .FirstAsync(x => x._Id == id);
-    AssertExtensions.AreEqual([1], actual.u3coll.Select(x => x._Id));
+    AreEqual([1], actual.u3coll.Select(x => x._Id));
   }
 
 }

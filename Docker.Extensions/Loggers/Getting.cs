@@ -1,9 +1,7 @@
 
-using static Docker.Extensions.Messages;
-
 namespace Docker.Extensions;
 
-static partial class Loggers
+partial class DockerFuncs
 {
   internal static Action<JSONMessage> GetDockerLogger (Action<string>? writeMessage = default)
   {

@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoMappers
+partial class MongoFuncs
 {
   public static void MapClassType<T> (BsonClassMap<T> classMap) {
     classMap.AutoMap();

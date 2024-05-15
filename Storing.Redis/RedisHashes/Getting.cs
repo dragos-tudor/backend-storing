@@ -3,7 +3,7 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static partial class RedisHashes
+partial class RedisFuncs
 {
   public static async Task<byte[]?> GetHashAsync(
     IDatabase db,

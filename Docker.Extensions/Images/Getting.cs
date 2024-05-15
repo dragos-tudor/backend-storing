@@ -1,6 +1,6 @@
 namespace Docker.Extensions;
 
-partial class Images
+partial class DockerFuncs
 {
   static string GetFromImage(string image) => image.Split(':')[0];
 

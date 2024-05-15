@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace Docker.Extensions;
 
-static partial class Containers
+partial class DockerFuncs
 {
   public static async Task<string> UseContainerAsync(
     IContainerOperations containers,

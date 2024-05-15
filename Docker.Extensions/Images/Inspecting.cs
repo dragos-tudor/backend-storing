@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace Docker.Extensions;
 
-public static partial class Images
+partial class DockerFuncs
 {
   public static async Task<ImageInspectResponse?> InspectImageAsync(
     IImageOperations images,

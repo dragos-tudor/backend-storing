@@ -1,9 +1,5 @@
 using System.Threading;
 using Docker.DotNet.Models;
-using static Docker.Extensions.Clients;
-using static Docker.Extensions.Containers;
-using static Docker.Extensions.Exec;
-using static Docker.Extensions.Images;
 
 namespace Storing.SqlServer;
 

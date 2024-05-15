@@ -2,7 +2,7 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static partial class RedisConnections
+partial class RedisFuncs
 {
   public static IConnectionMultiplexer CreateRedisConnection(RedisOptions options)
   {

@@ -1,4 +1,3 @@
-using static Storing.MongoDb.MongoUsers;
 
 namespace Storing.MongoDb;
 

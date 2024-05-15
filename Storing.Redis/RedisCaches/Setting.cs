@@ -2,11 +2,10 @@ using System.Text;
 using System.Threading;
 using Microsoft.Extensions.Caching.Distributed;
 using StackExchange.Redis;
-using static Storing.Redis.RedisHashes;
 
 namespace Storing.Redis;
 
-public static partial class RedisCache
+partial class RedisFuncs
 {
   static byte[] ToBytes(string text) => Encoding.UTF8.GetBytes(text ?? string.Empty);
 

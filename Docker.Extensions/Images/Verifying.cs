@@ -1,6 +1,6 @@
 namespace Docker.Extensions;
 
-static partial class Images
+partial class DockerFuncs
 {
   static bool IsExistingImage<T>(T? image) where T: class => image is not null;
 }

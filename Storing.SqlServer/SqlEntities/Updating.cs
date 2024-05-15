@@ -1,7 +1,7 @@
 
 namespace Storing.SqlServer;
 
-partial class SqlEntities
+partial class SqlServerFuncs
 {
   public static void UpdateEntity<TContext, T> (TContext dbContext, T entity, Action<T> update)
     where TContext: DbContext

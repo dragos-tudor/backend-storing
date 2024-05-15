@@ -1,10 +1,9 @@
 using System.Threading;
 using StackExchange.Redis;
-using static Storing.Redis.RedisKeys;
 
 namespace Storing.Redis;
 
-public static partial class RedisCache
+partial class RedisFuncs
 {
   public static Task<bool> RemoveCacheAsync(
     IDatabase db,

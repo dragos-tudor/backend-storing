@@ -1,6 +1,6 @@
 namespace Storing.SqlServer;
 
-public static partial class SqlQueries
+partial class SqlServerFuncs
 {
   public static IQueryable<T1> Order<T1, T2>(
     this IQueryable<T1> source,

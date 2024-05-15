@@ -2,7 +2,7 @@ using System.Threading;
 
 namespace Docker.Extensions;
 
-public static partial class Exec
+partial class DockerFuncs
 {
   public static async Task<(string Output, string Error)> ReadOutputAndErrorAsync(
     IExecOperations exec,

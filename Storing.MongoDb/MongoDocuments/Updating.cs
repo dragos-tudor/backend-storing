@@ -1,8 +1,7 @@
-using static Storing.MongoDb.MongoIdentities;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoDocuments
+partial class MongoFuncs
 {
   public static async Task<UpdateResult> UpdateDocument<T> (
     IMongoCollection<T> collection,

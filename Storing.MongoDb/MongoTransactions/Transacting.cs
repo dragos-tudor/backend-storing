@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-public static partial class MongoTransactions
+partial class MongoFuncs
 {
   [ExcludeFromCodeCoverage]
   public static async Task TransactOperations (

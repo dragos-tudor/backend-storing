@@ -1,11 +1,10 @@
 using System.Text;
 using System.Threading;
 using StackExchange.Redis;
-using static Storing.Redis.RedisHashes;
 
 namespace Storing.Redis;
 
-public static partial class RedisCache
+partial class RedisFuncs
 {
   public static Task<byte[]?> GetCacheAsync(
     IDatabase db,

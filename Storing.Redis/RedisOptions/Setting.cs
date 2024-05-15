@@ -2,7 +2,7 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-public static class RedisOptionsExtensions
+partial class RedisFuncs
 {
   internal static ConfigurationOptions TrySetConfigurationOptions (
     this ConfigurationOptions builder,

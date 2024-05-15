@@ -1,6 +1,6 @@
 namespace Storing.Redis;
 
-public static partial class RedisHashes
+partial class RedisFuncs
 {
   const string AbsoluteExprKey = "absexp";
   const string SlidingExprKey = "sldexp";

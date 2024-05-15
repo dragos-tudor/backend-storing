@@ -1,6 +1,6 @@
 namespace Docker.Extensions;
 
-public static partial class Commands
+partial class DockerFuncs
 {
   internal static string[] GetKeepRunningContainerCommand() =>
     ["tail","-f", "/dev/null"];
