@@ -2,6 +2,10 @@
 
   <Import Project="../Directory.Testing.props" />
 
+	<PropertyGroup>
+		<Description>Convenient functions for Redis.</Description>
+	</PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="stackexchange.redis"/>
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>

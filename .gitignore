@@ -12,5 +12,8 @@
 # Test databases
 **/*.db
 
+# Nuget packages folder
+.packages
+
 
 

@@ -2,6 +2,10 @@
 
   <Import Project="../Directory.Testing.props" />
 
+	<PropertyGroup>
+		<Description>Convenient functions for SMongoDb.</Description>
+	</PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MongoDb.Driver" />
   </ItemGroup>

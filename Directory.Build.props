@@ -1,9 +1,7 @@
 <Project>
-
   <PropertyGroup Label="Project props">
     <TargetFramework>net8.0</TargetFramework>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
-
     <!-- compiling -->
     <ImplicitUsings>disable</ImplicitUsings>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -27,11 +25,16 @@
     <Company>$(Authors)</Company>
     <Copyright>Copyright @2024</Copyright>
     <Version>1.0.0-alpha1</Version>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepositoryUrl>https://github.com/dragos-tudor/backend-storing.git</RepositoryUrl>
     <PackageLicense>https://github.com/dragos-tudor/backend-storing/blob/master/LICENSE</PackageLicense>
     <PackageProjectUrl>https://github.com/dragos-tudor/backend-storing/tree/main/$(MSBuildProjectName)</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+  	<None Include="../README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
 
 </Project>
