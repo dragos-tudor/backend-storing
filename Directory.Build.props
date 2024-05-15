@@ -26,6 +26,7 @@
     <Copyright>Copyright @2024</Copyright>
     <Version>1.0.0-alpha1</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
 
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepositoryUrl>https://github.com/dragos-tudor/backend-storing.git</RepositoryUrl>
@@ -35,6 +36,7 @@
 
   <ItemGroup>
   	<None Include="../README.md" Pack="true" PackagePath="\"/>
+    <None Include="../LICENSE" Pack="true" PackagePath="\"/>
   </ItemGroup>
 
 </Project>
