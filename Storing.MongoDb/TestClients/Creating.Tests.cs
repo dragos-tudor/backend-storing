@@ -1,14 +1,16 @@
 
 namespace Storing.MongoDb;
 
-static partial class TestClients
+partial class MongoDbTests
 {
-  static MongoClient CreateMongoClient (string connString) =>
-    MongoFuncs.CreateMongoClient(connString, urlBuilder => {
-      urlBuilder.ConnectTimeout = TimeSpan.FromSeconds(1);
-      urlBuilder.ServerSelectionTimeout = TimeSpan.FromSeconds(1);
-      urlBuilder.Journal = false;
-      return urlBuilder;
-    });
+  static MongoUrlBuilder SetMongoUrlBuilder (MongoUrlBuilder urlBuilder)
+  {
+    urlBuilder.ConnectTimeout = TimeSpan.FromSeconds(1);
+    urlBuilder.ServerSelectionTimeout = TimeSpan.FromSeconds(1);
+    urlBuilder.Journal = false;
+    return urlBuilder;
+  }
 
+  static MongoClient CreateMongoClient (string connString) =>
+    MongoFuncs.CreateMongoClient(connString, SetMongoUrlBuilder);
 }

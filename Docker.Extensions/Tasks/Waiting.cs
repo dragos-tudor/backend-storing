@@ -7,32 +7,30 @@ partial class DockerFuncs
   internal static async Task WaitWhileAsync(
     Func<Task<bool>> wait,
     TimeSpan retryAfter,
-    TimeSpan timeout)
+    CancellationToken cancellationToken = default)
   {
-    using var cts = new CancellationTokenSource(timeout);
-    while (true)
+    while (!cancellationToken.IsCancellationRequested)
     {
       var isSuccessful = await wait.Invoke();
       if (!isSuccessful)
         break;
 
-      await Task.Delay(retryAfter, cts.Token);
+      await Task.Delay(retryAfter, cancellationToken);
     }
   }
 
   internal static async Task WaitUntilAsync(
     Func<Task<bool>> wait,
     TimeSpan retryAfter,
-    TimeSpan timeout)
+    CancellationToken cancellationToken = default)
   {
-    using var cts = new CancellationTokenSource(timeout);
-    while (true)
+    while (!cancellationToken.IsCancellationRequested)
     {
       var isSuccessful = await wait.Invoke();
       if (isSuccessful)
         break;
 
-      await Task.Delay(retryAfter, cts.Token);
+      await Task.Delay(retryAfter, cancellationToken);
     }
   }
 

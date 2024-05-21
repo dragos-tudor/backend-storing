@@ -1,17 +1,14 @@
 using StackExchange.Redis;
-using static Storing.Redis.TestContainers;
 
 namespace Storing.Redis;
 
-public static partial class TestClients
+partial class RedisTests
 {
-  const int ServerPort = 6379;
-
-  internal static async Task<IConnectionMultiplexer> CreateRedisClient(string clientName) =>
+  static IConnectionMultiplexer CreateRedisClient(string endPoints, string clientName) =>
     CreateRedisConnection(
       CreateRedisOptions(
         CreateConfigurationOptions(
-          GetRedisEndpoints(await StartRedisContainerAsync(ServerPort), ServerPort),
+          endPoints,
           clientName: clientName
         ))
     );

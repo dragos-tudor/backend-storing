@@ -7,12 +7,12 @@ sealed record Page : Id<string>
   public string text = string.Empty;
 }
 
-public partial class MongoQueriesTests
+partial class MongoDbTests
 {
   [TestMethod]
   public async Task documents__page__paged_documents ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var coll = GetCollection<Page>(db, DbCollection);
     var query = coll.AsDiscriminable();
     await InsertDocuments(coll, new [] {

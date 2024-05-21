@@ -6,12 +6,12 @@ sealed record Replace: Id<string>
   public string rtext = string.Empty;
 }
 
-public partial class MongoDocumentsTests
+partial class MongoDbTests
 {
   [TestMethod]
   public async Task document__replace__replaced_document ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetCollection<Replace>(db, DbCollection);
 

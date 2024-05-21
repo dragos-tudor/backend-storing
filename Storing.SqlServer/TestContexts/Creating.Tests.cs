@@ -1,28 +1,11 @@
-using static Storing.SqlServer.TestServers;
 
 namespace Storing.SqlServer;
 
-static partial class TestContexts
+partial class SqlServerTests
 {
-  internal const string AdminName = "sa";
-  internal const string AdminPassword = "admin.P@ssw0rd";
+  static EntitiesContext CreateEntitiesContext () => new (CreateDbContextOptions<EntitiesContext>("entities"));
 
-  static async Task<DbContextOptions<TContext>> CreateDbContextOptions<TContext> (string dbName) where TContext: DbContext =>
-    IsInMemoryContext()?
-      CreateInMemoryContextOptions<TContext>(dbName):
-      CreateSqlContextOptions<TContext>(
-        CreateDbConnectionString(
-          dbName,
-          await ServerIpAddress.Value,
-          AdminName,
-          AdminPassword));
+  static QueriesContext CreateQueriesContext () => new (CreateDbContextOptions<QueriesContext>("queries"));
 
-  internal static async Task<EntitiesContext> CreateEntitiesContext (bool? shouldEnsureDatabase = false) =>
-    new (await CreateDbContextOptions<EntitiesContext>("entities"), shouldEnsureDatabase);
-
-  internal static async Task<QueriesContext> CreateQueriesContext () =>
-    new (await CreateDbContextOptions<QueriesContext>("queries"));
-
-  internal static async Task<TrackingContext> CreateTrackingContext () =>
-    new (await CreateDbContextOptions<TrackingContext>("tracking"));
+  static TrackingContext CreateTrackingContext () => new (CreateDbContextOptions<TrackingContext>("tracking"));
 }

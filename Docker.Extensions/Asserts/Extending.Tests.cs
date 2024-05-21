@@ -1,6 +1,4 @@
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Docker.Extensions;
 
 partial class DockerFuncs

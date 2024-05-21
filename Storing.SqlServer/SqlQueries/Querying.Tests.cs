@@ -1,10 +1,9 @@
-using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
 
-partial class SqlQueriesTests
+partial class SqlServerTests
 {
-  sealed internal record BookQueryDto
+  sealed record BookQueryDto
   {
     public string? AuthorName {get; init;}
     public DateTime? ReleaseDateGreater {get; init;}
@@ -27,11 +26,7 @@ partial class SqlQueriesTests
       new() { BookName = "Bietul Ioanide", Authors = [authors[1]] },
       new() { BookName = "Scrinul negru", Authors = [authors[1]] }
     ];
-    using var dbContext = await CreateEntitiesContext(true);
-    await dbContext.Database.ExecuteSqlAsync($@"
-      DELETE FROM AuthorBook;
-      DELETE FROM Authors;
-      DELETE FROM Books");
+    using var dbContext = CreateEntitiesContext();
     foreach(var book in books)
       AddEntity(dbContext, book);
 

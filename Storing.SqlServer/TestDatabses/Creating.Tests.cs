@@ -1,9 +1,9 @@
 
 namespace Storing.SqlServer;
 
-static partial class TestDatabases
+partial class SqlServerTests
 {
-  internal static string CreateDbConnectionString (
+  static string CreateDbConnectionString (
     string dbName,
     string serverName,
     string userName,

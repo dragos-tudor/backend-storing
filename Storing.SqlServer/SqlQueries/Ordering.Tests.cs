@@ -1,8 +1,7 @@
-using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
 
-partial class SqlQueriesTests
+partial class SqlServerTests
 {
   [TestMethod]
   public async Task unoredered_items__order__ordered_items ()
@@ -14,8 +13,7 @@ partial class SqlQueriesTests
       new Order { Text = "2" },
     };
 
-    using var dbContext = await CreateQueriesContext();
-    await dbContext.Database.ExecuteSqlAsync($"DELETE FROM Orders");
+    using var dbContext = CreateQueriesContext();
     await dbContext.AddRangeAsync(orders);
     await dbContext.SaveChangesAsync();
     var query = dbContext.Orders;

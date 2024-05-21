@@ -3,28 +3,35 @@ using Docker.DotNet.Models;
 
 namespace Storing.Redis;
 
-public static partial class TestContainers
+partial class RedisTests
 {
   const string ImageName = "redis:7.2.3";
   const string ContainerName = "storing-redis";
-  static readonly TimeSpan DockerTimeout = TimeSpan.FromMinutes(5);
-  static readonly TimeSpan OpenPortTimeout = TimeSpan.FromMinutes(1);
 
-  internal static async Task<NetworkSettings> StartRedisContainerAsync (
+  static async Task<NetworkSettings> StartRedisContainer (
     int serverPort,
-    string imageName = ImageName,
-    string containerName = ContainerName,
-    TimeSpan? dockerTimeout = default,
-    TimeSpan? openPortTimeout = default)
+    string imageName,
+    string containerName,
+    CancellationToken cancellationToken = default)
   {
     using var client = CreateDockerClient();
-    using var cts = new CancellationTokenSource(dockerTimeout ?? DockerTimeout);
 
-    await CreateDockerImageAsync(client.Images, imageName, cts.Token);
-    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, default, cts.Token);
-    var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
+    await CreateDockerImageAsync(client.Images, imageName, cancellationToken);
+    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, default, cancellationToken);
+    var container = await InspectContainerAsync(client.Containers, containerId, cancellationToken);
 
-    await WaitForOpenPort(client.Exec, containerId, serverPort, openPortTimeout ?? OpenPortTimeout);
+    await WaitForOpenPort(client.Exec, containerId, serverPort, cancellationToken);
     return container!.NetworkSettings;
+  }
+
+  static NetworkSettings StartRedisContainer (
+    int serverPort,
+    string imageName,
+    string containerName)
+  {
+    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    var cancellationToken = cancellationTokenSource.Token;
+
+    return RunSynchronously(() => StartRedisContainer(serverPort, imageName, containerName, cancellationToken));
   }
 }

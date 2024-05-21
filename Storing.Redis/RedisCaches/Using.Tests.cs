@@ -9,7 +9,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task GetMissingCacheKeyReturnsNull()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     string key = "non-existent-key";
 
     Assert.IsNull(await GetCacheAsync(db, key));
@@ -18,7 +18,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task GetFromCacheReturnsObject()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value = new byte[1];
     string key = "myKey1";
 
@@ -30,7 +30,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task SetAndGetFromCacheWorksWithCaseSensitiveKeys()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value = new byte[1];
     string key1 = "myKey2";
     string key2 = "MyKey2";
@@ -44,7 +44,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task SetToCacheAlwaysOverwrites()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value1 = new byte[1] { 1 };
     string key = "myKey3";
 
@@ -61,7 +61,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task GetMissingStringCacheKeyReturnsNull()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     string key = "non-existent-key";
 
     Assert.IsNull(await GetStringCacheAsync(db, key));
@@ -70,7 +70,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task GetStringFromCacheReturnsString()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value = "some text";
     string key = "myKey4";
 
@@ -82,7 +82,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task SetAndGetStringFromCacheWorksWithCaseSensitiveKeys()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value = "some text";
     string key1 = "myKey5";
     string key2 = "MyKey5";
@@ -96,7 +96,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task SetStringToCacheAlwaysOverwrites()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value1 = "some text 1";
     string key = "myKey6";
 
@@ -113,7 +113,7 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task RemoveCacheKey()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var value = new byte[1];
     string key = "myKey7";
 

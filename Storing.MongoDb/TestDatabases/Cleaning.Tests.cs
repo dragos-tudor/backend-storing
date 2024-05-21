@@ -1,12 +1,9 @@
 
 namespace Storing.MongoDb;
 
-static partial class TestDatabases
+partial class MongoDbTests
 {
-  internal static void CleanMongoDatabase (
-    MongoClient client,
-    string dbName,
-    params string[] collections)
+  static void CleanMongoDatabase (MongoClient client, string dbName, params string[] collections)
   {
     var database = client.GetDatabase(dbName);
     CleanupCollections(database, collections);

@@ -1,34 +1,39 @@
-using System.Threading;
 using Docker.DotNet.Models;
 
 namespace Storing.SqlServer;
 
-static partial class TestContainers
+partial class SqlServerTests
 {
   const string ContainerName = "storing-sql";
   const string ImageName = "mcr.microsoft.com/mssql/server:2019-latest";
 
-  static readonly TimeSpan DockerTimeout = TimeSpan.FromMinutes(10);
-  static readonly TimeSpan OpenPortTimeout = TimeSpan.FromMinutes(3);
-
-  internal static async Task<NetworkSettings> StartSqlContainerAsync(
+  static async Task<NetworkSettings> StartSqlContainerAsync (
     int serverPort,
     string adminPassword,
-    string imageName = ImageName,
-    string containerName = ContainerName,
-    TimeSpan? dockerTimeout = default,
-    TimeSpan? openPortTimeout = default)
+    string imageName,
+    string containerName,
+    CancellationToken cancellationToken = default)
   {
     using var client = CreateDockerClient();
-    using var cts = new CancellationTokenSource(dockerTimeout ?? DockerTimeout);
 
-    await CreateDockerImageAsync(client.Images, imageName, cts.Token);
-    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, (@params) => {
-      @params.Env = ["ACCEPT_EULA=Y", $"SA_PASSWORD={adminPassword}"];
-    }, cts.Token);
-    var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
+    await CreateDockerImageAsync(client.Images, imageName, cancellationToken);
+    var containerId = await UseContainerAsync(client.Containers, imageName, containerName, SetCreateContainerParameters(adminPassword), cancellationToken);
+    var container = await InspectContainerAsync(client.Containers, containerId, cancellationToken);
 
-    await WaitForOpenPort(client.Exec, containerId, serverPort, openPortTimeout ?? OpenPortTimeout);
+    await WaitForOpenPort(client.Exec, containerId, serverPort, cancellationToken);
     return container!.NetworkSettings;
+  }
+
+  static NetworkSettings StartSqlContainer (
+    int serverPort,
+    string adminPassword,
+    string imageName,
+    string containerName)
+  {
+    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+    var cancellationToken = cancellationTokenSource.Token;
+
+    return RunSynchronously(() =>
+      StartSqlContainerAsync(serverPort, adminPassword, imageName, containerName, cancellationToken));
   }
 }

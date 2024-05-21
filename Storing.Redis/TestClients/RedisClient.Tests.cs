@@ -2,10 +2,9 @@ using StackExchange.Redis;
 
 namespace Storing.Redis;
 
-static partial class TestClients
+partial class RedisTests
 {
   const string ClientName = "test";
 
-  internal static readonly Lazy<Task<IConnectionMultiplexer>> RedisClient =
-    new (() => CreateRedisClient(ClientName));
+  static IConnectionMultiplexer RedisClient = default!;
 }

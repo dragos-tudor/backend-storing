@@ -7,12 +7,12 @@ sealed record Order : Id<string>
   public string text = string.Empty;
 }
 
-public partial class MongoQueriesTests
+partial class MongoDbTests
 {
   [TestMethod]
   public async Task unordered_documents__order__ordered_documents ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var coll = GetCollection<Order>(db, DbCollection);
     var query = coll.AsDiscriminable();
     await InsertDocuments(coll, new [] {

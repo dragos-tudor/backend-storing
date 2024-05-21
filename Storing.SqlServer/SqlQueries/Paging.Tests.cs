@@ -1,8 +1,7 @@
-using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
 
-partial class SqlQueriesTests
+partial class SqlServerTests
 {
   [TestMethod]
   public async Task all_items__page__items_page ()
@@ -14,8 +13,7 @@ partial class SqlQueriesTests
       new Page { Text = "3" },
     };
 
-    using var dbContext = await CreateQueriesContext();
-    await dbContext.Database.ExecuteSqlAsync($"DELETE FROM Pages");
+    using var dbContext = CreateQueriesContext();
     await dbContext.AddRangeAsync(pages);
     await dbContext.SaveChangesAsync();
     var query = dbContext.Pages;

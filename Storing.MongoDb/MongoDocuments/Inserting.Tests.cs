@@ -3,12 +3,12 @@ namespace Storing.MongoDb;
 
 sealed record Insert: Id<string> { }
 
-public partial class MongoDocumentsTests
+partial class MongoDbTests
 {
   [TestMethod]
   public async Task document__insert__inserted_document ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetCollection<Insert>(db, DbCollection);
 

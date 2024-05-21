@@ -17,14 +17,8 @@ public record Book
   public ICollection<Author>? Authors { get; set; }
 }
 
-public sealed class EntitiesContext: DbContext
+public sealed class EntitiesContext(DbContextOptions<EntitiesContext> options) : DbContext(options)
 {
   public DbSet<Author> Authors => Set<Author>();
   public DbSet<Book> Books => Set<Book>();
-
-  public EntitiesContext(DbContextOptions<EntitiesContext> options, bool? shouldEnsureDatabase = false) : base(options)
-  {
-    if(shouldEnsureDatabase ?? false)
-      Database.EnsureCreated();
-  }
 }

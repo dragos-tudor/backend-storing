@@ -1,16 +1,12 @@
 
-using Docker.DotNet.Models;
-
 namespace Storing.MongoDb;
 
-static partial class TestDatabases
+partial class MongoDbTests
 {
-  internal const string DbCollection = "documents";
-  internal const string DbName = "storing";
+  const string DbCollection = "documents";
+  const string DbName = "storing";
 
-  internal static string GetMongoConnectionString (NetworkSettings network, int serverPort) =>
-    $"mongodb://{network.IPAddress}:{serverPort}";
+  static string GetMongoConnectionString (string ipAddress, int serverPort) => $"mongodb://{ipAddress}:{serverPort}";
 
-  internal static async Task<IMongoDatabase> GetMongoDatabase (string dbName = DbName) =>
-    (await MongoDbClient.Value).GetDatabase(dbName);
+  static IMongoDatabase GetMongoDatabase (string dbName = DbName) => MongoDbClient.GetDatabase(dbName);
 }

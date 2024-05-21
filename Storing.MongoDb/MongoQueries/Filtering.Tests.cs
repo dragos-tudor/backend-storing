@@ -10,13 +10,12 @@ sealed record Filter : Id<string>
   public DateTime? date;
 }
 
-[TestClass]
-public partial class MongoQueriesTests
+partial class MongoDbTests
 {
   [TestMethod]
   public async Task document__filter__filtered_document ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var coll = GetCollection<Filter>(db, DbCollection);
     var query = coll.AsDiscriminable();
     var dates = new [] { new DateTime(2022, 07, 01), new DateTime(2022, 07, 02) };

@@ -3,13 +3,12 @@ namespace Storing.MongoDb;
 
 sealed record Delete: Id<string> { }
 
-[TestClass]
-public partial class MongoDocumentsTests
+public partial class MongoDbTests
 {
   [TestMethod]
   public async Task document__delete__deleted_document ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetCollection<Delete>(db, DbCollection);
 

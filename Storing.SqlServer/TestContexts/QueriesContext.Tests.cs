@@ -29,8 +29,6 @@ public sealed class QueriesContext: DbContext
   public DbSet<Order> Orders => Set<Order>();
   public DbSet<Page> Pages => Set<Page>();
 
-  public QueriesContext(DbContextOptions<QueriesContext> options): base(options) {
+  public QueriesContext(DbContextOptions<QueriesContext> options): base(options) =>
     ChangeTracker.LazyLoadingEnabled = false;
-    Database.EnsureCreated();
-  }
 }

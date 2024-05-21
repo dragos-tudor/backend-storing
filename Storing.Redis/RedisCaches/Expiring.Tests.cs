@@ -12,7 +12,7 @@ public class RedisCacheTests1
   [TestMethod]
   public async Task AbsoluteExpirationExpires()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey1";
     var value = new byte[1];
 
@@ -29,7 +29,7 @@ public class RedisCacheTests1
   [TestMethod]
   public async Task AbsoluteSubSecondExpirationExpiresImmediately()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey2";
     var value = new byte[1];
 
@@ -46,7 +46,7 @@ public class RedisCacheTests2
   [TestMethod]
   public async Task RelativeExpirationExpires()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey3";
     var value = new byte[1];
 
@@ -62,7 +62,7 @@ public class RedisCacheTests2
   [TestMethod]
   public async Task RelativeSubSecondExpirationExpiresImmediately()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey4";
     var value = new byte[1];
 
@@ -78,7 +78,7 @@ public class RedisCacheTests3
   [TestMethod]
   public async Task SlidingExpirationExpiresIfNotAccessed()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey5";
     var value = new byte[1];
 
@@ -94,7 +94,7 @@ public class RedisCacheTests3
   [TestMethod]
   public async Task SlidingSubSecondExpirationExpiresImmediately()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey6";
     var value = new byte[1];
 
@@ -113,7 +113,7 @@ public class RedisCacheTests4
     if(Environment.GetEnvironmentVariable("IN_MEMORY")! == "true")
       return;
 
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey7";
     var value = new byte[1];
 
@@ -141,7 +141,7 @@ public class RedisCacheTests5
     if(Environment.GetEnvironmentVariable("IN_MEMORY")! == "true")
       return;
 
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey8";
     var value = new byte[1];
 
@@ -164,7 +164,7 @@ public class RedisCacheTests5
   [TestMethod]
   public async Task AbsoluteExpirationInThePastThrows()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey9";
     var value = new byte[1];
 
@@ -176,7 +176,7 @@ public class RedisCacheTests5
   [TestMethod]
   public async Task NegativeRelativeExpirationThrows()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey10";
     var value = new byte[1];
 
@@ -188,7 +188,7 @@ public class RedisCacheTests5
   [TestMethod]
   public async Task ZeroRelativeExpirationThrows()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey11";
     var value = new byte[1];
 
@@ -200,7 +200,7 @@ public class RedisCacheTests5
   [TestMethod]
   public async Task NegativeSlidingExpirationThrows()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey12";
     var value = new byte[1];
 
@@ -212,7 +212,7 @@ public class RedisCacheTests5
   [TestMethod]
   public async Task ZeroSlidingExpirationThrows()
   {
-    var db = await GetRedisDatabase();
+    var db = GetRedisDatabase();
     var key = "expKey13";
     var value = new byte[1];
 

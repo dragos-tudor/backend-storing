@@ -4,8 +4,7 @@ namespace Storing.MongoDb;
 sealed record A { }
 sealed record B { }
 
-[TestClass]
-public partial class MongoMappersTests
+partial class MongoDbTests
 {
   [TestMethod]
   public void class_type__map_regular__registred_regular_type ()

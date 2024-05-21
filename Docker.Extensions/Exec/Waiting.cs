@@ -1,4 +1,6 @@
 
+using System.Threading;
+
 namespace Docker.Extensions;
 
 partial class DockerFuncs
@@ -7,15 +9,15 @@ partial class DockerFuncs
     IExecOperations exec,
     string containerId,
     int port,
-    TimeSpan timeout)
+    CancellationToken cancellationToken = default)
   {
     var retryAfter = TimeSpan.FromMicroseconds(500);
-    var openPortVerificationCommand = GetOpenPortVerificationCommand(port);
+    var verifyOpenPortCommand = GetVerifyOpenPortCommand(port);
 
     await WaitUntilAsync(async () =>
-      await ExecContainerCommandAsync(exec, containerId, openPortVerificationCommand) == 0,
+      await ExecContainerCommandAsync(exec, containerId, verifyOpenPortCommand, cancellationToken) == 0,
       retryAfter,
-      timeout
+      cancellationToken
     );
   }
 }

@@ -1,20 +1,21 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
 
 namespace Docker.Extensions;
 
-[TestClass]
-public class ExecTests
+partial class DockerTests
 {
   [TestMethod]
   public async Task container_command__wait_for_open_port__port_is_opened()
   {
     const string ImageName = $"mongo:4.2.24";
     const string ContainerName = "storing-mongo";
+    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    var cancellationToken = cancellationTokenSource.Token;
 
     using var client = CreateDockerClient();
-    await CreateDockerImageAsync(client.Images, ImageName);
-    var containerId = await UseContainerAsync(client.Containers, ImageName, ContainerName);
+    await CreateDockerImageAsync(client.Images, ImageName, cancellationToken);
+    var containerId = await UseContainerAsync(client.Containers, ImageName, ContainerName, default, cancellationToken);
 
-    await WaitForOpenPort(client.Exec, containerId, 27017, TimeSpan.FromSeconds(10));
+    await WaitForOpenPort(client.Exec, containerId, 27017, cancellationToken);
   }
 }

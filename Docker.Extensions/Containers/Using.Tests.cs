@@ -1,10 +1,8 @@
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Docker.Extensions;
 
-[TestClass]
-public class ContainersTests
+partial class DockerTests
 {
   const string ImageName = "alpine:3.18.5";
   const string ContainerName = "test-container";

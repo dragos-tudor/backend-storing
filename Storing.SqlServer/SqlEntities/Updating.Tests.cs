@@ -1,15 +1,14 @@
-using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
 
-public partial class SqlEntitiesTests
+partial class SqlServerTests
 {
   [TestMethod]
-  public async Task entity__update_entity_prop__entity_modified()
+  public void entity__update_entity_prop__entity_modified()
   {
     var author = new Author { AuthorId = Guid.NewGuid(), AuthorName = "name" };
 
-    using var dbContext = await CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
       author.AuthorName = "new name");
 
@@ -17,11 +16,11 @@ public partial class SqlEntitiesTests
   }
 
   [TestMethod]
-  public async Task entity__update_entity_prop__only_entity_prop_modified()
+  public void entity__update_entity_prop__only_entity_prop_modified()
   {
     var author = new Author{ AuthorId = Guid.NewGuid(), AuthorName = "name", BirthDate = DateTime.Now };
 
-    using var dbContext = await CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) => {
       author.AuthorName = "updated";
       author.BirthDate = author.BirthDate;
@@ -32,12 +31,12 @@ public partial class SqlEntitiesTests
   }
 
   [TestMethod]
-  public async Task entity_without_many_to_many_collection_item__update_entity_adding_new_item__collection_link_added_and_collection_item_added()
+  public void entity_without_many_to_many_collection_item__update_entity_adding_new_item__collection_link_added_and_collection_item_added()
   {
     var book = new Book { BookId = 0 };
     var author = new Author{ AuthorId = Guid.NewGuid() };
 
-    using var dbContext = await CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
       author.Books = new [] { book });
 
@@ -46,12 +45,12 @@ public partial class SqlEntitiesTests
   }
 
   [TestMethod]
-  public async Task entity_without_many_to_many_collection_item__update_entity_adding_existing_item__collection_link_added_and_collection_item_unchanged()
+  public void entity_without_many_to_many_collection_item__update_entity_adding_existing_item__collection_link_added_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };
     var author = new Author{ AuthorId = Guid.NewGuid() };
 
-    using var dbContext = await CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext();
     dbContext.Attach(book);
     UpdateEntity(dbContext, author, (author) =>
       author.Books = new [] { book });
@@ -61,12 +60,12 @@ public partial class SqlEntitiesTests
   }
 
   [TestMethod]
-  public async Task entity_with_many_to_many_collection_item__update_entity_removing_item__collection_link_deleted_and_collection_item_unchanged()
+  public void entity_with_many_to_many_collection_item__update_entity_removing_item__collection_link_deleted_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };
     var author = new Author{ AuthorId = Guid.NewGuid(), Books = [ book ] };
 
-    using var dbContext = await CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
       author.Books = []);
 
@@ -75,12 +74,12 @@ public partial class SqlEntitiesTests
   }
 
   [TestMethod]
-  public async Task entity_with_many_to_many_collection_item__update_entity_without_changing_item__collection_link_and_collection_item_unchanged()
+  public void entity_with_many_to_many_collection_item__update_entity_without_changing_item__collection_link_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };
     var author = new Author{ AuthorId = Guid.NewGuid(), Books = [ book ] };
 
-    using var dbContext = await CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
       author.Books = [ book ]);
 

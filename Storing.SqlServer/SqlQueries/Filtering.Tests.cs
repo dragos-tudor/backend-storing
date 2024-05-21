@@ -1,9 +1,7 @@
-using static Storing.SqlServer.TestContexts;
 
 namespace Storing.SqlServer;
 
-[TestClass]
-public partial class SqlQueriesTests
+partial class SqlServerTests
 {
   [TestMethod]
   public async Task items__filter__filtered_items ()
@@ -18,8 +16,7 @@ public partial class SqlQueriesTests
       new Filter { Int = 2, Text = "abc" }
     };
 
-    using var dbContext = await CreateQueriesContext();
-    await dbContext.Database.ExecuteSqlAsync($"DELETE FROM Filters");
+    using var dbContext = CreateQueriesContext();
     await dbContext.AddRangeAsync(filters);
     await dbContext.SaveChangesAsync();
     var query = dbContext.Filters;

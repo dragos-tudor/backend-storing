@@ -6,12 +6,12 @@ sealed record Discriminated: Id<string> { }
 
 sealed record NonDiscriminated: Id<string> { }
 
-public partial class MongoDocumentsTests
+partial class MongoDbTests
 {
   [TestMethod]
   public async Task discriminated_documents_coll__query_as_discriminable__discriminated_documents ()
   {
-    var db = await GetMongoDatabase();
+    var db = GetMongoDatabase();
     var discriminatedColl = GetCollection<Discriminated>(db, DbCollection);
     var nonDiscriminatedColl = GetCollection<NonDiscriminated>(db, DbCollection);
     var discriminated = new [] {
