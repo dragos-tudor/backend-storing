@@ -25,7 +25,6 @@ static partial class TestContainers
     await CreateDockerImageAsync(client.Images, imageName, cts.Token);
     var containerId = await UseContainerAsync(client.Containers, imageName, containerName, (@params) => {
       @params.Env = ["ACCEPT_EULA=Y", $"SA_PASSWORD={adminPassword}"];
-      @params.Volumes = new Dictionary<string, EmptyStruct>() { { "storingsql:/var/opt/mssql", new EmptyStruct() } };
     }, cts.Token);
     var container = await InspectContainerAsync(client.Containers, containerId, cts.Token);
 
