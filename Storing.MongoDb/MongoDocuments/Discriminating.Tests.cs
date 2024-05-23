@@ -12,8 +12,8 @@ partial class MongoDbTests
   public async Task discriminated_documents_coll__query_as_discriminable__discriminated_documents ()
   {
     var db = GetMongoDatabase();
-    var discriminatedColl = GetCollection<Discriminated>(db, DbCollection);
-    var nonDiscriminatedColl = GetCollection<NonDiscriminated>(db, DbCollection);
+    var discriminatedColl = GetMongoCollection<Discriminated>(db);
+    var nonDiscriminatedColl = GetMongoCollection<NonDiscriminated>(db);
     var discriminated = new [] {
       new Discriminated { _Id = Guid.NewGuid().ToString() },
       new Discriminated { _Id = Guid.NewGuid().ToString() }

@@ -27,7 +27,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Update1>(db, DbCollection);
+    var coll = GetMongoCollection<Update1>(db);
     var original = new Update1 { _Id = id, u1str = "a" };
     var modified = new { text1 = "b" };
 
@@ -45,7 +45,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Update1>(db, DbCollection);
+    var coll = GetMongoCollection<Update1>(db);
     var original = new Update1 { _Id = id, u1str = "a", u1int = 1 };
     var modified = new { text1 = "b", int1 = 2 };
 
@@ -66,7 +66,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Update2>(db, DbCollection);
+    var coll = GetMongoCollection<Update2>(db);
     var original = new Update2 { _Id = id, u2coll = [1] };
     var modified = new { coll2 = new int[] { 2, 3 } };
 
@@ -84,7 +84,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Update2>(db, DbCollection);
+    var coll = GetMongoCollection<Update2>(db);
     var original = new Update2 { _Id = id, u2coll = [1, 2, 3] };
     var modified = new { coll2 = new int[] { 2, 3 } };
 
@@ -102,7 +102,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Update3>(db, DbCollection);
+    var coll = GetMongoCollection<Update3>(db);
     var original = new Update3 { _Id = id, u3coll = [new () { _Id = 1 }] };
     var modified = new { coll3 = new Item[] { new() { _Id = 2 }, new() { _Id = 3 } } };
 
@@ -120,7 +120,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Update3>(db, DbCollection);
+    var coll = GetMongoCollection<Update3>(db);
     var original = new Update3 { _Id = id, u3coll = [new() { _Id = 1 }, new() { _Id = 2 }, new() { _Id = 3 }] };
     var modified = new { coll3 = new Item[] { new() { _Id = 2 }, new() { _Id = 3 } } };
 

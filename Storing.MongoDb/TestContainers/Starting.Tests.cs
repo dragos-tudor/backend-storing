@@ -4,9 +4,6 @@ namespace Storing.MongoDb;
 
 partial class MongoDbTests
 {
-  const string ImageName = "mongo:4.2.24";
-  const string ContainerName = "storing-mongo";
-
   static async Task<NetworkSettings> StartMongoContainerAsync (
     int serverPort,
     string imageName,

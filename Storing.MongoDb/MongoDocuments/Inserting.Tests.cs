@@ -10,7 +10,7 @@ partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Insert>(db, DbCollection);
+    var coll = GetMongoCollection<Insert>(db);
 
     await InsertDocument(coll, new Insert{ _Id = id });
 

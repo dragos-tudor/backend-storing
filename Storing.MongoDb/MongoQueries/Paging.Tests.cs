@@ -13,7 +13,7 @@ partial class MongoDbTests
   public async Task documents__page__paged_documents ()
   {
     var db = GetMongoDatabase();
-    var coll = GetCollection<Page>(db, DbCollection);
+    var coll = GetMongoCollection<Page>(db);
     var query = coll.AsDiscriminable();
     await InsertDocuments(coll, new [] {
       new Page { _Id = Guid.NewGuid().ToString(), text = "0" },

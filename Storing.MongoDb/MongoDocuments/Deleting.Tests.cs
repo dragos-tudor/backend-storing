@@ -10,7 +10,7 @@ public partial class MongoDbTests
   {
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
-    var coll = GetCollection<Delete>(db, DbCollection);
+    var coll = GetMongoCollection<Delete>(db);
 
     await InsertDocument(coll, new () { _Id = id });
     await DeleteDocument(coll, new () { _Id = id });
