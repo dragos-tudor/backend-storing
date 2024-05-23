@@ -8,7 +8,8 @@ partial class DockerTests
   public async Task container_command__wait_for_open_port__port_is_opened()
   {
     const string ImageName = $"mongo:4.2.24";
-    const string ContainerName = "storing-mongo";
+    const string ContainerName = "docker-tests-mongo";
+
     using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
     var cancellationToken = cancellationTokenSource.Token;
 

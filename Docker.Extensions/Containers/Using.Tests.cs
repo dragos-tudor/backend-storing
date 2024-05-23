@@ -5,7 +5,7 @@ namespace Docker.Extensions;
 partial class DockerTests
 {
   const string ImageName = "alpine:3.18.5";
-  const string ContainerName = "test-container";
+  const string ContainerName = "docker-tests-alpine";
 
   [TestMethod]
   public async Task different_container_state__use_container__running_container()
