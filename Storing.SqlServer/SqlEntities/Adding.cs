@@ -3,10 +3,13 @@ namespace Storing.SqlServer;
 
 partial class SqlServerFuncs
 {
-  public static void AddEntity<T> (DbContext dbContext, T entity)
-    where T: class {
+  public static T AddEntity<TContext, T> (TContext dbContext, T entity)
+    where TContext: DbContext
+    where T: class
+  {
       TrackEntityCollections(dbContext, entity);
       TrackEntityNavigations(dbContext, entity);
       dbContext.Add(entity);
+      return entity;
     }
 }

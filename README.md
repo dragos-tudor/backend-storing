@@ -199,5 +199,4 @@
 
 ### Remarks
 - sql server entity functions are unit-testable.
-- sql server integration tests use *IN_MEMORY* environment variable to run tests on in-memory server or on real sql server [95%/5% :\)].
 - all integration tests use dynamically created [non-ephemeral] database docker containers [[Docker.DotNet](https://github.com/dotnet/dotnet-docker) package instead of [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet)].

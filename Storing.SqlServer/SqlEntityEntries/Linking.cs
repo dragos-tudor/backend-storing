@@ -4,7 +4,7 @@ namespace Storing.SqlServer;
 
 partial class SqlServerFuncs
 {
-  public static EntityEntry? EntityEntry<T>(
+  public static EntityEntry? EntityEntry<T> (
     this DbContext dbContext,
     string keyName,
     T keyValue) where T: struct =>

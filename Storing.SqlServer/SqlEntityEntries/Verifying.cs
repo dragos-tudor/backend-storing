@@ -20,7 +20,4 @@ partial class SqlServerFuncs
   static bool IsEntitiesLink (object @object) =>
     @object.GetType().IsAssignableTo(
       typeof(Dictionary<string, object>));
-
-  public static bool IsInMemoryContext () =>
-    Environment.GetEnvironmentVariable("IN_MEMORY")! == "true";
 }

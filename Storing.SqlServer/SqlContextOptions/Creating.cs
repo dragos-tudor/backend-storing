@@ -14,8 +14,8 @@ partial class SqlServerFuncs
         .EnableThreadSafetyChecks(false)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         .UseSqlServer(connString, setSqlContextOptions ?? SetSqlContextOptions)
-        .TrySetSqlContextOptions(setDbContextOptions)
-        .TryUseModel(model)
+        .SetSqlContextOptions(setDbContextOptions)
+        .UsingModel(model)
         .Options;
 
   public static DbContextOptions<T> CreateInMemoryContextOptions<T> (
@@ -26,6 +26,6 @@ partial class SqlServerFuncs
         .EnableThreadSafetyChecks(false)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         .UseInMemoryDatabase(dbName ?? Guid.NewGuid().ToString())
-        .TryUseModel(model)
+        .UsingModel(model)
         .Options;
 }

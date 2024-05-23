@@ -4,9 +4,6 @@ namespace Storing.SqlServer;
 
 partial class SqlServerTests
 {
-  const string ContainerName = "storing-sql";
-  const string ImageName = "mcr.microsoft.com/mssql/server:2019-latest";
-
   static async Task<NetworkSettings> StartSqlContainerAsync (
     int serverPort,
     string adminPassword,

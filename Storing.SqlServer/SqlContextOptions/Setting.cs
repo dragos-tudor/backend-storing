@@ -8,14 +8,14 @@ partial class SqlServerFuncs
   const int MaxRetryDelay = 5;
   const int CommandTimeout = 10;
 
-  static readonly Action<SqlServerDbContextOptionsBuilder> SetSqlContextOptions = options =>
+  static void SetSqlContextOptions (SqlServerDbContextOptionsBuilder options) =>
     options
       .UseQuerySplittingBehavior(QuerySplittingBehavior.SingleQuery)
       .UseRelationalNulls()
       .EnableRetryOnFailure(MaxRetryCount, TimeSpan.FromSeconds(MaxRetryDelay), default)
       .CommandTimeout(CommandTimeout);
 
-  static DbContextOptionsBuilder<TContext> TrySetSqlContextOptions<TContext> (
+  static DbContextOptionsBuilder<TContext> SetSqlContextOptions<TContext> (
     this DbContextOptionsBuilder<TContext> builder,
     Action<DbContextOptionsBuilder>? setDbContextOptions)
     where TContext: DbContext
