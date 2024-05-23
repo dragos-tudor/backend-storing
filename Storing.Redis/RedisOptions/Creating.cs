@@ -15,7 +15,7 @@ partial class RedisFuncs
         DefaultDatabase = dbId,
         ClientName = clientName
       }
-      .TrySetConfigurationOptions(configOptions);
+      .SetConfigurationOptions(configOptions);
 
   public static ConfigurationOptions CreateConfigurationOptions(
     string userName,
@@ -31,7 +31,7 @@ partial class RedisFuncs
         DefaultDatabase = dbId,
         ClientName = clientName
       }
-      .TrySetConfigurationOptions(configOptions);
+      .SetConfigurationOptions(configOptions);
 
   public static RedisOptions CreateRedisOptions(
     ConfigurationOptions options,

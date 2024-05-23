@@ -5,9 +5,6 @@ namespace Storing.Redis;
 
 partial class RedisTests
 {
-  const string ImageName = "redis:7.2.3";
-  const string ContainerName = "storing-redis";
-
   static async Task<NetworkSettings> StartRedisContainer (
     int serverPort,
     string imageName,

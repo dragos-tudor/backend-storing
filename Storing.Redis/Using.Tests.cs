@@ -5,4 +5,8 @@ global using static Storing.Redis.RedisTests;
 namespace Storing.Redis;
 
 [TestClass]
-public sealed partial class RedisTests;
+public sealed partial class RedisTests
+{
+  [AssemblyInitialize]
+  public static void InitializeRedisServer(TestContext _) => StartRedisServer();
+}
