@@ -13,7 +13,12 @@ public partial class MongoDbTests
   [AssemblyInitialize]
   public static void InitializeMongeServer(TestContext _)
   {
-    StartMongoServer();
+    const string imageName = "mongo:4.2.24";
+    const string containerName = "storing-mongo";
+
+    const int serverPort = 27017;
+
+    MongoDbClient = StartMongoServer(imageName, containerName, serverPort);
     CleanMongoDatabase(MongoDbClient, MongoDatabaseName, MongoCollectionName);
   }
 }

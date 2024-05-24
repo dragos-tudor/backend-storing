@@ -3,17 +3,12 @@ namespace Storing.MongoDb;
 
 partial class MongoDbTests
 {
-  const string ImageName = "mongo:4.2.24";
-  const string ContainerName = "storing-mongo";
-
-  const int ServerPort = 27017;
-
-  static void StartMongoServer ()
+  static MongoClient StartMongoServer (string imageName, string containerName, int serverPort)
   {
-    var networkSettings = StartMongoContainer(ServerPort, ImageName, ContainerName);
+    var networkSettings = StartMongoContainer(serverPort, imageName, containerName);
     var serverIpAddress = GetServerIpAddress(networkSettings);
-    var connectionString = GetMongoConnectionString(serverIpAddress, ServerPort);
+    var connectionString = GetMongoConnectionString(serverIpAddress, serverPort);
 
-    MongoDbClient = CreateMongoClient(connectionString);
+    return CreateMongoClient(connectionString);
   }
 }
