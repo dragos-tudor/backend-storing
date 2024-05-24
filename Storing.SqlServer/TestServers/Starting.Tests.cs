@@ -3,18 +3,9 @@ namespace Storing.SqlServer;
 
 partial class SqlServerTests
 {
-  const string ContainerName = "storing-sql";
-  const string ImageName = "mcr.microsoft.com/mssql/server:2019-latest";
-
-  const string AdminName = "sa";
-  const string AdminPassword = "admin.P@ssw0rd";
-
-  const int ServerPort = 1433;
-  static string ServerIpAddress = string.Empty;
-
-  static void StartSqlServer()
+  static string StartSqlServer(string adminPassword, string imageName, string containerName, int serverPort)
   {
-    var networkSettings = StartSqlContainer(ServerPort, AdminPassword, ImageName, ContainerName);
-    ServerIpAddress = GetServerIpAddress(networkSettings);
+    var networkSettings = StartSqlContainer(serverPort, adminPassword, imageName, containerName);
+    return GetServerIpAddress(networkSettings);
   }
 }

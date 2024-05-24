@@ -3,9 +3,9 @@ namespace Storing.SqlServer;
 
 partial class SqlServerTests
 {
-  static void CleanEntitiesDatabase ()
+  static void CleanEntitiesDatabase (string connString)
   {
-    using var entitiesContext = CreateEntitiesContext();
+    using var entitiesContext = CreateEntitiesContext(connString);
     entitiesContext.Database.EnsureCreated();
     entitiesContext.Database.ExecuteSql($@"
       DELETE FROM AuthorBook;
@@ -14,9 +14,9 @@ partial class SqlServerTests
     );
   }
 
-  static void CleanQueriesDatabase ()
+  static void CleanQueriesDatabase (string connString)
   {
-    using var queriesContext = CreateQueriesContext();
+    using var queriesContext = CreateQueriesContext(connString);
     queriesContext.Database.EnsureCreated();
     queriesContext.Database.ExecuteSql($@"
       DELETE FROM Pages;
