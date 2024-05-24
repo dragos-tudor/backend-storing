@@ -1,20 +1,16 @@
 
+using StackExchange.Redis;
+
 namespace Storing.Redis;
 
 partial class RedisTests
 {
-  const string ImageName = "redis:7.2.3";
-  const string ContainerName = "storing-redis";
-
-  const string ClientName = "test";
-  const int ServerPort = 6379;
-
-  static void StartRedisServer ()
+  static IConnectionMultiplexer StartRedisServer (string clientName, string imageName, string containerName, int serverPort)
   {
-    var networkSettings = StartRedisContainer(ServerPort, ImageName, ContainerName);
+    var networkSettings = StartRedisContainer(serverPort, imageName, containerName);
     var serverIpAddress = GetServerIpAddress(networkSettings);
-    var endPoints = GetRedisEndpoints(serverIpAddress, ServerPort);
+    var endPoints = GetRedisEndpoints(serverIpAddress, serverPort);
 
-    RedisClient = CreateRedisClient(endPoints, ClientName);
+    return CreateRedisClient(endPoints, clientName);
   }
 }
