@@ -9,7 +9,7 @@ partial class MongoFuncs
     UpdateDefinition<T> updateDefinition,
     UpdateOptions? options = null,
     CancellationToken cancellationToken = default)
-    where T : Id {
+  {
       var filter = GetIdFilterDefinition<T>(document);
       return await collection.UpdateOneAsync(filter, updateDefinition, options, cancellationToken);
   }

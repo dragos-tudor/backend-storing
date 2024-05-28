@@ -5,9 +5,9 @@ partial class MongoFuncs
   static readonly ConcurrentDictionary<string, object> UpdateBuilders = new ();
 
   static UpdateDefinitionBuilder<T> GetUpdateBuilder<T> () =>
-    ((UpdateDefinitionBuilder<T>)UpdateBuilders
+    (UpdateDefinitionBuilder<T>)UpdateBuilders
       .GetOrAdd(typeof(T).Name, (key) =>
-        new UpdateDefinitionBuilder<T>()));
+        new UpdateDefinitionBuilder<T>());
 
   public static UpdateDefinition<T1> AddToSetEachDefinition<T1, T2> (
     FieldDefinition<T1, T2> field,

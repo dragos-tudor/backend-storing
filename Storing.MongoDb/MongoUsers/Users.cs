@@ -2,8 +2,10 @@
 
 namespace Storing.MongoDb;
 
-public record UserInfo : Id<string>
+// https://www.mongodb.com/docs/manual/reference/command/usersInfo/
+public record UserInfo
 {
+  public string Id { get; set; } = string.Empty;
   [BsonElement("userId")]
   public Guid UserId { get; set; }
   [BsonElement("user")]
@@ -14,6 +16,7 @@ public record UserInfo : Id<string>
   public UserRole[] Roles { get; set; } = [];
 }
 
+// https://www.mongodb.com/docs/manual/reference/command/rolesInfo/
 public record UserRole
 {
   [BsonElement("role")]

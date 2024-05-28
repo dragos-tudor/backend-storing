@@ -2,9 +2,9 @@
 namespace Storing.MongoDb;
 
 [BsonDiscriminator(discriminator: nameof(Discriminated), Required = true)]
-sealed record Discriminated: Id<string> { }
+sealed record Discriminated { public string Id { get; set; } = default!; }
 
-sealed record NonDiscriminated: Id<string> { }
+sealed record NonDiscriminated { public string Id { get; set; } = default!; }
 
 partial class MongoDbTests
 {
@@ -15,11 +15,11 @@ partial class MongoDbTests
     var discriminatedColl = GetMongoCollection<Discriminated>(db);
     var nonDiscriminatedColl = GetMongoCollection<NonDiscriminated>(db);
     var discriminated = new [] {
-      new Discriminated { _Id = Guid.NewGuid().ToString() },
-      new Discriminated { _Id = Guid.NewGuid().ToString() }
+      new Discriminated { Id = Guid.NewGuid().ToString() },
+      new Discriminated { Id = Guid.NewGuid().ToString() }
     };
     var nonDiscriminated = new [] {
-      new NonDiscriminated { _Id = Guid.NewGuid().ToString() },
+      new NonDiscriminated { Id = Guid.NewGuid().ToString() },
     };
 
     await InsertDocuments(discriminatedColl, discriminated);

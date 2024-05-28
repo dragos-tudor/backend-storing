@@ -2,8 +2,9 @@
 namespace Storing.MongoDb;
 
 [BsonDiscriminator(nameof(Order), Required = true)]
-sealed record Order : Id<string>
+sealed record Order
 {
+  public string Id { get; set; } = default!;
   public string text = string.Empty;
 }
 
@@ -15,12 +16,12 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var coll = GetMongoCollection<Order>(db);
     var query = coll.AsDiscriminable();
-    await InsertDocuments(coll, new [] {
-      new Order { _Id = Guid.NewGuid().ToString(), text = "1" },
-      new Order { _Id = Guid.NewGuid().ToString(), text = "0" },
-      new Order { _Id = Guid.NewGuid().ToString(), text = "3" },
-      new Order { _Id = Guid.NewGuid().ToString(), text = "2" }
-    });
+    await InsertDocuments(coll, [
+      new Order { Id = Guid.NewGuid().ToString(), text = "1" },
+      new Order { Id = Guid.NewGuid().ToString(), text = "0" },
+      new Order { Id = Guid.NewGuid().ToString(), text = "3" },
+      new Order { Id = Guid.NewGuid().ToString(), text = "2" }
+    ]);
 
     Expression<Func<Order, string>> exp = x => x.text;
     AreEqual([ "0", "1", "2", "3" ], await query.Order(true, exp).Select(exp).ToListAsync());

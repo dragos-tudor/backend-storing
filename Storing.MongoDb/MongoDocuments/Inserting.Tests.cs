@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-sealed record Insert: Id<string> { }
+sealed record Insert { public string Id { get; set; } = default!; }
 
 partial class MongoDbTests
 {
@@ -12,11 +12,11 @@ partial class MongoDbTests
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Insert>(db);
 
-    await InsertDocument(coll, new Insert{ _Id = id });
+    await InsertDocument(coll, new Insert{ Id = id });
 
     var actual = await coll
       .AsQueryable()
-      .FirstOrDefaultAsync(x => x._Id == id);
+      .FirstOrDefaultAsync(x => x.Id == id);
     Assert.IsNotNull(actual);
   }
 }

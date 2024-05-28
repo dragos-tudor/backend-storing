@@ -1,8 +1,9 @@
 
 namespace Storing.MongoDb;
 
-sealed record Replace: Id<string>
+sealed record Replace
 {
+  public string Id { get; set; } = default!;
   public string rtext = string.Empty;
 }
 
@@ -15,13 +16,13 @@ partial class MongoDbTests
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Replace>(db);
 
-    await InsertDocument(coll, new Replace{ _Id = id, rtext = "a" });
-    await ReplaceDocument(coll, new Replace{ _Id = id, rtext = "2" });
+    await InsertDocument(coll, new Replace{ Id = id, rtext = "a" });
+    await ReplaceDocument(coll, new Replace{ Id = id, rtext = "2" });
 
     var actual = await
       coll
       .AsQueryable()
-      .FirstOrDefaultAsync(document => document._Id == id);
+      .FirstOrDefaultAsync(document => document.Id == id);
     Assert.AreEqual("2", actual.rtext);
   }
 }

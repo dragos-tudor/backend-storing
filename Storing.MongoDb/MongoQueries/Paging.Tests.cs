@@ -2,8 +2,9 @@
 namespace Storing.MongoDb;
 
 [BsonDiscriminator(nameof(Page), Required = true)]
-sealed record Page : Id<string>
+sealed record Page
 {
+  public string Id { get; set; } = default!;
   public string text = string.Empty;
 }
 
@@ -15,12 +16,12 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var coll = GetMongoCollection<Page>(db);
     var query = coll.AsDiscriminable();
-    await InsertDocuments(coll, new [] {
-      new Page { _Id = Guid.NewGuid().ToString(), text = "0" },
-      new Page { _Id = Guid.NewGuid().ToString(), text = "1" },
-      new Page { _Id = Guid.NewGuid().ToString(), text = "2" },
-      new Page { _Id = Guid.NewGuid().ToString(), text = "3" }
-    });
+    await InsertDocuments(coll, [
+      new Page { Id = Guid.NewGuid().ToString(), text = "0" },
+      new Page { Id = Guid.NewGuid().ToString(), text = "1" },
+      new Page { Id = Guid.NewGuid().ToString(), text = "2" },
+      new Page { Id = Guid.NewGuid().ToString(), text = "3" }
+    ]);
 
     AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.text).ToListAsync());
     AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.text).ToListAsync());

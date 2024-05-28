@@ -8,8 +8,8 @@ partial class MongoFuncs
     T document,
     DeleteOptions? options = null,
     CancellationToken cancellationToken = default)
-    where T: Id {
-      var filter = GetIdFilterDefinition<T>(document);
-      return await collection.DeleteOneAsync(filter, options, cancellationToken);
-    }
+  {
+    var filter = GetIdFilterDefinition(document);
+    return await collection.DeleteOneAsync(filter, options, cancellationToken);
+  }
 }

@@ -2,8 +2,9 @@
 namespace Storing.MongoDb;
 
 [BsonDiscriminator(nameof(Filter), Required = true)]
-sealed record Filter : Id<string>
+sealed record Filter
 {
+  public string Id { get; set; } = default!;
   public int @int;
   public string text = string.Empty;
   public bool? @bool;
@@ -20,9 +21,9 @@ partial class MongoDbTests
     var query = coll.AsDiscriminable();
     var dates = new [] { new DateTime(2022, 07, 01), new DateTime(2022, 07, 02) };
     await InsertDocuments(coll, [
-      new Filter { _Id = Guid.NewGuid().ToString(), @int = 0, text = "a", @bool = true, date = dates[0] },
-      new Filter { _Id = Guid.NewGuid().ToString(), @int = 1, text = "ab", @bool = false, date = dates[1] },
-      new Filter { _Id = Guid.NewGuid().ToString(), @int = 2, text = "abc" }
+      new Filter { Id = Guid.NewGuid().ToString(), @int = 0, text = "a", @bool = true, date = dates[0] },
+      new Filter { Id = Guid.NewGuid().ToString(), @int = 1, text = "ab", @bool = false, date = dates[1] },
+      new Filter { Id = Guid.NewGuid().ToString(), @int = 2, text = "abc" }
     ]);
 
     Func<int?, Expression<Func<Filter, bool>>> filterInt = val => x => x.@int >= val;

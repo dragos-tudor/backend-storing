@@ -1,21 +1,24 @@
 
 namespace Storing.MongoDb;
 
-sealed record Item: Id<int> {}
+sealed record Item { public int Id { get; set; } }
 
-sealed record Update1: Id<string>
+sealed record Update1
 {
-  public string u1str = string.Empty;
+  public string Id { get; set; } = default!;
+  public string u1str = default!;
   public int u1int;
 }
 
-sealed record Update2: Id<string>
+sealed record Update2
 {
+  public string Id { get; set; } = default!;
   public int[] u2coll = [];
 }
 
-sealed record Update3: Id<string>
+sealed record Update3
 {
+  public string Id { get; set; } = default!;
   public Item[] u3coll = [];
 }
 
@@ -28,7 +31,7 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Update1>(db);
-    var original = new Update1 { _Id = id, u1str = "a" };
+    var original = new Update1 { Id = id, u1str = "a" };
     var modified = new { text1 = "b" };
 
     await InsertDocument(coll, original);
@@ -36,7 +39,7 @@ partial class MongoDbTests
 
     var actual = await coll
       .AsQueryable()
-      .FirstAsync(x => x._Id == id);
+      .FirstAsync(x => x.Id == id);
     Assert.AreEqual("b", actual.u1str);
   }
 
@@ -46,7 +49,7 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Update1>(db);
-    var original = new Update1 { _Id = id, u1str = "a", u1int = 1 };
+    var original = new Update1 { Id = id, u1str = "a", u1int = 1 };
     var modified = new { text1 = "b", int1 = 2 };
 
     await InsertDocument(coll, original);
@@ -57,7 +60,7 @@ partial class MongoDbTests
 
     var actual = await coll
       .AsQueryable()
-      .FirstAsync(x => x._Id == id);
+      .FirstAsync(x => x.Id == id);
     Assert.AreEqual("b", actual.u1str);
   }
 
@@ -67,7 +70,7 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Update2>(db);
-    var original = new Update2 { _Id = id, u2coll = [1] };
+    var original = new Update2 { Id = id, u2coll = [1] };
     var modified = new { coll2 = new int[] { 2, 3 } };
 
     await InsertDocument(coll, original);
@@ -75,7 +78,7 @@ partial class MongoDbTests
 
     var actual = await coll
       .AsQueryable()
-      .FirstAsync(x => x._Id == id);
+      .FirstAsync(x => x.Id == id);
     AreEqual([1, 2, 3], actual.u2coll);
   }
 
@@ -85,7 +88,7 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Update2>(db);
-    var original = new Update2 { _Id = id, u2coll = [1, 2, 3] };
+    var original = new Update2 { Id = id, u2coll = [1, 2, 3] };
     var modified = new { coll2 = new int[] { 2, 3 } };
 
     await InsertDocument(coll, original);
@@ -93,7 +96,7 @@ partial class MongoDbTests
 
     var actual = await coll
       .AsQueryable()
-      .FirstAsync(x => x._Id == id);
+      .FirstAsync(x => x.Id == id);
     AreEqual([1], actual.u2coll);
   }
 
@@ -103,16 +106,16 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Update3>(db);
-    var original = new Update3 { _Id = id, u3coll = [new () { _Id = 1 }] };
-    var modified = new { coll3 = new Item[] { new() { _Id = 2 }, new() { _Id = 3 } } };
+    var original = new Update3 { Id = id, u3coll = [new () { Id = 1 }] };
+    var modified = new { coll3 = new Item[] { new() { Id = 2 }, new() { Id = 3 } } };
 
     await InsertDocument(coll, original);
     await UpdateDocument(coll, original, AddToSetEachDefinition<Update3, Item>(nameof(Update3.u3coll), modified.coll3));
 
     var actual = await coll
       .AsQueryable()
-      .FirstAsync(x => x._Id == id);
-    AreEqual([1, 2, 3], actual.u3coll.Select(x => x._Id).ToArray());
+      .FirstAsync(x => x.Id == id);
+    AreEqual([1, 2, 3], actual.u3coll.Select(x => x.Id).ToArray());
   }
 
   [TestMethod]
@@ -121,16 +124,16 @@ partial class MongoDbTests
     var db = GetMongoDatabase();
     var id = Guid.NewGuid().ToString();
     var coll = GetMongoCollection<Update3>(db);
-    var original = new Update3 { _Id = id, u3coll = [new() { _Id = 1 }, new() { _Id = 2 }, new() { _Id = 3 }] };
-    var modified = new { coll3 = new Item[] { new() { _Id = 2 }, new() { _Id = 3 } } };
+    var original = new Update3 { Id = id, u3coll = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }] };
+    var modified = new { coll3 = new Item[] { new() { Id = 2 }, new() { Id = 3 } } };
 
     await InsertDocument(coll, original);
     await UpdateDocument(coll, original, PullAllDefinition<Update3, Item>(nameof(Update3.u3coll), modified.coll3));
 
     var actual = await coll
       .AsQueryable()
-      .FirstAsync(x => x._Id == id);
-    AreEqual([1], actual.u3coll.Select(x => x._Id));
+      .FirstAsync(x => x.Id == id);
+    AreEqual([1], actual.u3coll.Select(x => x.Id));
   }
 
 }
