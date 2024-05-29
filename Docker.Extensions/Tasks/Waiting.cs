@@ -4,7 +4,7 @@ namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  internal static async Task WaitWhileAsync(
+  public static async Task WaitWhileAsync(
     Func<Task<bool>> wait,
     TimeSpan retryAfter,
     CancellationToken cancellationToken = default)
@@ -19,7 +19,7 @@ partial class DockerFuncs
     }
   }
 
-  internal static async Task WaitUntilAsync(
+  public static async Task WaitUntilAsync(
     Func<Task<bool>> wait,
     TimeSpan retryAfter,
     CancellationToken cancellationToken = default)
