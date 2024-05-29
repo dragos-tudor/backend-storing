@@ -11,7 +11,7 @@ partial class DockerFuncs
     int port,
     CancellationToken cancellationToken = default)
   {
-    var retryAfter = TimeSpan.FromMicroseconds(500);
+    var retryAfter = TimeSpan.FromMilliseconds(1000);
     var verifyOpenPortCommand = GetVerifyOpenPortCommand(port);
 
     await WaitUntilAsync(async () =>
