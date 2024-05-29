@@ -119,7 +119,7 @@
   // modify book document props
   var id = Guid.NewGuid().ToString();
   var books = GetCollection<Book>(db, "books");
-  var original = new Book { _id = id, BookName = "a", ReleaseYear = 2023 };
+  var original = new Book { Id = id, BookName = "a", ReleaseYear = 2023 };
   var modified = new { BookName = "b", ReleaseYear = 2024 };
 
   await InsertDocument(books, original);
@@ -130,7 +130,7 @@
 
   var actual = await books
     .AsQueryable()
-    .FirstAsync(x => x._id == id);
+    .FirstAsync(x => x.Id == id);
   Assert.AreEqual("b", actual.BookName);
   Assert.AreEqual(2024, actual.ReleaseYear);
 
@@ -148,18 +148,18 @@
 
   // work with discriminated documents on same collection
   [BsonDiscriminator(discriminator: nameof(Discriminated), Required = true)]
-  record Discriminated: Id<string> { }
+  record Discriminated { public string Id { get; set; } = string.Empty; }
 
-  record NonDiscriminated: Id<string> { }
+  record NonDiscriminated { public string Id { get; set; } = string.Empty; }
 
   var discriminatedColl = GetCollection<Discriminated>(db, "test");
   var nonDiscriminatedColl = GetCollection<NonDiscriminated>(db, "test");
   var discriminated = new [] {
-    new Discriminated { _id = Guid.NewGuid().ToString() },
-    new Discriminated { _id = Guid.NewGuid().ToString() }
+    new Discriminated { Id = Guid.NewGuid().ToString() },
+    new Discriminated { Id = Guid.NewGuid().ToString() }
   };
   var nonDiscriminated = new [] {
-    new NonDiscriminated { _id = Guid.NewGuid().ToString() },
+    new NonDiscriminated { Id = Guid.NewGuid().ToString() },
   };
 
   await InsertDocuments(discriminatedColl, discriminated);
