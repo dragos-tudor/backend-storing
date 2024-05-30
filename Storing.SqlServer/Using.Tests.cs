@@ -10,19 +10,12 @@ public partial class SqlServerTests
   [AssemblyInitialize]
   public static void InitializeSqlServer(TestContext _)
   {
-    const string adminName = "sa";
-    const string adminPassword = "admin.P@ssw0rd";
-    const string containerName = "storing-sql";
-    const string imageName = "mcr.microsoft.com/mssql/server:2019-latest";
-    const int serverPort = 1433;
+    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    var cancellationToken = cancellationTokenSource.Token;
 
-    var serverAddress = StartSqlServer(adminPassword, imageName, containerName, serverPort);
-
-    EntitiesConnString = CreateSqlConnectionString("entities", adminName, adminPassword, serverAddress);
-    QueriesConnString = CreateSqlConnectionString("queries", adminName, adminPassword, serverAddress);
-    TrackingConnString = CreateSqlConnectionString("tracking", adminName, adminPassword, serverAddress);
-
-    CleanEntitiesDatabase(EntitiesConnString);
-    CleanQueriesDatabase(QueriesConnString);
+    RunSynchronously(() =>
+      InitializeSqlServer(
+        "sa", "admin.P@ssw0rd", "mcr.microsoft.com/mssql/server:2019-latest",
+        "storing-sql", 1433, cancellationToken));
   }
 }

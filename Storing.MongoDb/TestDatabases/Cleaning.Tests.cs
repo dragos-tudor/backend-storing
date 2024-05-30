@@ -3,10 +3,10 @@ namespace Storing.MongoDb;
 
 partial class MongoDbTests
 {
-  static void CleanMongoDatabase (MongoClient client, string dbName, params string[] collections)
+  static void CleanMongoDatabase (MongoClient client, string dbName, params string[] collNames)
   {
     var database = client.GetDatabase(dbName);
-    CleanupCollections(database, collections);
+    CleanMongoCollections(database, collNames);
     DropAllUsers(database, CreateDropAllUsersCommand());
   }
 }

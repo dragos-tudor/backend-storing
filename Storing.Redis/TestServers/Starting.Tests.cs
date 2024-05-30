@@ -1,16 +1,16 @@
 
-using StackExchange.Redis;
+using System.Threading;
 
 namespace Storing.Redis;
 
 partial class RedisTests
 {
-  static IConnectionMultiplexer StartRedisServer (string clientName, string imageName, string containerName, int serverPort)
+  public static async Task<string> StartRedisServer (string imageName, string containerName, int serverPort, CancellationToken cancellationToken = default)
   {
-    var networkSettings = StartRedisContainer(serverPort, imageName, containerName);
-    var serverIpAddress = GetServerIpAddress(networkSettings);
-    var endPoints = GetRedisEndpoints(serverIpAddress, serverPort);
+    using var client = CreateDockerClient();
+    var container = await UseContainerAsync(client, imageName, containerName, default, cancellationToken);
 
-    return CreateRedisClient(endPoints, clientName);
+    await WaitForOpenPortWtihBash(client.Exec, container.ID, serverPort, cancellationToken);
+    return GetNetworkIpAddress(container.NetworkSettings);
   }
 }

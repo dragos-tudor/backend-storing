@@ -5,7 +5,7 @@ namespace Storing.SqlServer;
 
 partial class SqlServerTests
 {
-  static void SetConectionStringBuilder (SqlConnectionStringBuilder builder) {
+  static void SetSqlConectionStringBuilder (SqlConnectionStringBuilder builder) {
     builder.ConnectTimeout = 3;
     builder.TrustServerCertificate = true;
   }

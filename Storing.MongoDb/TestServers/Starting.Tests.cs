@@ -3,12 +3,12 @@ namespace Storing.MongoDb;
 
 partial class MongoDbTests
 {
-  static MongoClient StartMongoServer (string imageName, string containerName, int serverPort)
+  static async Task<string> StartMongoServer (string imageName, string containerName, int serverPort, CancellationToken cancellationToken = default)
   {
-    var networkSettings = StartMongoContainer(serverPort, imageName, containerName);
-    var serverIpAddress = GetServerIpAddress(networkSettings);
-    var connectionString = GetMongoConnectionString(serverIpAddress, serverPort);
+    using var client = CreateDockerClient();
+    var container = await UseContainerAsync(client, imageName, containerName, default, cancellationToken);
 
-    return CreateMongoClient(connectionString);
+    await WaitForOpenPortWtihBash(client.Exec, container.ID, serverPort, cancellationToken);
+    return GetNetworkIpAddress(container.NetworkSettings);
   }
 }
