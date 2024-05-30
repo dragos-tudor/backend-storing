@@ -1,20 +1,19 @@
-using System.Threading;
 
 namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  static async Task<string> CreateContainerAsync(
+  static async Task<string> CreateContainerAsync (
     IContainerOperations containers,
     string imageName,
     string containerName,
-    Action<CreateContainerParameters>? setContainerParams = default,
+    Action<CreateContainerParameters>? setCreateContainerParameters = default,
     CancellationToken cancellationToken = default)
   {
-    var createContainerParams = new CreateContainerParameters() { Image = imageName, Name = containerName };
-    setContainerParams?.Invoke(createContainerParams);
+    var createContainerParameters = new CreateContainerParameters() { Image = imageName, Name = containerName };
+    if (setCreateContainerParameters is not null) setCreateContainerParameters(createContainerParameters);
 
-    var containerCreated = await containers.CreateContainerAsync(createContainerParams, cancellationToken);
+    var containerCreated = await containers.CreateContainerAsync(createContainerParameters, cancellationToken);
     return containerCreated.ID;
   }
 }

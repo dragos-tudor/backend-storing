@@ -7,7 +7,7 @@ partial class DockerFuncs
   public const string UnixEndpointUri = "unix:///var/run/docker.sock";
   public const string WindowsEndpointUri = "npipe://./pipe/docker_engine";
 
-  public static DockerClient CreateDockerClient(Uri? uri = default) =>
+  public static IDockerClient CreateDockerClient(Uri? uri = default) =>
     new DockerClientConfiguration(uri ?? new Uri(HttpEndpointUri))
       .CreateClient();
 }

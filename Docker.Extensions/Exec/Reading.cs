@@ -1,4 +1,3 @@
-using System.Threading;
 
 namespace Docker.Extensions;
 
@@ -10,7 +9,6 @@ partial class DockerFuncs
     CancellationToken cancellationToken = default)
   {
     using var stdOutAndErrStream = await exec.StartAndAttachContainerExecAsync(execId, false, cancellationToken);
-
     return await stdOutAndErrStream.ReadOutputToEndAsync(cancellationToken);
   }
 }

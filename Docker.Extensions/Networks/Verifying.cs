@@ -3,5 +3,5 @@ namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  static bool ExistNetwork (NetworkResponse? networkResponse) => networkResponse is not null;
+  internal static bool ExistNetwork<T>(T? network) where T: class => network is not null;
 }

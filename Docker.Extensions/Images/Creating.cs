@@ -1,4 +1,3 @@
-using System.Threading;
 
 namespace Docker.Extensions;
 
@@ -9,8 +8,9 @@ partial class DockerFuncs
     string imageName,
     CancellationToken cancellationToken = default)
   {
-    var image = await InspectImageAsync(images, imageName, cancellationToken);
-    if(IsExistingImage(image)) return false;
+    var imageList = await ListImagesAsync(images, cancellationToken);
+    var imageListItem = GetImage(imageList, imageName);
+    if(ExistImage(imageListItem)) return false;
 
     var errorLogger = GetDockerErrorLogger();
     var createImageProgress = new Progress<JSONMessage>(errorLogger);

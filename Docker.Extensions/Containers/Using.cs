@@ -1,32 +1,24 @@
-using System.Threading;
 
 namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  public static async Task<string> UseContainerAsync(
-    IContainerOperations containers,
+  public static async Task<ContainerInspectResponse> UseContainerAsync (
+    IDockerClient client,
     string imageName,
     string containerName,
-    Action<CreateContainerParameters>? setContainerParams = default,
+    Action<CreateContainerParameters>? setCreateContainerParameters = default,
     CancellationToken cancellationToken = default)
   {
-    var container = await InspectContainerAsync(containers, containerName, cancellationToken);
+    await CreateDockerImageAsync(client.Images, imageName, cancellationToken);
 
-    if(!IsExistingContainer(container))
-    {
-      var containerId = await CreateContainerAsync(containers, imageName, containerName, setContainerParams, cancellationToken);
-      return await StartContainerAsync(containers, containerId, cancellationToken);
-    }
-    if(IsPausedContainer(container!.State))
-      return await UnpauseContainerAsync(containers, container!.ID, cancellationToken);
-    if(IsKilledContainer(container!.State))
-      return await StartContainerAsync(containers, container!.ID, cancellationToken);
-    if(IsDeadContainer(container!.State))
-      return await StartContainerAsync(containers, container!.ID, cancellationToken);
-    if(IsRunningContainer(container!.State))
-      return container!.ID;
+    var containerList = await ListContainersAsync(client.Containers, cancellationToken);
+    var containerListItem = GetContainer(containerList, containerName);
+    if(!ExistContainer(containerListItem))
+      await CreateContainerAsync(client.Containers, imageName, containerName, setCreateContainerParameters, cancellationToken);
 
-    return await StartContainerAsync(containers, container!.ID, cancellationToken);
+    var containerInspect = await InspectContainerAsync(client.Containers, containerName, cancellationToken);
+    var containerId = await StartContainerAsync(client.Containers, containerInspect!, cancellationToken);
+    return (await InspectContainerAsync(client.Containers, containerId, cancellationToken))!;
   }
 }

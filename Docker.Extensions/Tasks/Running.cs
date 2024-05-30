@@ -1,7 +1,5 @@
 #pragma warning disable CA1031
 
-using System.Threading;
-
 namespace Docker.Extensions;
 
 partial class DockerFuncs
@@ -13,7 +11,7 @@ partial class DockerFuncs
 
     var task = async () => {
       try { result = await func(); }
-      catch(Exception ex) { LogException(ex); }
+      catch (Exception ex) { LogException(ex); }
       finally { autoResetEvent.Set(); }
     };
     var thread = new Thread(() => task());

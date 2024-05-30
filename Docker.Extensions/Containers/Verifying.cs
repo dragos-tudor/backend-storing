@@ -2,7 +2,7 @@ namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  static bool IsExistingContainer<T>(T? container) where T: class => container is not null;
+  static bool ExistContainer<T>(T? container) where T: class => container is not null;
 
   static bool IsPausedContainer(ContainerState state) => state.Paused;
 
