@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   static readonly ConcurrentDictionary<string, object> UpdateBuilders = new ();
 

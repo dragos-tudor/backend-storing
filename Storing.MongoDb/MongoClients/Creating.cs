@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static MongoClient CreateMongoClient (string connection, Func<MongoUrlBuilder, MongoUrlBuilder>? setUrlBuilder = null)
   {

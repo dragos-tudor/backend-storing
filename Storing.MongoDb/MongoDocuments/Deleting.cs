@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static async Task<DeleteResult> DeleteDocument<T> (
     IMongoCollection<T> collection,

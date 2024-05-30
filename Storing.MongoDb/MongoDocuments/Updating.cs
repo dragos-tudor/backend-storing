@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static async Task<UpdateResult> UpdateDocument<T> (
     IMongoCollection<T> collection,

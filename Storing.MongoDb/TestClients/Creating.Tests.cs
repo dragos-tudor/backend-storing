@@ -11,5 +11,5 @@ partial class MongoDbTests
   }
 
   static MongoClient CreateMongoClient (string connString) =>
-    MongoFuncs.CreateMongoClient(connString, SetMongoUrlBuilder);
+    MongoDbFuncs.CreateMongoClient(connString, SetMongoUrlBuilder);
 }

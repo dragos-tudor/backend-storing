@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   [ExcludeFromCodeCoverage]
   internal static T2 RunCommand<T1, T2> (

@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static IMongoQueryable<T> AsDiscriminable<T> (this IMongoCollection<T> coll) =>
     coll

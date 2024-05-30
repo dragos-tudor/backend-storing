@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static void MapUserClassTypes () {
     BsonClassMap.RegisterClassMap<UserInfo>(MapClassType);

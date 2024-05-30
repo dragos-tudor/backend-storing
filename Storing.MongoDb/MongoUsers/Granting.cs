@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static GrantRolesToUserCommand CreateGrantRolesToUserCommand (
     string userName,

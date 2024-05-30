@@ -12,8 +12,8 @@ global using MongoDB.Bson.Serialization;
 global using MongoDB.Bson.Serialization.Attributes;
 global using MongoDB.Driver;
 global using MongoDB.Driver.Linq;
-global using static Storing.MongoDb.MongoFuncs;
+global using static Storing.MongoDb.MongoDbFuncs;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoFuncs {}
+public static partial class MongoDbFuncs {}

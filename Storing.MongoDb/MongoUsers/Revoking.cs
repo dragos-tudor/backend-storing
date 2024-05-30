@@ -1,7 +1,7 @@
 
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static RevokeRolesFromUserCommand CreateRevokeRolesFromUserCommand (
     string userName,

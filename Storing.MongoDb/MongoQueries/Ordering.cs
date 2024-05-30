@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static IMongoQueryable<T1> Order<T1, T2>(
     this IMongoQueryable<T1> source,

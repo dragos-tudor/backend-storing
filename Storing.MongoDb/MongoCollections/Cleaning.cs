@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
   public static DeleteResult CleanMongoCollection (IMongoDatabase db, string collName) =>
     db

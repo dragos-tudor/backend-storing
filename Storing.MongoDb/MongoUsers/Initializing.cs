@@ -1,6 +1,6 @@
 namespace Storing.MongoDb;
 
-partial class MongoFuncs
+partial class MongoDbFuncs
 {
-  static MongoFuncs() => MapUserClassTypes();
+  static MongoDbFuncs() => MapUserClassTypes();
 }
