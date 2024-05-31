@@ -13,7 +13,10 @@ partial class DockerTests
     var cancellationToken = cancellationTokenSource.Token;
 
     using var client = CreateDockerClient();
-    var container = await UseContainerAsync(client, imageName, containerName, default, cancellationToken);
+    Action<CreateContainerParameters> setCreateContainerParameters = (@params) => {
+      @params.HostConfig = new HostConfig() { NetworkMode = "storing-network" };
+    };
+    var container = await UseContainerAsync(client, imageName, containerName, setCreateContainerParameters, cancellationToken);
 
     await WaitForOpenPortWtihNetCat(client.Exec, container.ID, 80, cancellationToken);
   }

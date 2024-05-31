@@ -15,10 +15,11 @@
 	"runArgs": [
 		"--name=backend-storing",
 		"--hostname=storing",
-		"--net=host"
+		"--net=storing-network"
 	],
   "containerEnv": {
-    "DOCKER_PORT": "${localEnv:DOCKER_PORT:2375}"
+    "DOCKER_HOST_PORT": "${localEnv:DOCKER_HOST_PORT:2375}",
+    "DOCKER_HOST_GATEWAY": "${localEnv:DOCKER_HOST_GATEWAY:172.17.0.1}"
   },
 	"remoteUser": "vscode"
 }

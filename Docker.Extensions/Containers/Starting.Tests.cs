@@ -13,7 +13,10 @@ partial class DockerTests
     using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
     var cancellationToken = cancellationTokenSource.Token;
 
-    Action<CreateContainerParameters> setCreateContainerParameters = (@params) => @params.Entrypoint = GetKeepRunningContainerCommand();
+    Action<CreateContainerParameters> setCreateContainerParameters = (@params) => {
+      @params.Entrypoint = GetKeepRunningContainerCommand();
+      @params.HostConfig = new HostConfig() { NetworkMode = "storing-network" };
+    };
     var container = await UseContainerAsync(client, imageName, containerName, setCreateContainerParameters, cancellationToken);
     var container1 = await InspectContainerAsync(client.Containers, container.ID, cancellationToken);
     Assert.IsTrue(container1.State.Running);

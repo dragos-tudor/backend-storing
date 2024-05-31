@@ -8,7 +8,7 @@ partial class DockerTests
   {
     using var client = CreateDockerClient();
     using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-    const string networkName = "storing-network";
+    const string networkName = "storing-network-test";
     var cancellationToken = cancellationTokenSource.Token;
 
     var networkList = await ListNetworksAsync(client.Networks, cancellationToken);

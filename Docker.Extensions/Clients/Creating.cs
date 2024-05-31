@@ -3,7 +3,7 @@ namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  public static readonly string HttpEndpointUri = $"http://localhost:{Environment.GetEnvironmentVariable("DOCKER_PORT")}";
+  public static readonly string HttpEndpointUri = $"http://{Environment.GetEnvironmentVariable("DOCKER_HOST_GATEWAY")}:{Environment.GetEnvironmentVariable("DOCKER_HOST_PORT")}";
   public const string UnixEndpointUri = "unix:///var/run/docker.sock";
   public const string WindowsEndpointUri = "npipe://./pipe/docker_engine";
 
