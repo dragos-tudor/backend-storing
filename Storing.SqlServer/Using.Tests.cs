@@ -10,12 +10,14 @@ public partial class SqlServerTests
   [AssemblyInitialize]
   public static void InitializeSqlServer(TestContext _)
   {
-    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+    using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(10));
     var cancellationToken = cancellationTokenSource.Token;
 
     RunSynchronously(() =>
       InitializeSqlServer(
-        "sa", "admin.P@ssw0rd", "mcr.microsoft.com/mssql/server:2019-latest",
-        "storing-sql", 1433, cancellationToken));
+        "sa", "admin.P@ssw0rd",
+        "mcr.microsoft.com/mssql/server:2019-latest", "storing-sql",
+        "storing-network", 1433,
+        cancellationToken));
   }
 }

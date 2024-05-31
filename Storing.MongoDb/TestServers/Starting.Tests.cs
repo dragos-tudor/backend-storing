@@ -1,14 +1,23 @@
 
+using Docker.DotNet.Models;
+
 namespace Storing.MongoDb;
 
 partial class MongoDbTests
 {
-  static async Task<string> StartMongoServer (string imageName, string containerName, int serverPort, CancellationToken cancellationToken = default)
+  static async Task<ContainerInspectResponse> StartMongoServer (
+    string imageName, string containerName,
+    string networkName, int serverPort,
+    CancellationToken cancellationToken = default)
   {
     using var client = CreateDockerClient();
-    var container = await UseContainerAsync(client, imageName, containerName, default, cancellationToken);
+    Action<CreateContainerParameters> setCreateContainerParameters = (@params) => {
+      @params.Hostname = containerName;
+      @params.HostConfig = new HostConfig() { NetworkMode = networkName };
+    };
+    var container = await UseContainerAsync(client, imageName, containerName, setCreateContainerParameters, cancellationToken);
 
     await WaitForOpenPortWtihBash(client.Exec, container.ID, serverPort, cancellationToken);
-    return GetNetworkIpAddress(container.NetworkSettings);
+    return container;
   }
 }

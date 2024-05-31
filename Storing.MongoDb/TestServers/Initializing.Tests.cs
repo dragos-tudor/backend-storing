@@ -1,16 +1,22 @@
 
+using Docker.DotNet.Models;
+
 namespace Storing.MongoDb;
 
 public partial class MongoDbTests
 {
-  public static async Task<string> InitializeMongoServer (string imageName, string containerName, string databaseName, string collName, int serverPort, CancellationToken cancellationToken = default)
+  public static async Task<ContainerInspectResponse> InitializeMongoServer (
+    string imageName, string containerName,
+    string databaseName, string collName,
+    string networkName, int serverPort,
+    CancellationToken cancellationToken = default)
   {
-    var networkAddress = await StartMongoServer(imageName, containerName, serverPort, cancellationToken);
-    var connectionString = GetMongoConnectionString(networkAddress, serverPort);
+    var container = await StartMongoServer(imageName, containerName, networkName, serverPort, cancellationToken);
+    var connectionString = GetMongoConnectionString(containerName, serverPort);
     var mongoClient = CreateMongoClient(connectionString);
 
     CleanMongoDatabase(mongoClient, databaseName, collName);
     MongoDbClient = mongoClient;
-    return connectionString;
+    return container;
   }
 }

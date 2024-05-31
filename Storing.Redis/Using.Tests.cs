@@ -15,6 +15,9 @@ public sealed partial class RedisTests
     var cancellationToken = cancellationTokenSource.Token;
 
     RunSynchronously(() =>
-      InitializeRedisServer("redis:7.2.3", "storing-redis", "test", 6379, cancellationToken));
+      InitializeRedisServer(
+        "redis:7.2.3", "storing-redis", "test",
+        "storing-network", 6379,
+        cancellationToken));
   }
 }

@@ -19,6 +19,8 @@ public partial class MongoDbTests
     RunSynchronously(() =>
       InitializeMongoServer(
         "mongo:4.2.24", "storing-mongo",
-        DatabaseName, CollectionName, 27017, cancellationToken));
+        DatabaseName, CollectionName,
+        "storing-network", 27017,
+        cancellationToken));
   }
 }
