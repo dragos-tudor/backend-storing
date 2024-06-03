@@ -7,6 +7,9 @@ namespace Storing.SqlServer;
 [TestClass]
 public partial class SqlServerTests
 {
+  static readonly string EntitiesConnString = CreateSqlConnectionString("entities", "sa", "admin.P@ssw0rd", "storing-sql");
+  static readonly string QueriesConnString = CreateSqlConnectionString("queries", "sa", "admin.P@ssw0rd", "storing-sql");
+
   [AssemblyInitialize]
   public static void InitializeSqlServer(TestContext _)
   {

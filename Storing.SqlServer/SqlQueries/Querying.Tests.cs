@@ -26,7 +26,7 @@ partial class SqlServerTests
       new() { BookName = "Bietul Ioanide", Authors = [authors[1]] },
       new() { BookName = "Scrinul negru", Authors = [authors[1]] }
     ];
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext(EntitiesConnString);
     foreach(var book in books)
       AddEntity(dbContext, book);
 

@@ -3,9 +3,9 @@ namespace Storing.SqlServer;
 
 partial class SqlServerTests
 {
-  static EntitiesContext CreateEntitiesContext (string? connString = default) => new (CreateSqlContextOptions<EntitiesContext>(connString ?? EntitiesConnString));
+  static EntitiesContext CreateEntitiesContext (string connString) => new (CreateSqlContextOptions<EntitiesContext>(connString));
 
-  static QueriesContext CreateQueriesContext (string? connString = default) => new (CreateSqlContextOptions<QueriesContext>(connString ?? QueriesConnString));
+  static QueriesContext CreateQueriesContext (string connString) => new (CreateSqlContextOptions<QueriesContext>(connString));
 
-  static TrackingContext CreateTrackingContext (string? connString = default) => new (CreateSqlContextOptions<TrackingContext>(connString ?? TrackingConnString));
+  static TrackingContext CreateTrackingContext () => new (CreateSqlContextOptions<TrackingContext>(""));
 }

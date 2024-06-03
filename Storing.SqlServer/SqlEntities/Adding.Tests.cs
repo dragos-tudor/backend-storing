@@ -8,7 +8,7 @@ partial class SqlServerTests
   {
     var author = new Author{ };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     AddEntity(dbContext, author);
 
     Assert.AreEqual(EntityState.Added, dbContext.Entry(author).State);
@@ -20,7 +20,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 0 };
     var author = new Author { Books = [book] };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     AddEntity(dbContext, author);
 
     Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
@@ -33,7 +33,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 1 };
     var author = new Author { Books = [book] };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     AddEntity(dbContext, author);
 
     Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);

@@ -13,7 +13,7 @@ partial class SqlServerTests
       new Order { Text = "2" },
     };
 
-    using var dbContext = CreateQueriesContext();
+    using var dbContext = CreateQueriesContext(QueriesConnString);
     await dbContext.AddRangeAsync(orders);
     await dbContext.SaveChangesAsync();
     var query = dbContext.Orders;

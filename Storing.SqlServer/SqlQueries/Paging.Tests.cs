@@ -13,7 +13,7 @@ partial class SqlServerTests
       new Page { Text = "3" },
     };
 
-    using var dbContext = CreateQueriesContext();
+    using var dbContext = CreateQueriesContext(QueriesConnString);
     await dbContext.AddRangeAsync(pages);
     await dbContext.SaveChangesAsync();
     var query = dbContext.Pages;

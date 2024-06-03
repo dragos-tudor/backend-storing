@@ -8,7 +8,7 @@ partial class SqlServerTests
   {
     var author = new Author { AuthorId = Guid.NewGuid(), AuthorName = "name" };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     UpdateEntity(dbContext, author, (author) =>
       author.AuthorName = "new name");
 
@@ -20,7 +20,7 @@ partial class SqlServerTests
   {
     var author = new Author{ AuthorId = Guid.NewGuid(), AuthorName = "name", BirthDate = DateTime.Now };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     UpdateEntity(dbContext, author, (author) => {
       author.AuthorName = "updated";
       author.BirthDate = author.BirthDate;
@@ -36,7 +36,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 0 };
     var author = new Author{ AuthorId = Guid.NewGuid() };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     UpdateEntity(dbContext, author, (author) =>
       author.Books = new [] { book });
 
@@ -50,7 +50,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 1 };
     var author = new Author{ AuthorId = Guid.NewGuid() };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     dbContext.Attach(book);
     UpdateEntity(dbContext, author, (author) =>
       author.Books = new [] { book });
@@ -65,7 +65,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 1 };
     var author = new Author{ AuthorId = Guid.NewGuid(), Books = [ book ] };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     UpdateEntity(dbContext, author, (author) =>
       author.Books = []);
 
@@ -79,7 +79,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 1 };
     var author = new Author{ AuthorId = Guid.NewGuid(), Books = [ book ] };
 
-    using var dbContext = CreateEntitiesContext();
+    using var dbContext = CreateEntitiesContext("");
     UpdateEntity(dbContext, author, (author) =>
       author.Books = [ book ]);
 

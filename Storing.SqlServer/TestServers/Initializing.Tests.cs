@@ -12,14 +12,11 @@ public partial class SqlServerTests
     CancellationToken cancellationToken = default)
   {
     var container = await StartSqlServer(adminPassword, imageName, containerName, networkName, serverPort, cancellationToken);
+    var entitiesConnString = CreateSqlConnectionString("entities", adminName, adminPassword, containerName);
+    var queriesConnString = CreateSqlConnectionString("queries", adminName, adminPassword, containerName);
 
-    EntitiesConnString = CreateSqlConnectionString("entities", adminName, adminPassword, containerName);
-    QueriesConnString = CreateSqlConnectionString("queries", adminName, adminPassword, containerName);
-    TrackingConnString = CreateSqlConnectionString("tracking", adminName, adminPassword, containerName);
-
-    CleanEntitiesDatabase(EntitiesConnString);
-    CleanQueriesDatabase(QueriesConnString);
-
+    CleanEntitiesDatabase(entitiesConnString);
+    CleanQueriesDatabase(queriesConnString);
     return container;
   }
 }

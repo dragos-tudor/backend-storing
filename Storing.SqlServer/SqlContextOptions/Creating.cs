@@ -18,15 +18,4 @@ partial class SqlServerFuncs
       .SetSqlContextOptions(setDbContextOptions)
       .UsingModel(model)
       .Options;
-
-  public static DbContextOptions<T> CreateInMemoryContextOptions<T> (
-    string? dbName,
-    IModel? model = default)
-  where T: DbContext =>
-    new DbContextOptionsBuilder<T>()
-      .EnableThreadSafetyChecks(false)
-      .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-      .UseInMemoryDatabase(dbName ?? Guid.NewGuid().ToString())
-      .UsingModel(model)
-      .Options;
 }

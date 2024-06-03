@@ -16,7 +16,7 @@ partial class SqlServerTests
       new Filter { Int = 2, Text = "abc" }
     };
 
-    using var dbContext = CreateQueriesContext();
+    using var dbContext = CreateQueriesContext(QueriesConnString);
     await dbContext.AddRangeAsync(filters);
     await dbContext.SaveChangesAsync();
     var query = dbContext.Filters;

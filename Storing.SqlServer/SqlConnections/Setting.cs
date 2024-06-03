@@ -5,7 +5,7 @@ namespace Storing.SqlServer;
 partial class SqlServerFuncs
 {
   static SqlConnectionStringBuilder SetSqlConnectionStringBuilder (
-    this SqlConnectionStringBuilder builder,
+    SqlConnectionStringBuilder builder,
     Action<SqlConnectionStringBuilder>? setBuilder = default)
   {
     if(setBuilder != default)
