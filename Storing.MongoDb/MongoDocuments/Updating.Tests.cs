@@ -28,9 +28,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document_field__update__field_updated ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Update1>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Update1>(db);
     var original = new Update1 { Id = id, u1str = "a" };
     var modified = new { text1 = "b" };
 
@@ -46,9 +45,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document_fields__update__fields_updated ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Update1>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Update1>(db);
     var original = new Update1 { Id = id, u1str = "a", u1int = 1 };
     var modified = new { text1 = "b", int1 = 2 };
 
@@ -67,9 +65,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document_values_array__push__array_inserted ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Update2>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Update2>(db);
     var original = new Update2 { Id = id, u2coll = [1] };
     var modified = new { coll2 = new int[] { 2, 3 } };
 
@@ -85,9 +82,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document_values_array__pull__array_deleted ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Update2>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Update2>(db);
     var original = new Update2 { Id = id, u2coll = [1, 2, 3] };
     var modified = new { coll2 = new int[] { 2, 3 } };
 
@@ -103,9 +99,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document_objects_array__push__field_array_inserted ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Update3>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Update3>(db);
     var original = new Update3 { Id = id, u3coll = [new () { Id = 1 }] };
     var modified = new { coll3 = new Item[] { new() { Id = 2 }, new() { Id = 3 } } };
 
@@ -121,9 +116,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document_objects_array__pull__field_array_deleted ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Update3>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Update3>(db);
     var original = new Update3 { Id = id, u3coll = [new() { Id = 1 }, new() { Id = 2 }, new() { Id = 3 }] };
     var modified = new { coll3 = new Item[] { new() { Id = 2 }, new() { Id = 3 } } };
 

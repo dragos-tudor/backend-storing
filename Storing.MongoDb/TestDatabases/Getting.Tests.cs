@@ -3,5 +3,5 @@ namespace Storing.MongoDb;
 
 partial class MongoDbTests
 {
-  static IMongoDatabase GetMongoDatabase (string dbName = DatabaseName) => MongoDbClient.GetDatabase(dbName);
+  static IMongoDatabase GetMongoDatabase (MongoClient client, string dbName) => client.GetDatabase(dbName);
 }

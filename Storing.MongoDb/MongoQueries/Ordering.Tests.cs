@@ -13,8 +13,7 @@ partial class MongoDbTests
   [TestMethod]
   public async Task unordered_documents__order__ordered_documents ()
   {
-    var db = GetMongoDatabase();
-    var coll = GetMongoCollection<Order>(db);
+    var coll = GetMongoCollection<Order>(Database, "queries");
     var query = coll.AsDiscriminable();
     await InsertDocuments(coll, [
       new Order { Id = Guid.NewGuid().ToString(), text = "1" },

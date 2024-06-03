@@ -12,9 +12,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document__replace__replaced_document ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Replace>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Replace>(db);
 
     await InsertDocument(coll, new Replace{ Id = id, rtext = "a" });
     await ReplaceDocument(coll, new Replace{ Id = id, rtext = "2" });

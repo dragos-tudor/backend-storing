@@ -16,8 +16,7 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document__filter__filtered_document ()
   {
-    var db = GetMongoDatabase();
-    var coll = GetMongoCollection<Filter>(db);
+    var coll = GetMongoCollection<Filter>(Database, "queries");
     var query = coll.AsDiscriminable();
     var dates = new [] { new DateTime(2022, 07, 01), new DateTime(2022, 07, 02) };
     await InsertDocuments(coll, [

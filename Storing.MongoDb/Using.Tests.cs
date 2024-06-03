@@ -7,8 +7,7 @@ namespace Storing.MongoDb;
 [TestClass]
 public partial class MongoDbTests
 {
-  const string DatabaseName = "storing";
-  const string CollectionName = "documents";
+  static readonly IMongoDatabase Database = GetMongoDatabase(CreateMongoClient("mongodb://storing-mongo:27017"), "storing");
 
   [AssemblyInitialize]
   public static void InitializeMongoServer (TestContext _)
@@ -19,7 +18,7 @@ public partial class MongoDbTests
     RunSynchronously(() =>
       InitializeMongoServer(
         "mongo:4.2.24", "storing-mongo",
-        DatabaseName, CollectionName,
+        "storing", ["documents", "queries"],
         "storing-network", 27017,
         cancellationToken));
   }

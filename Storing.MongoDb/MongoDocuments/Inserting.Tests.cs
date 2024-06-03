@@ -8,9 +8,8 @@ partial class MongoDbTests
   [TestMethod]
   public async Task document__insert__inserted_document ()
   {
-    var db = GetMongoDatabase();
+    var coll = GetMongoCollection<Insert>(Database, "documents");
     var id = Guid.NewGuid().ToString();
-    var coll = GetMongoCollection<Insert>(db);
 
     await InsertDocument(coll, new Insert{ Id = id });
 
