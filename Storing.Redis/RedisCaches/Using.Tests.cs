@@ -9,120 +9,111 @@ public partial class RedisCacheTests
   [TestMethod]
   public async Task GetMissingCacheKeyReturnsNull()
   {
-    var db = GetRedisDatabase();
     string key = "non-existent-key";
 
-    Assert.IsNull(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(Database, key));
   }
 
   [TestMethod]
   public async Task GetFromCacheReturnsObject()
   {
-    var db = GetRedisDatabase();
     var value = new byte[1];
     string key = "myKey1";
 
-    await SetCacheAsync(db, key, value);
+    await SetCacheAsync(Database, key, value);
 
-    AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(Database, key));
   }
 
   [TestMethod]
   public async Task SetAndGetFromCacheWorksWithCaseSensitiveKeys()
   {
-    var db = GetRedisDatabase();
     var value = new byte[1];
     string key1 = "myKey2";
     string key2 = "MyKey2";
 
-    await SetCacheAsync(db, key1, value);
+    await SetCacheAsync(Database, key1, value);
 
-    AreEqual(value, await GetCacheAsync(db, key1));
-    Assert.IsNull(await GetCacheAsync(db, key2));
+    AreEqual(value, await GetCacheAsync(Database, key1));
+    Assert.IsNull(await GetCacheAsync(Database, key2));
   }
 
   [TestMethod]
   public async Task SetToCacheAlwaysOverwrites()
   {
-    var db = GetRedisDatabase();
     var value1 = new byte[1] { 1 };
     string key = "myKey3";
 
-    await SetCacheAsync(db, key, value1);
+    await SetCacheAsync(Database, key, value1);
 
-    AreEqual(value1, await GetCacheAsync(db, key));
+    AreEqual(value1, await GetCacheAsync(Database, key));
 
     var value2 = new byte[1] { 2 };
-    await SetCacheAsync(db, key, value2);
+    await SetCacheAsync(Database, key, value2);
 
-    AreEqual(value2, await GetCacheAsync(db, key));
+    AreEqual(value2, await GetCacheAsync(Database, key));
   }
 
   [TestMethod]
   public async Task GetMissingStringCacheKeyReturnsNull()
   {
-    var db = GetRedisDatabase();
     string key = "non-existent-key";
 
-    Assert.IsNull(await GetStringCacheAsync(db, key));
+    Assert.IsNull(await GetStringCacheAsync(Database, key));
   }
 
   [TestMethod]
   public async Task GetStringFromCacheReturnsString()
   {
-    var db = GetRedisDatabase();
     var value = "some text";
     string key = "myKey4";
 
-    await SetStringCacheAsync(db, key, value);
+    await SetStringCacheAsync(Database, key, value);
 
-    Assert.AreEqual(value, await GetStringCacheAsync(db, key));
+    Assert.AreEqual(value, await GetStringCacheAsync(Database, key));
   }
 
   [TestMethod]
   public async Task SetAndGetStringFromCacheWorksWithCaseSensitiveKeys()
   {
-    var db = GetRedisDatabase();
     var value = "some text";
     string key1 = "myKey5";
     string key2 = "MyKey5";
 
-    await SetStringCacheAsync(db, key1, value);
+    await SetStringCacheAsync(Database, key1, value);
 
-    Assert.AreEqual(value, await GetStringCacheAsync(db, key1));
-    Assert.IsNull(await GetStringCacheAsync(db, key2));
+    Assert.AreEqual(value, await GetStringCacheAsync(Database, key1));
+    Assert.IsNull(await GetStringCacheAsync(Database, key2));
   }
 
   [TestMethod]
   public async Task SetStringToCacheAlwaysOverwrites()
   {
-    var db = GetRedisDatabase();
     var value1 = "some text 1";
     string key = "myKey6";
 
-    await SetStringCacheAsync(db, key, value1);
+    await SetStringCacheAsync(Database, key, value1);
 
-    Assert.AreEqual(value1, await GetStringCacheAsync(db, key));
+    Assert.AreEqual(value1, await GetStringCacheAsync(Database, key));
 
     var value2 = "some text 2";
-    await SetStringCacheAsync(db, key, value2);
+    await SetStringCacheAsync(Database, key, value2);
 
-    Assert.AreEqual(value2, await GetStringCacheAsync(db, key));
+    Assert.AreEqual(value2, await GetStringCacheAsync(Database, key));
   }
 
   [TestMethod]
   public async Task RemoveCacheKey()
   {
-    var db = GetRedisDatabase();
     var value = new byte[1];
     string key = "myKey7";
 
-    await SetCacheAsync(db, key, value);
+    await SetCacheAsync(Database, key, value);
 
-    AreEqual(value, await GetCacheAsync(db, key));
+    AreEqual(value, await GetCacheAsync(Database, key));
 
-    await RemoveCacheAsync(db, key);
+    await RemoveCacheAsync(Database, key);
 
-    Assert.IsNull(await GetCacheAsync(db, key));
+    Assert.IsNull(await GetCacheAsync(Database, key));
   }
 }
