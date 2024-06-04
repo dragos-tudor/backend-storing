@@ -13,9 +13,7 @@ partial class MongoDbTests
 
     await InsertDocument(coll, new Insert{ Id = id });
 
-    var actual = await coll
-      .AsQueryable()
-      .FirstOrDefaultAsync(x => x.Id == id);
+    var actual = await coll.AsQueryable().FirstOrDefaultAsync(x => x.Id == id);
     Assert.IsNotNull(actual);
   }
 }
