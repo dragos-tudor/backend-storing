@@ -15,6 +15,18 @@ partial class SqlServerTests
   }
 
   [TestMethod]
+  public void entities__delete_entities__entities_deleted()
+  {
+    Author[] entities = [new Author { AuthorId = Guid.NewGuid() }, new Author { AuthorId = Guid.NewGuid() }];
+
+    using var dbContext = CreateEntitiesContext("");
+    DeleteEntities(dbContext, entities);
+
+    Assert.AreEqual(EntityState.Deleted, dbContext.Entry(entities[0]).State);
+    Assert.AreEqual(EntityState.Deleted, dbContext.Entry(entities[1]).State);
+  }
+
+  [TestMethod]
   public void entity_with_many_to_many_collection_item__delete_entity__collection_link_deleted_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };

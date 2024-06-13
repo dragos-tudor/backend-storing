@@ -15,6 +15,18 @@ partial class SqlServerTests
   }
 
   [TestMethod]
+  public void entities__add_entities__entities_added()
+  {
+    Author[] authors = [new Author{}, new Author{}];
+
+    using var dbContext = CreateEntitiesContext("");
+    AddEntities(dbContext, authors);
+
+    Assert.AreEqual(EntityState.Added, dbContext.Entry(authors[0]).State);
+    Assert.AreEqual(EntityState.Added, dbContext.Entry(authors[1]).State);
+  }
+
+  [TestMethod]
   public void entity_with_empty_many_to_many_collection__add_entity_with_collection_item__collection_link_and_item_added()
   {
     var book = new Book { BookId = 0 };
