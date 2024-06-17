@@ -6,20 +6,19 @@ partial class DockerFuncs
 {
   public static T RunSynchronously<T> (Func<Task<T>> func)
   {
-    using var autoResetEvent = new AutoResetEvent(false);
+    using var manualResetEvent = new ManualResetEventSlim(false);
     Exception? exception = default;
-
     T result = default!;
 
     var task = async () => {
       try { result = await func(); }
       catch (Exception ex) { exception = ex; }
-      finally { autoResetEvent.Set(); }
+      finally { manualResetEvent.Set(); }
     };
     var thread = new Thread(() => task());
     thread.Start();
 
-    autoResetEvent.WaitOne();
+    manualResetEvent.Wait();
 
     if(exception is not null) throw new AggregateException(exception);
     return result;
