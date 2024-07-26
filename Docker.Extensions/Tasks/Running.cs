@@ -10,16 +10,15 @@ partial class DockerFuncs
     Exception? exception = default;
     T result = default!;
 
-    var task = async () => {
+    ThreadPool.QueueUserWorkItem(async (_) => {
       try { result = await func(); }
       catch (Exception ex) { exception = ex; }
       finally { manualResetEvent.Set(); }
-    };
-    var thread = new Thread(() => task());
-    thread.Start();
+    });
 
     manualResetEvent.Wait();
 
+    // preserve original stack [no rethrow]
     if(exception is not null) throw new AggregateException(exception);
     return result;
   }
@@ -29,16 +28,15 @@ partial class DockerFuncs
     using var manualResetEvent = new ManualResetEventSlim(false);
     Exception? exception = default;
 
-    var task = async () => {
+    ThreadPool.QueueUserWorkItem(async (_) => {
       try { await func(); }
       catch (Exception ex) { exception = ex; }
       finally { manualResetEvent.Set(); }
-    };
-    var thread = new Thread(() => task());
-    thread.Start();
+    });
 
     manualResetEvent.Wait();
 
+    // preserve original stack [no rethrow]
     if(exception is not null) throw new AggregateException(exception);
     return true;
   }
