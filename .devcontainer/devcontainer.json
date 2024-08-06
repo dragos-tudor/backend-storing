@@ -20,6 +20,5 @@
   "mounts": [
   	{"source": "nuget", "target": "/home/app/.nuget", "type": "volume"}
   ],
-  "remoteUser": "app",
-	"updateRemoteUserUID": true
+  "remoteUser": "app"
 }
