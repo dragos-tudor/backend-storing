@@ -105,9 +105,7 @@
 
 ### Usage [mongodb]
 ```cs
-  using static Storing.MongoDb.MongoIdentities;
-  using static Storing.MongoDb.MongoCollections;
-  using static Storing.MongoDb.MongoDocuments;
+  using Storing.MongoDb.MongoDbFuncs;
   ...
 
   var connString = "mongodb://172.17.0.3:27017";
@@ -172,9 +170,7 @@
 ### Usage [redis]
 ```cs
   using StackExchange.Redis;
-  using static Storing.Redis.RedisConnections;
-  using static Storing.Redis.RedisOptions;
-  using static Storing.Redis.RedisCache;
+  using Storing.Redis.RedisFuncs;
   ...
 
   var endpoints = "172.17.0.5:6379";
@@ -188,7 +184,7 @@
   var text = "some text";
 
   var futureExpiration = TimeSpan.FromSeconds(1);
-  bar cacheEntryOptions = new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration);
+  var cacheEntryOptions = new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration);
 
   await SetStringCacheAsync(db, key, text, cacheEntryOptions);
   Assert.AreEqual(text, await GetStringCacheAsync(db, key));
