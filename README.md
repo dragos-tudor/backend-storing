@@ -6,6 +6,8 @@
 
 ### Usage [sql server]
 ```cs
+  using Storing.SqlServer.SqlServerFuncs;
+  ...
 
   var connString = CreateSqlConnection("Library", "127.0.0.1:1433", "username", "P@ssw0rd!");
   var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
