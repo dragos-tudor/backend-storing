@@ -10,3 +10,7 @@ global using static Docker.Extensions.DockerFuncs;
 namespace Docker.Extensions;
 
 public static partial class DockerFuncs;
+
+#if RELEASE
+  public static class Program { public static void Main() {} }
+#endif

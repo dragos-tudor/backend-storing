@@ -17,3 +17,7 @@ global using static Storing.MongoDb.MongoDbFuncs;
 namespace Storing.MongoDb;
 
 public static partial class MongoDbFuncs {}
+
+#if RELEASE
+  public static class Program { public static void Main() {} }
+#endif

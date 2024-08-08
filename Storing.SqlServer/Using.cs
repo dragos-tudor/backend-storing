@@ -10,3 +10,7 @@ namespace Storing.SqlServer;
 
 public static partial class SqlServerFuncs;
 
+#if RELEASE
+  public static class Program { public static void Main() {} }
+#endif
+
