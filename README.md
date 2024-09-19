@@ -6,7 +6,7 @@
 
 ### Usage [sql server]
 ```cs
-  using Storing.SqlServer.SqlServerFuncs;
+  using static Storing.SqlServer.SqlServerFuncs;
   ...
 
   var connString = CreateSqlConnection("Library", "127.0.0.1:1433", "username", "P@ssw0rd!");
@@ -107,7 +107,7 @@
 
 ### Usage [mongodb]
 ```cs
-  using Storing.MongoDb.MongoDbFuncs;
+  using static Storing.MongoDb.MongoDbFuncs;
   ...
 
   var connString = "mongodb://172.17.0.3:27017";
@@ -172,7 +172,7 @@
 ### Usage [redis]
 ```cs
   using StackExchange.Redis;
-  using Storing.Redis.RedisFuncs;
+  using static Storing.Redis.RedisFuncs;
   ...
 
   var endpoints = "172.17.0.5:6379";
