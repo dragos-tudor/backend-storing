@@ -3,11 +3,11 @@ namespace Docker.Extensions;
 
 partial class DockerFuncs
 {
-  public static readonly string HttpEndpointUri = $"http://{Environment.GetEnvironmentVariable("DOCKER_HOST_GATEWAY")}:{Environment.GetEnvironmentVariable("DOCKER_HOST_PORT")}";
+  const string HttpEndpointUri = "tcp://172.17.0.1:2375";
+  public static readonly string DockerHostUri = Environment.GetEnvironmentVariable("DOCKER_HOST") ?? HttpEndpointUri;
   public const string UnixEndpointUri = "unix:///var/run/docker.sock";
   public const string WindowsEndpointUri = "npipe://./pipe/docker_engine";
 
   public static IDockerClient CreateDockerClient(Uri? uri = default) =>
-    new DockerClientConfiguration(uri ?? new Uri(HttpEndpointUri))
-      .CreateClient();
+    new DockerClientConfiguration(uri ?? new Uri(DockerHostUri)).CreateClient();
 }
