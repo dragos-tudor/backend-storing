@@ -6,38 +6,27 @@ partial class DockerFuncs
 {
   public static T RunSynchronously<T> (Func<Task<T>> func)
   {
-    using var manualResetEvent = new ManualResetEventSlim(false);
-    Exception? exception = default;
-    T result = default!;
+    var taskCompletionSource = new TaskCompletionSource<T>();
+    var task = taskCompletionSource.Task;
 
     ThreadPool.QueueUserWorkItem(async (_) => {
-      try { result = await func(); }
-      catch (Exception ex) { exception = ex; }
-      finally { manualResetEvent.Set(); }
+      try { taskCompletionSource.SetResult(await func()); }
+      catch (Exception ex) { taskCompletionSource.SetException(ex); }
     });
 
-    manualResetEvent.Wait();
-
-    // preserve original stack [no rethrow]
-    if(exception is not null) throw new AggregateException(exception);
-    return result;
+    return task.GetAwaiter().GetResult();
   }
 
   public static bool RunSynchronously (Func<Task> func)
   {
-    using var manualResetEvent = new ManualResetEventSlim(false);
-    Exception? exception = default;
+    var taskCompletionSource = new TaskCompletionSource<bool>();
+    var task = taskCompletionSource.Task;
 
     ThreadPool.QueueUserWorkItem(async (_) => {
-      try { await func(); }
-      catch (Exception ex) { exception = ex; }
-      finally { manualResetEvent.Set(); }
+      try { await func(); taskCompletionSource.SetResult(true); }
+      catch (Exception ex) { taskCompletionSource.SetException(ex); }
     });
 
-    manualResetEvent.Wait();
-
-    // preserve original stack [no rethrow]
-    if(exception is not null) throw new AggregateException(exception);
-    return true;
+    return task.GetAwaiter().GetResult();
   }
 }
