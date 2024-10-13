@@ -1,5 +1,4 @@
 #pragma warning disable CA2201
-#pragma warning disable CS0162
 #pragma warning disable CA1031
 
 namespace Docker.Extensions;
@@ -23,14 +22,14 @@ partial class DockerTests
   }
 
   [TestMethod]
-  public void throwing_exception_returning_async_func_and_sync_caller__run_synchronously__throw_aggregate_with_inner_exception ()
+  public void throwing_exception_returning_async_func_and_sync_caller__run_synchronously__throw_exception ()
   {
-    try { var result = RunSynchronously(() => { if(true) throw new Exception("abc"); return Task.FromResult(true); }); }
+    try { var result = RunSynchronously<bool>(() => { throw new Exception("abc"); }); }
     catch (Exception ex) { StringAssert.Contains(ex.Message, "abc", StringComparison.InvariantCulture); };
   }
 
   [TestMethod]
-  public void throwing_exception_non_returning_async_func_and_sync_caller__run_synchronously__throw_aggregate_with_inner_exception ()
+  public void throwing_exception_non_returning_async_func_and_sync_caller__run_synchronously__throw_exception ()
   {
     try { RunSynchronously(() => { throw new Exception("abc"); }); }
     catch (Exception ex) { StringAssert.Contains(ex.Message, "abc", StringComparison.InvariantCulture); };
