@@ -6,7 +6,7 @@ partial class DockerTests
   [TestMethod]
   public async Task container_command__wait_for_open_port__port_is_opened()
   {
-    const string imageName = $"nginx:1.26-alpine-slim";
+    const string imageName = $"nginx:latest";
     const string containerName = "storing-nginx";
 
     using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(1));

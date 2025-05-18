@@ -4,6 +4,7 @@
 
 	<PropertyGroup>
 		<Description>Convenient functions for SQLServer.</Description>
+    <Version>1.0.0-alpha4</Version>
 	</PropertyGroup>
 
   <ItemGroup>

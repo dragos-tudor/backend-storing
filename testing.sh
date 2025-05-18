@@ -1,6 +1,6 @@
 set -e
 
-WORKSPACE_DIR=/workspaces/backend-storing/
+WORKSPACE_DIR=.
 PROJECTS=(
   "Docker.Extensions"
   "Storing.MongoDb"
@@ -11,5 +11,5 @@ PROJECTS=(
 ./building.sh Debug
 for PROJECT in ${PROJECTS[@]}; do
   echo "testing project $PROJECT ..."
-  cd $WORKSPACE_DIR/$PROJECT && dotnet run --no-build --no-restore -- --settings ../.runsettings
+  cd $WORKSPACE_DIR/$PROJECT && dotnet run --no-build --no-restore -- --settings ../.runsettings ** cd ..
 done

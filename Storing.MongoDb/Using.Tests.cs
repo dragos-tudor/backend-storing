@@ -17,7 +17,7 @@ public partial class MongoDbTests
 
     RunSynchronously(() =>
       InitializeMongoServer(
-        "mongo:4.2.24", "storing-mongo",
+        "mongo:latest", "storing-mongo",
         "storing", ["documents", "queries"],
         "storing-network", 27017,
         cancellationToken));

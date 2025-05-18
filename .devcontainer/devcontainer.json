@@ -1,23 +1,22 @@
 {
-	"image": "mcr.microsoft.com/dotnet/sdk:8.0.303-bookworm-slim",
-  "customizations": {
-    "vscode": {
-	    "extensions": [
-	    	"ms-dotnettools.csharp"
-	    ]
-	  }
+	"image": "mcr.microsoft.com/dotnet/sdk:9.0.100-bookworm-slim",
+ 	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-dotnettools.csharp"
+			]
+		}
 	},
 	"runArgs": [
 		"--name=backend-storing",
-		"--hostname=storing",
-		"--net=storing-network"
+		"--hostname=storing"
 	],
-  "containerEnv": {
-    "DOCKER_HOST": "${localEnv:DOCKER_HOST}",
-    "SHELL": "/bin/bash"
-  },
-  "mounts": [
-  	{"source": "nuget", "target": "/home/app/.nuget", "type": "volume"}
-  ],
-  "remoteUser": "app"
+ 	"containerEnv": {
+ 		"DOCKER_HOST": "unix:///var/run/docker.sock",
+		"SHELL": "/bin/bash"
+	},
+	"mounts": [
+		{"source": "/var/run/podman/podman.sock", "target": "/var/run/docker.sock", "type": "bind"},
+		{"source": "nuget", "target": "/root/.nuget", "type": "volume"}
+	]
 }

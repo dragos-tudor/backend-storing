@@ -1,6 +1,6 @@
 set -e
 
-WORKSPACE_DIR=/workspaces/backend-storing/
+WORKSPACE_DIR=.
 PROJECTS=(
   "Docker.Extensions"
   "Storing.MongoDb"
@@ -11,5 +11,5 @@ PROJECTS=(
 ./building.sh Release
 for PROJECT in ${PROJECTS[@]}; do
   echo "packing project $PROJECT ..."
-  cd $WORKSPACE_DIR/$PROJECT && dotnet msbuild -t:Packing
+  cd $WORKSPACE_DIR/$PROJECT && dotnet msbuild -t:Packing && cd ..
 done

@@ -1,7 +1,7 @@
 set -e
 
 CONFIGURATION=${1:-Debug}
-WORKSPACE_DIR=/workspaces/backend-storing/
+WORKSPACE_DIR=.
 PROJECTS=(
   "Docker.Extensions"
   "Storing.MongoDb"
@@ -12,5 +12,5 @@ PROJECTS=(
 dotnet restore
 for PROJECT in ${PROJECTS[@]}; do
   echo "building project $PROJECT ..."
-  cd $WORKSPACE_DIR/$PROJECT && dotnet build --no-restore --no-dependencies -c $CONFIGURATION
+  cd $WORKSPACE_DIR/$PROJECT && dotnet build --no-restore --no-dependencies -c $CONFIGURATION && cd ..
 done

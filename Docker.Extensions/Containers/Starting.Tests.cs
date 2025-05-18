@@ -6,7 +6,7 @@ partial class DockerTests
   [TestMethod]
   public async Task different_container_states__start_container__running_container()
   {
-    const string imageName = "alpine:3.18.5";
+    const string imageName = "alpine:latest";
     const string containerName = "storing-alpine";
 
     using var client = CreateDockerClient();

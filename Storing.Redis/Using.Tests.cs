@@ -19,7 +19,7 @@ public sealed partial class RedisTests
 
     RunSynchronously(() =>
       StartRedisServer(
-        "redis:7.2.3", "storing-redis",
+        "redis:latest", "storing-redis",
         "storing-network", 6379,
         cancellationToken));
   }
