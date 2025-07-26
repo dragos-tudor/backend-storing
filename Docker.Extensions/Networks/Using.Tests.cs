@@ -6,8 +6,9 @@ partial class DockerTests
   [TestMethod]
   public async Task new_network__use_network__network_created()
   {
-    using var client = CreateDockerClient();
+    using var client = CreateDockerClient(PodmanUnixEndpointUri);
     using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+
     const string networkName = "storing-network-test";
     var cancellationToken = cancellationTokenSource.Token;
 

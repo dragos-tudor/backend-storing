@@ -6,16 +6,17 @@ partial class DockerTests
   [TestMethod]
   public async Task different_container_states__start_container__running_container()
   {
-    const string imageName = "alpine:latest";
+    const string imageName = "docker.io/libraries/alpine:latest";
     const string containerName = "storing-alpine";
 
-    using var client = CreateDockerClient();
+    using var client = CreateDockerClient(PodmanUnixEndpointUri);
     using var cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(5));
     var cancellationToken = cancellationTokenSource.Token;
 
-    Action<CreateContainerParameters> setCreateContainerParameters = (@params) => {
+    Action<CreateContainerParameters> setCreateContainerParameters = (@params) =>
+    {
       @params.Entrypoint = GetKeepRunningContainerCommand();
-      @params.HostConfig = new HostConfig() { NetworkMode = "storing-network" };
+      @params.HostConfig = new HostConfig() { NetworkMode = "host" };
     };
     var container = await UseContainerAsync(client, imageName, containerName, setCreateContainerParameters, cancellationToken);
     var container1 = await InspectContainerAsync(client.Containers, container.ID, cancellationToken);
