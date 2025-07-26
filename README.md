@@ -1,7 +1,7 @@
 ## Backend storing library.
 - convenient functions for SQLServer, MongoDb and Redis databases.
 - functional-style library [OOP-free].
-- podman-outside-of-podman.
+- podman-inside-of-podman.
 
 ### Usage [sql server]
 ```cs
@@ -196,4 +196,4 @@
 
 ### Remarks
 - sql server entity functions are unit-testable!
-- all integration tests use podman containers created when container is started (wip container needs to be stopped and restarted each time when the container start)
+- all integration tests use internal podman containers created when container is started (wip container needs to be stopped and restarted each time when the container start)
