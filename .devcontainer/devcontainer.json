@@ -1,22 +1,26 @@
 {
-	"image": "mcr.microsoft.com/dotnet/sdk:9.0.100-bookworm-slim",
- 	"customizations": {
+	"dockerFile": "Dockerfile",
+	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-dotnettools.csharp"
+				"ms-dotnettools.csharp",
+				"denoland.vscode-deno"
 			]
 		}
 	},
-	"runArgs": [
-		"--name=backend-storing",
-		"--hostname=storing"
+	"mounts": [
+		{ "source": "nuget", "target": "/root/.nuget", "type": "volume" },
+		{ "source": "/mnt/storage/containers", "target": "/var/lib/containers", "type": "bind" }
 	],
- 	"containerEnv": {
- 		"DOCKER_HOST": "unix:///var/run/docker.sock",
+	"containerEnv": {
+		"DATA_PROTECTION_KEY": "HFm8fYbLyEarjjlGBj5r9Q==",
 		"SHELL": "/bin/bash"
 	},
-	"mounts": [
-		{"source": "/var/run/podman/podman.sock", "target": "/var/run/docker.sock", "type": "bind"},
-		{"source": "nuget", "target": "/root/.nuget", "type": "volume"}
-	]
+	"runArgs": [
+		"--name=backend-storing",
+		"--network=host",
+		"--privileged"
+	],
+  "postCreateCommand": "podman pull mcr.microsoft.com/mssql/server:2017-latest; podman pull docker.io/library/mongo:4.4-focal; podman pull docker.io/library/redis:latest",
+  "postStartCommand": "podman run -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=P@ssw0rd!\" -p 1433:1433 -d --name storing-sql mcr.microsoft.com/mssql/server:2017-latest; podman run --name storing-mongo -d mongo:4.4-focal; podman run --name storing-redis -d redis:latest"
 }
