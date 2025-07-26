@@ -4,11 +4,14 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
     <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="9.0.5" />
+
     <PackageVersion Include="System.Private.Uri" Version="4.3.2" />
     <PackageVersion Include="MongoDb.Driver" Version="2.30.0" />
     <PackageVersion Include="Stackexchange.Redis" Version="2.8.37" />
+
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="17.14.2" />
     <PackageVersion Include="Microsoft.CodeCoverage.MSBuild" Version="17.14.2" />
-    <PackageVersion Include="MSTest" Version="3.8.3" />
+    <PackageVersion Include="MSTest" Version="3.9.3" />
+    <PackageVersion Include="Shouldly" Version="4.3.0" />
   </ItemGroup>
 </Project>
