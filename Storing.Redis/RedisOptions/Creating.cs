@@ -10,7 +10,8 @@ partial class RedisFuncs
     int? dbId = 0,
     string? clientName = default,
     Action<ConfigurationOptions>? configOptions = default) =>
-      new ConfigurationOptions {
+      new ConfigurationOptions
+      {
         EndPoints = { endPoints },
         DefaultDatabase = dbId,
         ClientName = clientName
@@ -24,7 +25,8 @@ partial class RedisFuncs
     int? dbId = 0,
     string? clientName = default,
     Action<ConfigurationOptions>? configOptions = default) =>
-      new ConfigurationOptions {
+      new ConfigurationOptions
+      {
         EndPoints = { endPoints },
         User = userName,
         Password = userPassword,
@@ -36,7 +38,8 @@ partial class RedisFuncs
   public static RedisOptions CreateRedisOptions(
     ConfigurationOptions options,
     Func<ProfilingSession>? profilingSession = default) =>
-      new (){
+      new()
+      {
         ConfigurationOptions = options,
         InstanceName = options.ClientName,
         ProfilingSession = profilingSession

@@ -18,7 +18,7 @@ public class RedisCacheTests1
     var futureExpiration = TimeSpan.FromSeconds(1);
     await SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration));
 
-    AreEqual(value, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value);
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
@@ -49,7 +49,7 @@ public class RedisCacheTests2
 
     await SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(1)));
 
-    AreEqual(value, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value);
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
@@ -79,7 +79,7 @@ public class RedisCacheTests3
 
     await SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromSeconds(1)));
 
-    AreEqual(value, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value);
 
     await Task.Delay(TimeSpan.FromSeconds(1.5));
 
@@ -114,7 +114,7 @@ public class RedisCacheTests4
 
     for (int i = 0; i < 4; i++)
     {
-      AreEqual(value, await GetCacheAsync(Database, key));
+      (await GetCacheAsync(Database, key)).ShouldBe(value);
 
       await Task.Delay(TimeSpan.FromSeconds(0.5));
     }
@@ -143,7 +143,7 @@ public class RedisCacheTests5
 
     for (int i = 0; i < 4; i++)
     {
-      AreEqual(value, await GetCacheAsync(Database, key));
+      (await GetCacheAsync(Database, key)).ShouldBe(value);
 
       await Task.Delay(TimeSpan.FromSeconds(0.5));
     }

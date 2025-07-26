@@ -22,7 +22,7 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(Database, key, value);
 
-    AreEqual(value, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value);
   }
 
   [TestMethod]
@@ -34,7 +34,7 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(Database, key1, value);
 
-    AreEqual(value, await GetCacheAsync(Database, key1));
+    (await GetCacheAsync(Database, key1)).ShouldBe(value);
     Assert.IsNull(await GetCacheAsync(Database, key2));
   }
 
@@ -46,12 +46,12 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(Database, key, value1);
 
-    AreEqual(value1, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value1);
 
     var value2 = new byte[1] { 2 };
     await SetCacheAsync(Database, key, value2);
 
-    AreEqual(value2, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value2);
   }
 
   [TestMethod]
@@ -110,7 +110,7 @@ public partial class RedisCacheTests
 
     await SetCacheAsync(Database, key, value);
 
-    AreEqual(value, await GetCacheAsync(Database, key));
+    (await GetCacheAsync(Database, key)).ShouldBe(value);
 
     await RemoveCacheAsync(Database, key);
 

@@ -4,11 +4,12 @@ namespace Storing.Redis;
 
 partial class RedisFuncs
 {
-  internal static ConfigurationOptions SetConfigurationOptions (
+  internal static ConfigurationOptions SetConfigurationOptions(
     this ConfigurationOptions builder,
-    Action<ConfigurationOptions>? configOptions = default) {
-      if(configOptions != default)
-        configOptions(builder);
-      return builder;
-    }
+    Action<ConfigurationOptions>? configOptions = default)
+  {
+    if (configOptions != default)
+      configOptions(builder);
+    return builder;
+  }
 }
