@@ -4,15 +4,10 @@
 
 	<PropertyGroup>
 		<Description>Convenient functions for SQLServer.</Description>
-    <Version>1.0.0-alpha4</Version>
 	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"/>
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)'!='Release'">
-    <ProjectReference Include="..\Docker.Extensions\Docker.Extensions.csproj" PrivateAssets="all"/>
   </ItemGroup>
 
 </Project>

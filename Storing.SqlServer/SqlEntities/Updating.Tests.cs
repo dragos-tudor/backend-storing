@@ -8,7 +8,7 @@ partial class SqlServerTests
   {
     var author = new Author { AuthorId = Guid.NewGuid(), AuthorName = "name" };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
       author.AuthorName = "new name");
 
@@ -18,10 +18,11 @@ partial class SqlServerTests
   [TestMethod]
   public void entity__update_entity_prop__only_entity_prop_modified()
   {
-    var author = new Author{ AuthorId = Guid.NewGuid(), AuthorName = "name", BirthDate = DateTime.Now };
+    var author = new Author { AuthorId = Guid.NewGuid(), AuthorName = "name", BirthDate = DateTime.Now };
 
-    using var dbContext = CreateEntitiesContext("");
-    UpdateEntity(dbContext, author, (author) => {
+    using var dbContext = CreateEntitiesContext();
+    UpdateEntity(dbContext, author, (author) =>
+    {
       author.AuthorName = "updated";
       author.BirthDate = author.BirthDate;
     });
@@ -34,11 +35,11 @@ partial class SqlServerTests
   public void entity_without_many_to_many_collection_item__update_entity_adding_new_item__collection_link_added_and_collection_item_added()
   {
     var book = new Book { BookId = 0 };
-    var author = new Author{ AuthorId = Guid.NewGuid() };
+    var author = new Author { AuthorId = Guid.NewGuid() };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
-      author.Books = new [] { book });
+      author.Books = [book]);
 
     Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
     Assert.AreEqual(EntityState.Added, dbContext.Entry(book)?.State);
@@ -48,12 +49,12 @@ partial class SqlServerTests
   public void entity_without_many_to_many_collection_item__update_entity_adding_existing_item__collection_link_added_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };
-    var author = new Author{ AuthorId = Guid.NewGuid() };
+    var author = new Author { AuthorId = Guid.NewGuid() };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     dbContext.Attach(book);
     UpdateEntity(dbContext, author, (author) =>
-      author.Books = new [] { book });
+      author.Books = [book]);
 
     Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
     Assert.AreEqual(EntityState.Unchanged, dbContext.Entry(book)?.State);
@@ -63,9 +64,9 @@ partial class SqlServerTests
   public void entity_with_many_to_many_collection_item__update_entity_removing_item__collection_link_deleted_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };
-    var author = new Author{ AuthorId = Guid.NewGuid(), Books = [ book ] };
+    var author = new Author { AuthorId = Guid.NewGuid(), Books = [book] };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
       author.Books = []);
 
@@ -77,11 +78,11 @@ partial class SqlServerTests
   public void entity_with_many_to_many_collection_item__update_entity_without_changing_item__collection_link_and_collection_item_unchanged()
   {
     var book = new Book { BookId = 1 };
-    var author = new Author{ AuthorId = Guid.NewGuid(), Books = [ book ] };
+    var author = new Author { AuthorId = Guid.NewGuid(), Books = [book] };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     UpdateEntity(dbContext, author, (author) =>
-      author.Books = [ book ]);
+      author.Books = [book]);
 
     Assert.AreEqual(EntityState.Unchanged, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
     Assert.AreEqual(EntityState.Unchanged, dbContext.Entry(book)?.State);

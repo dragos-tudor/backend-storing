@@ -8,7 +8,7 @@ partial class SqlServerTests
   {
     var entity = new Author { AuthorId = Guid.NewGuid() };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     DeleteEntity(dbContext, entity);
 
     Assert.AreEqual(EntityState.Deleted, dbContext.Entry(entity).State);
@@ -19,7 +19,7 @@ partial class SqlServerTests
   {
     Author[] entities = [new Author { AuthorId = Guid.NewGuid() }, new Author { AuthorId = Guid.NewGuid() }];
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     DeleteEntities(dbContext, entities);
 
     Assert.AreEqual(EntityState.Deleted, dbContext.Entry(entities[0]).State);
@@ -32,7 +32,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 1 };
     var entity = new Author { AuthorId = Guid.NewGuid(), Books = [book] };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     DeleteEntity(dbContext, entity);
 
     Assert.AreEqual(EntityState.Deleted, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);

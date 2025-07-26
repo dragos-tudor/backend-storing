@@ -1,5 +1,5 @@
+
 namespace Storing.SqlServer;
-#pragma warning disable CA1720
 
 public record Filter
 {
@@ -23,12 +23,12 @@ public record Page
 }
 
 
-public sealed class QueriesContext: DbContext
+public sealed class QueriesContext : DbContext
 {
   public DbSet<Filter> Filters => Set<Filter>();
   public DbSet<Order> Orders => Set<Order>();
   public DbSet<Page> Pages => Set<Page>();
 
-  public QueriesContext(DbContextOptions<QueriesContext> options): base(options) =>
+  public QueriesContext(DbContextOptions<QueriesContext> options) : base(options) =>
     ChangeTracker.LazyLoadingEnabled = false;
 }

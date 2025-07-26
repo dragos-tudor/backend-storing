@@ -6,9 +6,9 @@ partial class SqlServerTests
   [TestMethod]
   public void entity__add_entity__entity_added()
   {
-    var author = new Author{ };
+    var author = new Author { };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     AddEntity(dbContext, author);
 
     Assert.AreEqual(EntityState.Added, dbContext.Entry(author).State);
@@ -17,9 +17,9 @@ partial class SqlServerTests
   [TestMethod]
   public void entities__add_entities__entities_added()
   {
-    Author[] authors = [new Author{}, new Author{}];
+    Author[] authors = [new Author { }, new Author { }];
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     AddEntities(dbContext, authors);
 
     Assert.AreEqual(EntityState.Added, dbContext.Entry(authors[0]).State);
@@ -32,7 +32,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 0 };
     var author = new Author { Books = [book] };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     AddEntity(dbContext, author);
 
     Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("AuthorsAuthorId", author.AuthorId)?.State);
@@ -45,7 +45,7 @@ partial class SqlServerTests
     var book = new Book { BookId = 1 };
     var author = new Author { Books = [book] };
 
-    using var dbContext = CreateEntitiesContext("");
+    using var dbContext = CreateEntitiesContext();
     AddEntity(dbContext, author);
 
     Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);

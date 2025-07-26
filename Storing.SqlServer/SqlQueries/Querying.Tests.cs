@@ -5,15 +5,15 @@ partial class SqlServerTests
 {
   sealed record BookQueryDto
   {
-    public string? AuthorName {get; init;}
-    public DateTime? ReleaseDateGreater {get; init;}
-    public bool? AscendingBookName {get; init;}
-    public short? PageLimit {get; init;}
-    public short? PageNo {get; init;}
+    public string? AuthorName { get; init; }
+    public DateTime? ReleaseDateGreater { get; init; }
+    public bool? AscendingBookName { get; init; }
+    public short? PageLimit { get; init; }
+    public short? PageNo { get; init; }
   }
 
   [TestMethod]
-  public async Task filter_sort_page_entitites__query_entities__query_result ()
+  public async Task filter_sort_page_entitites__query_entities__query_result()
   {
     Author[] authors = [
       new() { AuthorName = "Mircea Eliade" },
@@ -26,13 +26,14 @@ partial class SqlServerTests
       new() { BookName = "Bietul Ioanide", Authors = [authors[1]] },
       new() { BookName = "Scrinul negru", Authors = [authors[1]] }
     ];
-    using var dbContext = CreateEntitiesContext(EntitiesConnString);
-    foreach(var book in books)
+    using var dbContext = CreateEntitiesContext();
+    foreach (var book in books)
       AddEntity(dbContext, book);
 
     await dbContext.SaveChangesAsync();
 
-    var query = new BookQueryDto() {
+    var query = new BookQueryDto()
+    {
       AuthorName = "Mircea Eliade",
       AscendingBookName = true,
       PageLimit = 3
@@ -46,7 +47,7 @@ partial class SqlServerTests
       .Select(book => book.BookName)
       .ToArrayAsync();
 
-    AreEqual(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
+    bookNames.ShouldBe(["Domnisoara Christina", "La tiganci", "Maitreyi"]);
   }
 
 }

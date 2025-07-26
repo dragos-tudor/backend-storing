@@ -1,5 +1,4 @@
 namespace Storing.SqlServer;
-#pragma warning disable CA2227
 
 public record Author
 {

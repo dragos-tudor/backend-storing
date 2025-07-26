@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-#pragma warning disable CA2227
 
 namespace Storing.SqlServer;
 
@@ -23,9 +22,9 @@ public record Professor
   [NotMapped] public ICollection<object>? NonEntities { get; set; }
 }
 
-public sealed class TrackingContext(DbContextOptions<TrackingContext> options): DbContext(options)
+public sealed class TrackingContext(DbContextOptions<TrackingContext> options) : DbContext(options)
 {
-    public DbSet<Student> Students => Set<Student>();
-    public DbSet<Course> Courses => Set<Course>();
-    public DbSet<Professor> Professors => Set<Professor>();
+  public DbSet<Student> Students => Set<Student>();
+  public DbSet<Course> Courses => Set<Course>();
+  public DbSet<Professor> Professors => Set<Professor>();
 }
