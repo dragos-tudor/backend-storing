@@ -23,8 +23,8 @@ partial class MongoDbTests
     ]);
 
     Expression<Func<Order, string>> exp = x => x.text;
-    AreEqual([ "0", "1", "2", "3" ], await query.Order(true, exp).Select(exp).ToListAsync());
-    AreEqual([ "3", "2", "1", "0" ], await query.Order(false, exp).Select(exp).ToListAsync());
-    AreEqual([ "1", "0", "3", "2" ], await query.Order(null, exp).Select(exp).ToListAsync());
+    (await query.Order(true, exp).Select(exp).ToListAsync()).ShouldBe([ "0", "1", "2", "3" ]);
+    (await query.Order(false, exp).Select(exp).ToListAsync()).ShouldBe([ "3", "2", "1", "0" ]);
+    (await query.Order(null, exp).Select(exp).ToListAsync()).ShouldBe([ "1", "0", "3", "2" ]);
   }
 }

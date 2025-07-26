@@ -70,7 +70,7 @@ partial class MongoDbTests
     await UpdateDocument(coll, original, AddToSetEachDefinition<Update2, int>(nameof(Update2.Items), modified.items));
 
     var actual = await coll.AsQueryable().FirstAsync(x => x.Id == id);
-    AreEqual([1, 2, 3], actual.Items);
+    actual.Items.ShouldBe([1, 2, 3]);
   }
 
   [TestMethod]
@@ -85,7 +85,7 @@ partial class MongoDbTests
     await UpdateDocument(coll, original, PullAllDefinition<Update2, int>(nameof(Update2.Items), modified.items));
 
     var actual = await coll.AsQueryable().FirstAsync(x => x.Id == id);
-    AreEqual([1], actual.Items);
+    actual.Items.ShouldBe([1]);
   }
 
   [TestMethod]
@@ -100,7 +100,7 @@ partial class MongoDbTests
     await UpdateDocument(coll, original, AddToSetEachDefinition<Update3, Item>(nameof(Update3.Items), modified.items));
 
     var actual = await coll.AsQueryable().FirstAsync(x => x.Id == id);
-    AreEqual([1, 2, 3], actual.Items.Select(x => x.Id).ToArray());
+    actual.Items.Select(x => x.Id).ToArray().ShouldBe([1, 2, 3]);
   }
 
   [TestMethod]
@@ -115,7 +115,7 @@ partial class MongoDbTests
     await UpdateDocument(coll, original, PullAllDefinition<Update3, Item>(nameof(Update3.Items), modified.items));
 
     var actual = await coll.AsQueryable().FirstAsync(x => x.Id == id);
-    AreEqual([1], actual.Items.Select(x => x.Id));
+    actual.Items.Select(x => x.Id).ShouldBe([1]);
   }
 
   [TestMethod]
@@ -129,6 +129,6 @@ partial class MongoDbTests
     await UpdateDocument(coll, original, PullOneFromSetDefinition<Update3, Item>(nameof(Update3.Items), new() { Id = 2 }));
 
     var actual = await coll.AsQueryable().FirstAsync(x => x.Id == id);
-    AreEqual(actual.Items,  [new() { Id = 1 }, new() { Id = 3 }]);
+    actual.Items.ShouldBe([new() { Id = 1 }, new() { Id = 3 }]);
   }
 }

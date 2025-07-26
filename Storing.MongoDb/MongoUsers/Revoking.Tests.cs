@@ -11,7 +11,7 @@ partial class MongoDbTests
     await RevokeRolesFromUser(Database, CreateRevokeRolesFromUserCommand(userName, [ "readWrite" ]));
 
     var actual = await FindUser(Database, CreateFindUserCommand(userName));
-    AreEqual(["read"], GetUserRoles(userName, actual));
+    GetUserRoles(userName, actual).ShouldBe(["read"]);
   }
 
   [TestMethod]
@@ -20,9 +20,9 @@ partial class MongoDbTests
     var userName = Guid.NewGuid().ToString();
     var dbName = Database.DatabaseNamespace.DatabaseName;
     await CreateUser(Database, CreateCreateUserCommand(userName, "pass", [ "read", "readWrite" ]));
-    await RevokeRolesFromUser(Database, CreateRevokeRolesFromUserCommand(userName, new [] { new UserRole{ Role = "readWrite", Db = dbName } }));
+    await RevokeRolesFromUser(Database, CreateRevokeRolesFromUserCommand(userName, [new UserRole{ Role = "readWrite", Db = dbName }]));
 
     var actual = await FindUser(Database, CreateFindUserCommand(userName));
-    AreEqual(["read"], GetUserRoles(userName, actual));
+    GetUserRoles(userName, actual).ShouldBe(["read"]);
   }
 }

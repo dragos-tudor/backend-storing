@@ -10,8 +10,4 @@
     <PackageReference Include="MongoDb.Driver" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(Configuration)'!='Release'">
-    <ProjectReference Include="..\Docker.Extensions\Docker.Extensions.csproj" PrivateAssets="all"/>
-  </ItemGroup>
-
 </Project>

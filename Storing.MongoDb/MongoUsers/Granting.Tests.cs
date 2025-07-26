@@ -11,7 +11,7 @@ partial class MongoDbTests
     await GrantRolesToUser(Database, CreateGrantRolesToUserCommand(userName, ["readWrite"]));
 
     var actual = await FindUser(Database, CreateFindUserCommand(userName));
-    AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+    GetUserRoles(userName, actual).OrderBy(x => x).ShouldBe(["read", "readWrite"]);
   }
 
   [TestMethod]
@@ -23,6 +23,6 @@ partial class MongoDbTests
     await GrantRolesToUser(Database, CreateGrantRolesToUserCommand(userName, [ new UserRole{ Role = "readWrite", Db = dbName }] ));
 
     var actual = await FindUser(Database, CreateFindUserCommand(userName));
-    AreEqual(["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x));
+    GetUserRoles(userName, actual).OrderBy(x => x).ShouldBe(["read", "readWrite"]);
   }
 }

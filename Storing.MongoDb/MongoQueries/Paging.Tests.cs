@@ -22,10 +22,10 @@ partial class MongoDbTests
       new Page { Id = Guid.NewGuid().ToString(), text = "3" }
     ]);
 
-    AreEqual([ "0", "1" ], await query.Page(2, 0).Select(x => x.text).ToListAsync());
-    AreEqual([ "2", "3" ], await query.Page(2, 1).Select(x => x.text).ToListAsync());
-    AreEqual([ "3" ], await query.Page(3, 1).Select(x => x.text).ToListAsync());
-    AreEqual([], await query.Page(2, 2).Select(x => x.text).ToListAsync());
-    AreEqual([ "0", "1" ], await query.Page(2, null).Select(x => x.text).ToListAsync());
+    (await query.Page(2, 0).Select(x => x.text).ToListAsync()).ShouldBe([ "0", "1" ]);
+    (await query.Page(2, 1).Select(x => x.text).ToListAsync()).ShouldBe([ "2", "3" ]);
+    (await query.Page(3, 1).Select(x => x.text).ToListAsync()).ShouldBe([ "3" ]);
+    (await query.Page(2, 2).Select(x => x.text).ToListAsync()).ShouldBe([]);
+    (await query.Page(2, null).Select(x => x.text).ToListAsync()).ShouldBe([ "0", "1" ]);
   }
 }
