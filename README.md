@@ -1,8 +1,7 @@
 ## Backend storing library.
 - convenient functions for SQLServer, MongoDb and Redis databases.
 - functional-style library [OOP-free].
-- using docker API for testing containers [docker compose free].
-- docker-outside-of-docker.
+- podman-outside-of-podman.
 
 ### Usage [sql server]
 ```cs
@@ -196,5 +195,5 @@
 ```
 
 ### Remarks
-- sql server entity functions are unit-testable.
-- all integration tests use dynamically created [non-ephemeral] database docker containers [[Docker.DotNet](https://github.com/dotnet/dotnet-docker) package instead of [testcontainers-dotnet](https://github.com/testcontainers/testcontainers-dotnet)].
+- sql server entity functions are unit-testable!
+- all integration tests use podman containers created when container is started (wip container needs to be stopped and restarted each time when the container start)
