@@ -26,7 +26,7 @@
 		"mongo": "podman pull docker.io/library/mongo:4.4-focal;  podman run --name mongo -d mongo:4.4-focal;",
 		"redis": "podman pull docker.io/library/redis:latest; podman run --name redis -d redis:latest;"
 	},
-  	"postStartCommand": {
+  "postStartCommand": {
 		"sql-server": "podman stop sql-server; podman start sql-server",
 		"mongo": "podman stop mongo; podman start mongo",
 		"redis": "podman stop redis; podman start redis"
