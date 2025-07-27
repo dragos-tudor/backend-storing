@@ -3,7 +3,6 @@ set -e
 CONFIGURATION=${1:-Debug}
 WORKSPACE_DIR=.
 PROJECTS=(
-  "Docker.Extensions"
   "Storing.MongoDb"
   "Storing.Redis"
   "Storing.SqlServer"

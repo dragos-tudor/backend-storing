@@ -2,7 +2,6 @@ set -e
 
 WORKSPACE_DIR=.
 PROJECTS=(
-  "Docker.Extensions"
   "Storing.MongoDb"
   "Storing.Redis"
   "Storing.SqlServer"
