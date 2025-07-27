@@ -21,6 +21,14 @@
 		"--network=host",
 		"--privileged"
 	],
-  "postCreateCommand": "podman pull mcr.microsoft.com/mssql/server:2017-latest; podman pull docker.io/library/mongo:4.4-focal; podman pull docker.io/library/redis:latest; podman run -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=P@ssw0rd!\" -p 1433:1433 -d --name sql-server mcr.microsoft.com/mssql/server:2017-latest; podman run --name mongo -d mongo:4.4-focal; podman run --name redis -d redis:latest",
-  "postStartCommand": "podman stop sql-server; podman stop mongo; podman stop redis; podman start sql-server; podman start mongo; podman start redis",
+  "postCreateCommand": {
+		"sql-server": "podman pull mcr.microsoft.com/mssql/server:2017-latest; podman run -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=P@ssw0rd!\" -p 1433:1433 -d --name sql-server mcr.microsoft.com/mssql/server:2017-latest;",
+		"mongo": "podman pull docker.io/library/mongo:4.4-focal;  podman run --name mongo -d mongo:4.4-focal;",
+		"redis": "podman pull docker.io/library/redis:latest; podman run --name redis -d redis:latest;"
+	},
+  	"postStartCommand": {
+		"sql-server": "podman stop sql-server; podman start sql-server",
+		"mongo": "podman stop mongo; podman start mongo",
+		"redis": "podman stop redis; podman start redis"
+	}
 }
