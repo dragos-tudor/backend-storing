@@ -196,4 +196,5 @@
 
 ### Remarks
 - sql server entity functions are unit-testable!
-- all integration tests use internal podman containers created when dev container is started (wip podman containers like sql server. mongo, redis needs to be stopped and restarted each time when the dev container is starting)
+- all integration tests use internal podman containers created when dev container is started.
+- wip podman needs to be restarted from time to time by cleaning /run/libpod and /run/podman/containers folders.
