@@ -4,13 +4,13 @@
 		"vscode": {
 			"extensions": [
 				"ms-dotnettools.csharp",
-				"denoland.vscode-deno"
+        "mongodb.mongodb-vscode"
 			]
 		}
 	},
 	"mounts": [
 		{ "source": "nuget", "target": "/root/.nuget", "type": "volume" },
-		{ "source": "/mnt/storage/containers", "target": "/var/lib/containers", "type": "bind" }
+    { "source": "/media/dragos/storage/devcontainers", "target": "/var/lib/containers", "type": "bind" }
 	],
 	"containerEnv": {
 		"DATA_PROTECTION_KEY": "HFm8fYbLyEarjjlGBj5r9Q==",
@@ -22,13 +22,9 @@
 		"--privileged"
 	],
   "postCreateCommand": {
-		"sql-server": "podman pull mcr.microsoft.com/mssql/server:2017-latest; podman run -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=P@ssw0rd!\" -p 1433:1433 -d --name sql-server mcr.microsoft.com/mssql/server:2017-latest;",
-		"mongo": "podman pull docker.io/library/mongo:4.4-focal;  podman run --name mongo -d mongo:4.4-focal;",
-		"redis": "podman pull docker.io/library/redis:latest; podman run --name redis -d redis:latest;"
+		"sql-server": "podman pull mcr.microsoft.com/mssql/server:2022-latest; podman run -p 1433:1433 -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=P@ssw0rd!\" -d --name storing-sql mcr.microsoft.com/mssql/server:2022-latest;",
+		"mongo": "podman pull docker.io/library/mongo:8.2-noble;  podman run -p 27017:27017 -d --name storing-mongo docker.io/library/mongo:8.2-noble;",
+		"redis": "podman pull docker.io/library/redis:8.6.4; podman run -d --name storing-redis docker.io/library/redis:8.6.4;"
 	},
-  "postStartCommand": {
-		"sql-server": "podman stop sql-server; podman start sql-server",
-		"mongo": "podman stop mongo; podman start mongo",
-		"redis": "podman stop redis; podman start redis"
-	}
+  "postStartCommand": "rm -rf /run/libpod/alive; podman restart storing-sql storing-mongo storing-redis; podman restart storing-sql storing-mongo storing-redis"
 }

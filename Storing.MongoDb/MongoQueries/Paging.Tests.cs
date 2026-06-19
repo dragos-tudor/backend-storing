@@ -5,7 +5,7 @@ namespace Storing.MongoDb;
 sealed record Page
 {
   public string Id { get; set; } = default!;
-  public string text = string.Empty;
+  public string text { get; set; } = string.Empty;
 }
 
 partial class MongoDbTests
@@ -14,12 +14,12 @@ partial class MongoDbTests
   public async Task documents__page__paged_documents ()
   {
     var coll = GetMongoCollection<Page>(Database, "queries");
-    var query = coll.AsDiscriminable();
+    var query = coll.AsQueryable().Where(x => x.GetType() == typeof(Page));
     await InsertDocuments(coll, [
-      new Page { Id = Guid.NewGuid().ToString(), text = "0" },
-      new Page { Id = Guid.NewGuid().ToString(), text = "1" },
-      new Page { Id = Guid.NewGuid().ToString(), text = "2" },
-      new Page { Id = Guid.NewGuid().ToString(), text = "3" }
+      new Page { Id = "p0", text = "0" },
+      new Page { Id = "p1", text = "1" },
+      new Page { Id = "p2", text = "2" },
+      new Page { Id = "p3", text = "3" }
     ]);
 
     (await query.Page(2, 0).Select(x => x.text).ToListAsync()).ShouldBe([ "0", "1" ]);

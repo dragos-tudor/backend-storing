@@ -160,7 +160,7 @@ public class RedisCacheTests5
     var value = new byte[1];
 
     var pastExpiration = DateTimeOffset.Now - TimeSpan.FromMinutes(1);
-    await Assert.ThrowsExceptionAsync<AbsoluteExpirationException>(() =>
+    await Assert.ThrowsAsync<AbsoluteExpirationException>(() =>
       SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(pastExpiration)));
   }
 
@@ -171,7 +171,7 @@ public class RedisCacheTests5
     var value = new byte[1];
 
     var negativeExpiration = TimeSpan.FromMinutes(-1);
-    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(negativeExpiration)));
   }
 
@@ -182,7 +182,7 @@ public class RedisCacheTests5
     var value = new byte[1];
 
     var zeroExpiration = TimeSpan.Zero;
-    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetAbsoluteExpiration(zeroExpiration)));
   }
 
@@ -193,7 +193,7 @@ public class RedisCacheTests5
     var value = new byte[1];
 
     var negativeExpration = TimeSpan.FromMinutes(-1);
-    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(negativeExpration)));
   }
 
@@ -204,7 +204,7 @@ public class RedisCacheTests5
     var value = new byte[1];
 
     var zeroExpiration = TimeSpan.Zero;
-    await Assert.ThrowsExceptionAsync<ArgumentOutOfRangeException>(() =>
+    await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() =>
       SetCacheAsync(Database, key, value, new DistributedCacheEntryOptions().SetSlidingExpiration(zeroExpiration)));
   }
 }

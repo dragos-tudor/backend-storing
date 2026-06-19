@@ -2,8 +2,8 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
-  public static IMongoQueryable<T1> Order<T1, T2>(
-    this IMongoQueryable<T1> source,
+  public static IQueryable<T1> Order<T1, T2>(
+    this IQueryable<T1> source,
     bool? ascending,
     Expression<Func<T1, T2>> keySelector) =>
       ascending.HasValue switch {

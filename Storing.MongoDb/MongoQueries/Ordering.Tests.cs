@@ -5,7 +5,7 @@ namespace Storing.MongoDb;
 sealed record Order
 {
   public string Id { get; set; } = default!;
-  public string text = string.Empty;
+  public string text { get; set; } = string.Empty;
 }
 
 partial class MongoDbTests
@@ -14,7 +14,7 @@ partial class MongoDbTests
   public async Task unordered_documents__order__ordered_documents ()
   {
     var coll = GetMongoCollection<Order>(Database, "queries");
-    var query = coll.AsDiscriminable();
+    var query = coll.AsQueryable().Where(x => x.GetType() == typeof(Order));
     await InsertDocuments(coll, [
       new Order { Id = Guid.NewGuid().ToString(), text = "1" },
       new Order { Id = Guid.NewGuid().ToString(), text = "0" },

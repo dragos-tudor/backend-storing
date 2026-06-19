@@ -5,10 +5,10 @@ namespace Storing.MongoDb;
 sealed record Filter
 {
   public string Id { get; set; } = default!;
-  public int @int;
-  public string text = string.Empty;
-  public bool? @bool;
-  public DateTime? date;
+  public int @int { get; set; }
+  public string text { get; set;} = string.Empty;
+  public bool? @bool { get; set; }
+  public DateTime? date { get; set; }
 }
 
 partial class MongoDbTests
@@ -17,7 +17,7 @@ partial class MongoDbTests
   public async Task document__filter__filtered_document()
   {
     var coll = GetMongoCollection<Filter>(Database, "queries");
-    var query = coll.AsDiscriminable();
+    var query = coll.AsQueryable().Where(x => x.GetType() == typeof(Filter));
     var dates = new[] { new DateTime(2022, 07, 01), new DateTime(2022, 07, 02) };
     await InsertDocuments(coll, [
       new Filter { Id = Guid.NewGuid().ToString(), @int = 0, text = "a", @bool = true, date = dates[0] },

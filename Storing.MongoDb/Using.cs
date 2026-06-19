@@ -13,10 +13,17 @@ global using MongoDB.Bson.Serialization.Attributes;
 global using MongoDB.Driver;
 global using MongoDB.Driver.Linq;
 global using static Storing.MongoDb.MongoDbFuncs;
+using MongoDB.Bson.Serialization.Serializers;
 
 namespace Storing.MongoDb;
 
-public static partial class MongoDbFuncs {}
+public static partial class MongoDbFuncs
+{
+  static MongoDbFuncs() {
+    MapUserClassTypes();
+    BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+  }
+};
 
 #if RELEASE
   public static class Program { public static void Main() {} }

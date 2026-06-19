@@ -2,7 +2,6 @@
 
   <PropertyGroup Condition="'$(Configuration)'!='Release'">
     <EnableMSTestRunner>true</EnableMSTestRunner>
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='Release'">

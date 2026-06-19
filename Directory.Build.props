@@ -24,7 +24,7 @@
     <Authors>Dragos Tudor</Authors>
     <Company>$(Authors)</Company>
     <Copyright>Copyright @2025</Copyright>
-    <Version>1.0.0-beta1</Version>
+    <Version>1.0.0-beta2</Version>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
 
@@ -32,6 +32,8 @@
     <RepositoryUrl>https://github.com/dragos-tudor/backend-storing.git</RepositoryUrl>
     <PackageLicense>https://github.com/dragos-tudor/backend-storing/blob/master/LICENSE</PackageLicense>
     <PackageProjectUrl>https://github.com/dragos-tudor/backend-storing/tree/main/$(MSBuildProjectName)</PackageProjectUrl>
+
+    <UseArtifactsOutput>true</UseArtifactsOutput>
   </PropertyGroup>
 
   <ItemGroup>
