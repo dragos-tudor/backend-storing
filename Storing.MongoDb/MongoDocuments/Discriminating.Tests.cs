@@ -24,7 +24,7 @@ partial class MongoDbTests
     await InsertDocuments(discriminatedColl, discriminated);
     await InsertDocuments(nonDiscriminatedColl, nonDiscriminated);
 
-    var actual = await discriminatedColl.AsQueryable().Where(x => x.GetType() == typeof(Discriminated)).CountAsync();
+    var actual = await discriminatedColl.AsDiscriminable().CountAsync();
     Assert.AreEqual(2, actual);
   }
 }

@@ -14,7 +14,7 @@ partial class MongoDbTests
   public async Task unordered_documents__order__ordered_documents ()
   {
     var coll = GetMongoCollection<Order>(Database, "queries");
-    var query = coll.AsQueryable().Where(x => x.GetType() == typeof(Order));
+    var query = coll.AsDiscriminable();
     await InsertDocuments(coll, [
       new Order { Id = Guid.NewGuid().ToString(), text = "1" },
       new Order { Id = Guid.NewGuid().ToString(), text = "0" },

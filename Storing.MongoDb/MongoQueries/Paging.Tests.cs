@@ -14,7 +14,7 @@ partial class MongoDbTests
   public async Task documents__page__paged_documents ()
   {
     var coll = GetMongoCollection<Page>(Database, "queries");
-    var query = coll.AsQueryable().Where(x => x.GetType() == typeof(Page));
+    var query = coll.AsDiscriminable();
     await InsertDocuments(coll, [
       new Page { Id = "p0", text = "0" },
       new Page { Id = "p1", text = "1" },
