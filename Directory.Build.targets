@@ -20,12 +20,4 @@
     />
   </Target>
 
-  <Target Name="Packing">
-    <Exec Command='dotnet pack \
-      --no-restore \
-      --configuration Release \
-      --output "$(MSBuildProjectDirectory)"/../.packages'
-    />
-  </Target>
-
 </Project>

@@ -23,8 +23,7 @@
     <!-- package -->
     <Authors>Dragos Tudor</Authors>
     <Company>$(Authors)</Company>
-    <Copyright>Copyright @2025</Copyright>
-    <Version>1.0.0-beta2</Version>
+    <Copyright>Copyright @2023</Copyright>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
 

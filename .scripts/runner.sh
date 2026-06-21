@@ -1,0 +1,2 @@
+
+cd ../.runner && ./run.sh
