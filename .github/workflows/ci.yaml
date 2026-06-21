@@ -26,16 +26,24 @@ jobs:
 
       - name: Permissions
         shell: bash
-        run: chmod u+x -R ./.scripts/*.sh
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          chmod u+x -R ./.scripts/*.sh
 
       - name: Restore
         shell: bash
-        run: ./.scripts/restoring.sh
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          ./.scripts/restoring.sh
 
       - name: Build
         shell: bash
-        run: ./.scripts/building.sh Release
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          ./.scripts/building.sh Release
 
       - name: Test
         shell: bash
-        run: ./.scripts/testing.sh Release
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          ./.scripts/testing.sh Release

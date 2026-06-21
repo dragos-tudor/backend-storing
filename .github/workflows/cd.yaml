@@ -37,6 +37,7 @@ jobs:
         id: version
         shell: bash
         run: |
+          cd "$GITHUB_WORKSPACE"
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             VERSION="${{ github.event.inputs.version }}"
           else
@@ -46,11 +47,14 @@ jobs:
 
       - name: Permissions
         shell: bash
-        run: chmod u+x -R ./.scripts/*.sh
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          chmod u+x -R ./.scripts/*.sh
 
       - name: Pack packages
         shell: bash
         run: |
+          cd "$GITHUB_WORKSPACE"
           mkdir -p ./.packages
           for project in \
             Storing.MongoDb/Storing.MongoDb.csproj \
@@ -64,6 +68,7 @@ jobs:
       - name: Publish to GitHub Packages
         shell: bash
         run: |
+          cd "$GITHUB_WORKSPACE"
           for package in ./.packages/*.nupkg; do
             [ -e "$package" ] || continue
             ./.scripts/publishing.sh "$package" "${{ secrets.GITHUB_TOKEN }}" "${{ github.repository_owner }}"
