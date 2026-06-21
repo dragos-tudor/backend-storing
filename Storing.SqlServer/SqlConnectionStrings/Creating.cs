@@ -7,7 +7,8 @@ partial class SqlServerFuncs
   public static string CreateSqlConnectionString(
     string dbName, string userName,
     string password, string serverName, bool trustServerCertificate = true,
-    Action<SqlConnectionStringBuilder>? setBuilder = default) =>
+    Action<SqlConnectionStringBuilder>? setBuilder = default)
+  =>
     SetSqlConnectionStringBuilder(
       new SqlConnectionStringBuilder
       {
@@ -20,4 +21,7 @@ partial class SqlServerFuncs
       setBuilder
     )
     .ToString();
+
+  public static string CreateSqlConnectionString(SqlServerOptions options) =>
+    CreateSqlConnectionString(options.DbName, options.UserName, options.UserPassword, options.ServerName);
 }
