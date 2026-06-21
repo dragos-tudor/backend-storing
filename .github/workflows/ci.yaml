@@ -1,0 +1,39 @@
+name: CI (Build and Test packages)
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            10.0.x
+
+      - name: Permissions
+        shell: bash
+        run: chmod u+x -R ./.scripts/*.sh
+
+      - name: Restore
+        shell: bash
+        run: ./.scripts/restoring.sh
+
+      - name: Build
+        shell: bash
+        run: ./.scripts/building.sh Release
+
+      - name: Test
+        shell: bash
+        run: ./.scripts/testing.sh Release

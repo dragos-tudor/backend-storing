@@ -1,0 +1,19 @@
+
+Since you are the only collaborator, the practical effect is:
+
+- You can still open PRs and push normally.
+- Workflows from your own branches will usually run without extra approval.
+- Fork PRs or external contributions are the ones that are blocked or require approval.
+- Because the runner is self-hosted, it is still a trusted environment, so you should keep it isolated and not let untrusted code run on it.
+
+So yes, with:
+- “Allow dragos-tudor actions and reusable workflows”
+- “Require approval for all external contributors”
+
+you are mostly protecting against the case of someone else opening a fork PR and getting access to your self-hosted runner.
+
+The remaining security advice is:
+- keep the runner on a dedicated machine/VM (I'm using inside devcontainer),
+- avoid running untrusted code on it (I always check what is running),
+- use minimal permissions for GITHUB_TOKEN (it has only minimal permissions),
+- and only approve runs you trust (k).
