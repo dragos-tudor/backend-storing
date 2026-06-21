@@ -24,7 +24,3 @@ public static partial class MongoDbFuncs
     BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
   }
 };
-
-#if RELEASE
-  public static class Program { public static void Main() {} }
-#endif
