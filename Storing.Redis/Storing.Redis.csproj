@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="stackexchange.redis"/>
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions"/>
+    <Compile Include="../DatabaseOptions.cs" Link="DatabaseOptions.cs" />
   </ItemGroup>
 
 </Project>
