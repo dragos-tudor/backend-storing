@@ -6,10 +6,9 @@ partial class SqlServerFuncs
 {
   static SqlConnectionStringBuilder SetSqlConnectionStringBuilder (
     SqlConnectionStringBuilder builder,
-    Action<SqlConnectionStringBuilder>? setBuilder = default)
+    Action<SqlConnectionStringBuilder>? configBuilder = default)
   {
-    if(setBuilder != default)
-      setBuilder(builder);
+    configBuilder?.Invoke(builder);
     return builder;
   }
 }

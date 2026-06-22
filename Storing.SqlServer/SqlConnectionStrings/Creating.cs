@@ -5,24 +5,30 @@ namespace Storing.SqlServer;
 partial class SqlServerFuncs
 {
   public static string CreateSqlConnectionString(
-    string dbName, string userName,
-    string password, string host,
-    int port = 0, bool trustServerCertificate = true,
-    Action<SqlConnectionStringBuilder>? setBuilder = default)
+    string endpoint, string userName,
+    string password, string? dbName = default,
+    TimeSpan? connectTimeout = default, bool sslCertificateValidation = true,
+    Action<SqlConnectionStringBuilder>? configBuilder = default)
   =>
     SetSqlConnectionStringBuilder(
       new SqlConnectionStringBuilder
       {
-        DataSource = $"{host}{GetSqlConnectionStringPort(port)}",
-        InitialCatalog = dbName,
+        DataSource = endpoint,
         UserID = userName,
         Password = password,
-        TrustServerCertificate = trustServerCertificate
+        InitialCatalog = dbName,
+        ConnectTimeout = (connectTimeout?? TimeSpan.FromSeconds(15)).Seconds,
+        TrustServerCertificate = sslCertificateValidation
       },
-      setBuilder
+      configBuilder
     )
     .ToString();
 
-  public static string CreateSqlConnectionString(SqlServerOptions options) =>
-    CreateSqlConnectionString(options.DbName, options.UserName, options.UserPassword, options.Host, options.Port);
+  public static string CreateSqlConnectionString(SqlServerOptions options, Action<SqlConnectionStringBuilder>? configBuilder = default) =>
+    CreateSqlConnectionString(
+      options.EndPoints.First(), options.User,
+      options.Password, options.DefaultDatabase,
+      options.ConnectTimeout, options.SslCertificateValidation,
+      configBuilder
+    );
 }
