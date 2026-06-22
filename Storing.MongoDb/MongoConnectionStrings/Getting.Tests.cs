@@ -23,8 +23,8 @@ partial class MongoDbTests
   {
     var actual = GetMongoConnectionString(new MongoOptions
     {
-      ServerName = "example.com",
-      ServerPort = 27017,
+      Host = "example.com",
+      Port = 27017,
       UserName = "user",
       UserPassword = "p@ss:word"
     });
@@ -61,8 +61,8 @@ partial class MongoDbTests
   {
     var actual = GetMongoConnectionString(new MongoReplicaSetOptions
     {
-      ServerNames = ["example.com"],
-      ServerPorts = [27017],
+      Hosts = ["example.com"],
+      Ports = [27017],
       UserName = "user",
       UserPassword = "p@ss:word",
       ReplicaSet = "rs0"
@@ -76,8 +76,8 @@ partial class MongoDbTests
   {
     var actual = GetMongoConnectionString(new MongoReplicaSetOptions
     {
-      ServerNames = ["example.com", "example.com"],
-      ServerPorts = [27017, 27018],
+      Hosts = ["example.com", "example.com"],
+      Ports = [27017, 27018],
       ReplicaSet = "rs0"
     });
 

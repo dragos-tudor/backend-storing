@@ -9,6 +9,6 @@ partial class MongoDbFuncs
   public static IMongoDatabase GetMongoDatabase(MongoOptions options) =>
     GetMongoDatabase(CreateMongoClient(GetMongoConnectionString(options)), options.DbName);
 
-  public static IMongoDatabase GetMongoDatabase(string serverName, int serverPort, string dbName) =>
-    GetMongoDatabase(CreateMongoClient(GetMongoConnectionString(serverName, serverPort)), dbName);
+  public static IMongoDatabase GetMongoDatabase(string host, int port, string dbName) =>
+    GetMongoDatabase(CreateMongoClient(GetMongoConnectionString(host, port)), dbName);
 }
