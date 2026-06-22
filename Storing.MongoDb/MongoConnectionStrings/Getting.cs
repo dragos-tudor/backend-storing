@@ -5,28 +5,34 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
-  static string GetMongoNetworkAddressAndPort (string networkAddress, int serverPort) => $"{networkAddress}:{serverPort}";
+  static string GetMongoConnectionStringAuthority (string networkAddress, int serverPort) => $"{networkAddress}:{serverPort}";
 
-  public static string GetMongoConnectionString (string networkAddress, int serverPort) =>
-    GetMongoConnectionString(networkAddress, serverPort, default!, default!);
+  static string GetMongoConnectionStringAt (string? credentials) => !string.IsNullOrEmpty(credentials) ? $"@" : string.Empty;
 
-  public static string GetMongoConnectionString (string networkAddress, int serverPort, string? userName, string? password)
+  static string GetMongoConnectionStringReplicaSet (string? replicaSet) => !string.IsNullOrEmpty(replicaSet) ? $"?replicaSet={WebUtility.UrlEncode(replicaSet)}" : string.Empty;
+
+  static string GetMongoConnectionString (string authority, string? credentials = default, string? replicaSet = default) =>
+    $"mongodb://{credentials}{GetMongoConnectionStringAt(credentials)}{authority}{GetMongoConnectionStringReplicaSet(replicaSet)}";
+
+
+  public static string GetMongoConnectionString (string networkAddress, int serverPort, string? userName = default, string? password = default)
   {
-    var authority = GetMongoNetworkAddressAndPort(networkAddress, serverPort);
-
-    if (string.IsNullOrWhiteSpace(userName) || string.IsNullOrWhiteSpace(password))
-      return $"mongodb://{authority}";
-
-    return $"mongodb://{WebUtility.UrlEncode(userName)}:{WebUtility.UrlEncode(password)}@{authority}";
+    var authority = GetMongoConnectionStringAuthority(networkAddress, serverPort);
+    string credentials = GetMongoCredentials(userName, password);
+    return GetMongoConnectionString(authority, credentials);
   }
 
-  public static string GetMongoConnectionString (MongoOptions options)
+  public static string GetMongoConnectionString (IEnumerable<string> networkAddresses, IEnumerable<int> serverPorts, string replicaSet, string? userName = default, string? password = default)
   {
-    var userName = string.IsNullOrWhiteSpace(options.UserName) ? options.AdminName : options.UserName;
-    var password = string.IsNullOrWhiteSpace(options.UserName) ? options.AdminPassword : options.UserPassword;
-
-    return GetMongoConnectionString(options.ServerName, options.ServerPort, userName, password);
+    var authorities = JoinReplicaSetNetworkAddresses(networkAddresses, serverPorts);
+    string credentials = GetMongoCredentials(userName, password);
+    return GetMongoConnectionString(authorities, credentials, replicaSet);
   }
 
-  public static string GetMongoConnectionString (string networkAddresses, string replicaSet) => $"mongodb://{networkAddresses}/?replicaSet={replicaSet}";
+
+  public static string GetMongoConnectionString (MongoOptions options) =>
+    GetMongoConnectionString(options.ServerName, options.ServerPort, options.UserName, options.UserPassword);
+
+  public static string GetMongoConnectionString (MongoReplicaSetOptions options) =>
+    GetMongoConnectionString(options.ServerNames, options.ServerPorts, options.ReplicaSet, options.UserName, options.UserPassword);
 }

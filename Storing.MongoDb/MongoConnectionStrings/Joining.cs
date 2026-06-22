@@ -3,6 +3,6 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
-  public static string JoinReplicaSetNetworkAddresses (IEnumerable<string> networkAddresses, int serverPort) =>
-    string.Join(",", networkAddresses.Select(networkAddress => GetMongoNetworkAddressAndPort(networkAddress, serverPort)));
+  public static string JoinReplicaSetNetworkAddresses (IEnumerable<string> networkAddresses, IEnumerable<int> serverPorts) =>
+    string.Join(",", networkAddresses.Zip(serverPorts, GetMongoConnectionStringAuthority));
 }
