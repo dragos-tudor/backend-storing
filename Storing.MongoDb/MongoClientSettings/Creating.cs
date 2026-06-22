@@ -3,7 +3,7 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
-  public static MongoClientSettings GetMongoClientSettings(
+  public static MongoClientSettings CreateMongoClientSettings(
     IEnumerable<string> endpoints,
     string? user = default,
     string? password = default,
@@ -28,8 +28,8 @@ partial class MongoDbFuncs
     );
 
 
-  public static MongoClientSettings GetMongoClientSettings(MongoOptions options) =>
-    GetMongoClientSettings(
+  public static MongoClientSettings CreateMongoClientSettings(MongoOptions options) =>
+    CreateMongoClientSettings(
       options.EndPoints, options.User,
       options.Password, options.DefaultDatabase,
       options.Ssl, options.SslCertificateValidation,
