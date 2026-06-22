@@ -6,13 +6,14 @@ partial class SqlServerFuncs
 {
   public static string CreateSqlConnectionString(
     string dbName, string userName,
-    string password, string serverName, bool trustServerCertificate = true,
+    string password, string serverName,
+    int serverPort = 0, bool trustServerCertificate = true,
     Action<SqlConnectionStringBuilder>? setBuilder = default)
   =>
     SetSqlConnectionStringBuilder(
       new SqlConnectionStringBuilder
       {
-        DataSource = serverName,
+        DataSource = $"{serverName}{GetSqlConnectionStringServerPort(serverPort)}",
         InitialCatalog = dbName,
         UserID = userName,
         Password = password,
@@ -23,5 +24,5 @@ partial class SqlServerFuncs
     .ToString();
 
   public static string CreateSqlConnectionString(SqlServerOptions options) =>
-    CreateSqlConnectionString(options.DbName, options.UserName, options.UserPassword, options.ServerName);
+    CreateSqlConnectionString(options.DbName, options.UserName, options.UserPassword, options.ServerName, options.ServerPort);
 }
