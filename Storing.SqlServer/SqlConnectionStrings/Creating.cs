@@ -13,7 +13,7 @@ partial class SqlServerFuncs
     SetSqlConnectionStringBuilder(
       new SqlConnectionStringBuilder
       {
-        DataSource = endpoint,
+        DataSource = CanonicalizeEndpointAsDataSource(endpoint),
         UserID = userName,
         Password = password,
         InitialCatalog = dbName,
