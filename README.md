@@ -8,14 +8,14 @@
   using static Storing.SqlServer.SqlServerFuncs;
   ...
 
-  var connString = CreateSqlConnection("Library", "127.0.0.1:1433", "username", "P@ssw0rd!");
+  var connString = CreateSqlConnectionString("127.0.0.1:1433", "username", "P@ssw0rd!", "Library");
   var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
 
   // add to entity M2M collection
   var book = new Book { BookId = 1 };
-  var author = new Author { Books = new [] { book } };
+  var author = new Author { Books = [book] };
 
-  using var dbContext = CreateLibraryContext(dbContextOptions);
+  using var dbContext = new LibraryContext(dbContextOptions);
   AddEntity(dbContext, author);
 
   Assert.AreEqual(EntityState.Added, dbContext.EntityEntry("BooksBookId", book.BookId)?.State);
@@ -101,7 +101,7 @@
     .Select(book => book.BookName)
     .ToArrayAsync();
 
-  AssertExtensions.AreEqual(["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
+  CollectionAssert.AreEqual((string[])["Domnisoara Christina", "La tiganci", "Maitreyi"], bookNames);
 ```
 
 ### Usage [mongodb]
@@ -109,11 +109,9 @@
   using static Storing.MongoDb.MongoDbFuncs;
   ...
 
-  var connString = "mongodb://172.17.0.3:27017";
-  var mongodb = CreateMongoClient(connString);
-  var db = mongodb.GetDatabase("Test");
-
-
+  var clientSettings = CreateMongoClientSettings(["127.0.0.1:27017"]);
+  using var mongoClient = CreateMongoClient(clientSettings);
+  var db = GetMongoDatabase(mongoClient, "Test");
 
   // modify book document props
   var id = Guid.NewGuid().ToString();
@@ -141,8 +139,7 @@
   await GrantRolesToUser(db, CreateGrantRolesToUserCommand(userName, ["readWrite"]));
 
   var actual = await FindUser(db, CreateFindUserCommand(userName));
-  AssertExtensions.AreEqual(["read", "readWrite"], CreateUserRoles(userName, actual).OrderBy(x => x));
-
+  CollectionAssert.AreEqual((string[])["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x).ToList());
 
 
   // work with discriminated documents on same collection
@@ -170,14 +167,13 @@
 
 ### Usage [redis]
 ```cs
+  using Microsoft.Extensions.Caching.Distributed;
   using StackExchange.Redis;
   using static Storing.Redis.RedisFuncs;
   ...
 
-  var endpoints = "172.17.0.5:6379";
-  var configOptions = CreateConfigurationOptions(endpoints, clientName: "test");
-  var redisOptions = CreateRedisOptions(configOptions);
-  using var redis = CreateRedisConnection(redisOptions);
+  var configOptions = CreateRedisConfigurationOptions(["127.0.0.1:6379"]);
+  using var redis = CreateRedisClient(configOptions);
   var db = redis.GetDatabase(0);
 
   // absolute cache entry expiration
