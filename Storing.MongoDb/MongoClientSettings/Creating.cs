@@ -12,19 +12,20 @@ partial class MongoDbFuncs
     bool sslCertificateValidation = false,
     TimeSpan? connectTimeout = default,
     string? replicaSet = default,
-    Action<MongoClientSettings>? configBuilder = default)
+    Action<MongoClientSettings>? configSettings = default)
   =>
     SetMongoClientSettings(
       new MongoClientSettings()
       {
         Servers = endpoints.Select(endpoint => MongoServerAddress.Parse(endpoint)),
         Credential = CreateMongoCredential(user, password, ssl, defaultDatabase),
-        ConnectTimeout = connectTimeout?? TimeSpan.FromSeconds(15),
+        ConnectTimeout = connectTimeout ?? TimeSpan.FromSeconds(15),
+        ServerSelectionTimeout = connectTimeout ?? TimeSpan.FromSeconds(15),
         ReplicaSetName = replicaSet,
         UseTls = ssl,
         AllowInsecureTls = sslCertificateValidation,
       },
-      configBuilder
+      configSettings
     );
 
 
