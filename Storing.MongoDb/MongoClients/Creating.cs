@@ -2,6 +2,7 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
+  [Obsolete("Use CreateMongoClient with MongoClientSettings instead")]
   public static MongoClient CreateMongoClient (string connString, Func<MongoUrlBuilder, MongoUrlBuilder>? setBuilder = null) =>
     setBuilder is null?
       new (new MongoUrlBuilder(connString).ToMongoUrl()):
