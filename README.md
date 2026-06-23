@@ -8,6 +8,8 @@
   using static Storing.SqlServer.SqlServerFuncs;
   ...
 
+  // from json, secrets, args
+  // var connString = CreateSqlConnectionString(configuration.GetSection(nameof(SqlServerOptions)).Get<SqlServerOptions>());
   var connString = CreateSqlConnectionString("127.0.0.1:1433", "username", "P@ssw0rd!", "Library");
   var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
 
@@ -109,13 +111,15 @@
   using static Storing.MongoDb.MongoDbFuncs;
   ...
 
+  // from json, secrets, args
+  // var clientSettings = CreateMongoClientSettings(configuration.GetSection(nameof(MongoOptions)).Get<MongoOptions>());
   var clientSettings = CreateMongoClientSettings(["127.0.0.1:27017"]);
   using var mongoClient = CreateMongoClient(clientSettings);
-  var db = GetMongoDatabase(mongoClient, "Test");
+  var mongoDb = GetMongoDatabase(mongoClient, "Test");
 
   // modify book document props
   var id = Guid.NewGuid().ToString();
-  var books = GetCollection<Book>(db, "books");
+  var books = GetCollection<Book>(mongoDb, "books");
   var original = new Book { Id = id, BookName = "a", ReleaseYear = 2023 };
   var modified = new { BookName = "b", ReleaseYear = 2024 };
 
@@ -135,10 +139,10 @@
 
   // grant additionally roles to user
   var userName = Guid.NewGuid().ToString();
-  await CreateUser(db, CreateCreateUserCommand(userName, "pass", ["read"]));
-  await GrantRolesToUser(db, CreateGrantRolesToUserCommand(userName, ["readWrite"]));
+  await CreateUser(mongoDb, CreateCreateUserCommand(userName, "pass", ["read"]));
+  await GrantRolesToUser(mongoDb, CreateGrantRolesToUserCommand(userName, ["readWrite"]));
 
-  var actual = await FindUser(db, CreateFindUserCommand(userName));
+  var actual = await FindUser(mongoDb, CreateFindUserCommand(userName));
   CollectionAssert.AreEqual((string[])["read", "readWrite"], GetUserRoles(userName, actual).OrderBy(x => x).ToList());
 
 
@@ -148,8 +152,8 @@
 
   record NonDiscriminated { public string Id { get; set; } = string.Empty; }
 
-  var discriminatedColl = GetCollection<Discriminated>(db, "test");
-  var nonDiscriminatedColl = GetCollection<NonDiscriminated>(db, "test");
+  var discriminatedColl = GetCollection<Discriminated>(mongoDb, "test");
+  var nonDiscriminatedColl = GetCollection<NonDiscriminated>(mongoDb, "test");
   var discriminated = new [] {
     new Discriminated { Id = Guid.NewGuid().ToString() },
     new Discriminated { Id = Guid.NewGuid().ToString() }
@@ -172,9 +176,11 @@
   using static Storing.Redis.RedisFuncs;
   ...
 
+// from json, secrets, args
+  // var configOptions = CreateRedisConfigurationOptions(configuration.GetSection(nameof(RedisOptions)).Get<RedisOptions>());
   var configOptions = CreateRedisConfigurationOptions(["127.0.0.1:6379"]);
-  using var redis = CreateRedisClient(configOptions);
-  var db = redis.GetDatabase(0);
+  using var redisCliient = CreateRedisClient(configOptions);
+  var redisDb = GetRedisDatabase(redisClient);
 
   // absolute cache entry expiration
   var key = "key1";
@@ -183,14 +189,19 @@
   var futureExpiration = TimeSpan.FromSeconds(1);
   var cacheEntryOptions = new DistributedCacheEntryOptions().SetAbsoluteExpiration(futureExpiration);
 
-  await SetStringCacheAsync(db, key, text, cacheEntryOptions);
-  Assert.AreEqual(text, await GetStringCacheAsync(db, key));
+  await SetStringCacheAsync(redisDb, key, text, cacheEntryOptions);
+  Assert.AreEqual(text, await GetStringCacheAsync(redisDb, key));
 
   await Task.Delay(TimeSpan.FromSeconds(1.5));
-  Assert.IsNull(await GetStringCacheAsync(db, key));
+  Assert.IsNull(await GetStringCacheAsync(redisDb, key));
 ```
 
 ### Remarks
 - sql server entity functions are unit-testable!
 - all integration tests use internal podman containers created when dev container is started.
-- wip podman needs to be restarted from time to time by cleaning /run/libpod and /run/podman/containers folders.
+- options normalization. create SqlServer, MongoDb, Redis options from configurations (json, secrets, args).
+- similar setup:
+  - create SqlServer connection string => create db context options =>  get sql database (create DbContext).
+  - create MongoDb client settings => create MongoDb client => get MongoDb database.
+  - create Redis config options => create Redis client => get Redis database.
+- wip podman needs to be restarted from time to time by cleaning /run/libpod and /run/podman/containers folders (solved).
