@@ -10,7 +10,7 @@ partial class RedisFuncs
     int? defaultDatabase = default,
     bool ssl = false,
     TimeSpan? connectTimeout = default,
-    Action<ConfigurationOptions>? configBuilder = default)
+    Action<ConfigurationOptions>? configOptons = default)
   =>
     SetRedisConfigurationOptions(
       new ConfigurationOptions()
@@ -23,11 +23,11 @@ partial class RedisFuncs
         AbortOnConnectFail = false,
         Ssl = ssl
       },
-      configBuilder
+      configOptons
     );
 
 
-  public static ConfigurationOptions CreateConfigurationOptions(RedisOptions options) =>
+  public static ConfigurationOptions CreateRedisConfigurationOptions(RedisOptions options) =>
     CreateRedisConfigurationOptions(
       options.EndPoints, options.User,
       options.Password, options.DefaultDatabase,
