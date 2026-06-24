@@ -8,7 +8,7 @@
   using static Storing.SqlServer.SqlServerFuncs;
   ...
 
-  // from json, secrets, args
+  // from json, secrets, envvars, args
   // var connString = CreateSqlConnectionString(configuration.GetSection(nameof(SqlServerOptions)).Get<SqlServerOptions>());
   var connString = CreateSqlConnectionString("127.0.0.1:1433", "username", "P@ssw0rd!", "Library");
   var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
@@ -111,7 +111,7 @@
   using static Storing.MongoDb.MongoDbFuncs;
   ...
 
-  // from json, secrets, args
+  // from json, secrets, envvars, args
   // var clientSettings = CreateMongoClientSettings(configuration.GetSection(nameof(MongoOptions)).Get<MongoOptions>());
   var clientSettings = CreateMongoClientSettings(["127.0.0.1:27017"]);
   using var mongoClient = CreateMongoClient(clientSettings);
@@ -176,7 +176,7 @@
   using static Storing.Redis.RedisFuncs;
   ...
 
-// from json, secrets, args
+// from json, secrets, envvars, args
   // var configOptions = CreateRedisConfigurationOptions(configuration.GetSection(nameof(RedisOptions)).Get<RedisOptions>());
   var configOptions = CreateRedisConfigurationOptions(["127.0.0.1:6379"]);
   using var redisCliient = CreateRedisClient(configOptions);
@@ -198,10 +198,10 @@
 
 ### Remarks
 - sql server entity functions are unit-testable!
-- all integration tests use internal podman containers created when dev container is started.
-- options normalization. create SqlServer, MongoDb, Redis options from configurations (json, secrets, args).
+- all integration tests use podman containers (based on host shared podman images!)  created when dev container is created. when dev container is started the podman containers are started.
+- options normalization. create SqlServer, MongoDb, Redis options from configurations (json, secrets, envvars, args).
 - similar setup:
-  - create SqlServer connection string => create db context options =>  get sql database (create DbContext).
+  - create SqlServer connection string => create db context options =>  get SqlServer database (create DbContext).
   - create MongoDb client settings => create MongoDb client => get MongoDb database.
   - create Redis config options => create Redis client => get Redis database.
 - wip podman needs to be restarted from time to time by cleaning /run/libpod and /run/podman/containers folders (solved).
