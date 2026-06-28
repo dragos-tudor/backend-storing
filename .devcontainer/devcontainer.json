@@ -14,17 +14,17 @@
 	],
 	"containerEnv": {
 		"DATA_PROTECTION_KEY": "HFm8fYbLyEarjjlGBj5r9Q==",
+    "MSSQL_SA_PASSWORD": "p@ssw0rd!",
+    "MONGO_INITDB_ROOT_USERNAME": "sa",
+    "MONGO_INITDB_ROOT_PASSWORD": "p@ssw0rd!",
     "SHELL": "/bin/bash"
 	},
 	"runArgs": [
 		"--name=backend-storing",
-		"--network=host",
+    "--hostname=storing",
+    "--network=storing-network",
 		"--privileged"
 	],
-  "postCreateCommand": {
-		"sql-server": "podman pull mcr.microsoft.com/mssql/server:2022-latest; podman run -p 1433:1433 -e \"ACCEPT_EULA=Y\" -e \"MSSQL_SA_PASSWORD=P@ssw0rd!\" -d --name storing-sql mcr.microsoft.com/mssql/server:2022-latest;",
-		"mongo": "podman pull docker.io/library/mongo:8.2-noble;  podman run -p 27017:27017 -d --name storing-mongo docker.io/library/mongo:8.2-noble;",
-		"redis": "podman pull docker.io/library/redis:8.6.4; podman run -d --name storing-redis docker.io/library/redis:8.6.4;"
-	},
-  "postStartCommand": "rm -rf /run/libpod/alive; podman restart storing-sql storing-mongo storing-redis; podman restart storing-sql storing-mongo storing-redis"
+  "postCreateCommand": "chmod u+x .devcontainer/*.sh; sh .devcontainer/post-create-command.sh",
+  "postStartCommand": "sh .devcontainer/post-start-command.sh"
 }
