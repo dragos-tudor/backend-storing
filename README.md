@@ -10,7 +10,7 @@
 
   // from json, secrets, envvars, args
   // var connString = CreateSqlConnectionString(configuration.GetSection(nameof(SqlServerOptions)).Get<SqlServerOptions>());
-  var connString = CreateSqlConnectionString("127.0.0.1:1433", "username", "P@ssw0rd!", "Library");
+  var connString = CreateSqlConnectionString("sql", "username", "P@ssw0rd!", "Library");
   var dbContextOptions = CreateSqlContextOptions<LibraryContext>(connString);
 
   // add to entity M2M collection
@@ -113,7 +113,7 @@
 
   // from json, secrets, envvars, args
   // var clientSettings = CreateMongoClientSettings(configuration.GetSection(nameof(MongoOptions)).Get<MongoOptions>());
-  var clientSettings = CreateMongoClientSettings(["127.0.0.1:27017"]);
+  var clientSettings = CreateMongoClientSettings(["mongo"]);
   using var mongoClient = CreateMongoClient(clientSettings);
   var mongoDb = GetMongoDatabase(mongoClient, "Test");
 
@@ -178,7 +178,7 @@
 
 // from json, secrets, envvars, args
   // var configOptions = CreateRedisConfigurationOptions(configuration.GetSection(nameof(RedisOptions)).Get<RedisOptions>());
-  var configOptions = CreateRedisConfigurationOptions(["127.0.0.1:6379"]);
+  var configOptions = CreateRedisConfigurationOptions(["redis"]);
   using var redisCliient = CreateRedisClient(configOptions);
   var redisDb = GetRedisDatabase(redisClient);
 
@@ -197,6 +197,7 @@
 ```
 
 ### Remarks
+- create netowrk first: 'podman network create --driver=bridge storing-network'.
 - sql server entity functions are unit-testable!
 - all integration tests use podman containers (based on host shared podman images!)  created when dev container is created. when dev container is started the podman containers are started.
 - options normalization. create SqlServer, MongoDb, Redis options from configurations (json, secrets, envvars, args).

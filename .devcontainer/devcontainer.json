@@ -9,22 +9,19 @@
 		}
 	},
 	"mounts": [
-		{ "source": "nuget", "target": "/root/.nuget", "type": "volume" },
-    { "source": "/media/dragos/storage/devcontainers", "target": "/var/lib/containers", "type": "bind" }
+		{ "source": "nuget", "target": "/root/.nuget", "type": "volume" }
 	],
 	"containerEnv": {
-		"DATA_PROTECTION_KEY": "HFm8fYbLyEarjjlGBj5r9Q==",
     "MSSQL_SA_PASSWORD": "p@ssw0rd!",
     "MONGO_INITDB_ROOT_USERNAME": "sa",
-    "MONGO_INITDB_ROOT_PASSWORD": "p@ssw0rd!",
-    "SHELL": "/bin/bash"
+    "MONGO_INITDB_ROOT_PASSWORD": "p@ssw0rd!"
 	},
 	"runArgs": [
 		"--name=backend-storing",
-    "--hostname=storing",
+    "--add-host=host.containers.internal:host-gateway",
     "--network=storing-network",
 		"--privileged"
 	],
-  "postCreateCommand": "chmod u+x .devcontainer/*.sh; sh .devcontainer/post-create-command.sh",
-  "postStartCommand": "sh .devcontainer/post-start-command.sh"
+  "postCreateCommand": "chmod u+x .devcontainer/*.sh; sh .devcontainer/creating.sh",
+  "postStartCommand": "sh .devcontainer/starting.sh"
 }

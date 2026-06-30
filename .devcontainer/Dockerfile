@@ -1,4 +1,4 @@
-FROM quay.io/podman/stable:latest
+FROM quay.io/podman/stable:v5.8.2
 
 ARG DOTNET_SDK_VERSION=dotnet-sdk-10.0
 

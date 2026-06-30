@@ -7,7 +7,7 @@ namespace Storing.MongoDb;
 [TestClass]
 public partial class MongoDbTests
 {
-  static readonly MongoClientSettings ClientSettings = CreateMongoClientSettings(["127.0.0.1:27017"], GetMongoDbAdminUserName(), GetMongoDbAdminPassword());
+  static readonly MongoClientSettings ClientSettings = CreateMongoClientSettings(["mongo"], GetMongoDbAdminUserName(), GetMongoDbAdminPassword());
   static readonly IMongoClient Client = CreateMongoClient(ClientSettings);
   static readonly IMongoDatabase Database = GetMongoDatabase(Client, "storing");
   readonly TestContext TestContext;

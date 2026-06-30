@@ -10,6 +10,7 @@
 artifacts/
 .packages
 .runner
+.containers
 
 # Code Coverage results
 **/lcov.info
