@@ -9,11 +9,6 @@ sed -i 's|^[# ]*graphroot =.*|graphroot = "/workspaces/backend-storing/.containe
 mkdir -p /etc/containers
 cat .devcontainer/registries.conf > /etc/containers/registries.conf
 
-echo "access containers by names"
-echo "127.0.0.1 mongo mongo.dns.podman" >> /etc/hosts
-echo "127.0.0.1 sql sql.dns.podman" >> /etc/hosts
-echo "127.0.0.1 redis redis.dns.podman" >> /etc/hosts
-
 echo "pull image and run SqlServer container"
 podman pull mcr.microsoft.com/mssql/server:2022-latest;
 podman run -e MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD -e ACCEPT_EULA=Y \
