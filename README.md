@@ -176,7 +176,7 @@
   using static Storing.Redis.RedisFuncs;
   ...
 
-// from json, secrets, envvars, args
+  // from json, secrets, envvars, args
   // var configOptions = CreateRedisConfigurationOptions(configuration.GetSection(nameof(RedisOptions)).Get<RedisOptions>());
   var configOptions = CreateRedisConfigurationOptions(["redis"]);
   using var redisCliient = CreateRedisClient(configOptions);
@@ -197,12 +197,13 @@
 ```
 
 ### Remarks
-- create netowrk first: 'podman network create --driver=bridge storing-network'.
 - sql server entity functions are unit-testable!
-- all integration tests use podman containers (based on host shared podman images!)  created when dev container is created. when dev container is started the podman containers are started.
+- all integration tests:
+  - when dev container is created podman containers are created.
+  - when dev container is started podman containers are started (avoiding ghosts ports hanging).
+  - when any, podman pull images from host registry images container.
 - options normalization. create SqlServer, MongoDb, Redis options from configurations (json, secrets, envvars, args).
 - similar setup:
-  - create SqlServer connection string => create db context options =>  get SqlServer database (create DbContext).
+  - create SqlServer connection string => create db context options => get SqlServer database (create DbContext).
   - create MongoDb client settings => create MongoDb client => get MongoDb database.
   - create Redis config options => create Redis client => get Redis database.
-- wip podman needs to be restarted from time to time by cleaning /run/libpod and /run/podman/containers folders (solved).

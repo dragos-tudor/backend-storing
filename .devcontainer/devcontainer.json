@@ -14,7 +14,9 @@
 	"containerEnv": {
     "MSSQL_SA_PASSWORD": "p@ssw0rd!",
     "MONGO_INITDB_ROOT_USERNAME": "sa",
-    "MONGO_INITDB_ROOT_PASSWORD": "p@ssw0rd!"
+    "MONGO_INITDB_ROOT_PASSWORD": "p@ssw0rd!",
+    "CONTAINERS_REGISTRIES_CONF": "/workspaces/backend-storing/.podman/registries.conf",
+    "CONTAINERS_STORAGE_CONF": "/workspaces/backend-storing/.podman/storage.conf"
 	},
 	"runArgs": [
 		"--name=backend-storing",
@@ -22,6 +24,7 @@
     "--network=storing-network",
 		"--privileged"
 	],
-  "postCreateCommand": "chmod u+x .devcontainer/*.sh; sh .devcontainer/creating.sh",
-  "postStartCommand": "sh .devcontainer/starting.sh"
+	"initialCommand": "chmod +x .podman/*.sh; .podman/initializing.sh",
+  "postCreateCommand": ".podman/creating.sh",
+  "postStartCommand": ".podman/starting.sh"
 }

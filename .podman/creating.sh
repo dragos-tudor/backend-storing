@@ -1,13 +1,8 @@
 # set -e
 
-CONTAINERS=/workspaces/backend-storing/.containers
-[[ -d $CONTAINERS ]] && rm -rf $CONTAINERS
-mkdir -p $CONTAINERS
-sed -i 's|^[# ]*graphroot =.*|graphroot = "/workspaces/backend-storing/.containers"|' /etc/containers/storage.conf
-
-# cached images from host registry container, fallback to remote registies
-mkdir -p /etc/containers
-cat .devcontainer/registries.conf > /etc/containers/registries.conf
+# reduce dev container size [use mounted host folder]
+PODMAN_ROOT=/workspaces/backend-storing/.containers
+[[ -d $PODMAN_ROOT ]] || mkdir -p $PODMAN_ROOT
 
 echo "pull image and run SqlServer container"
 podman pull mcr.microsoft.com/mssql/server:2022-latest;
@@ -15,10 +10,10 @@ podman run -e MSSQL_SA_PASSWORD=$MSSQL_SA_PASSWORD -e ACCEPT_EULA=Y \
 	--network host -d --name sql mcr.microsoft.com/mssql/server:2022-latest;
 
 echo "pull image and run Mongo container"
-chmod 400 .devcontainer/mongo-keyfile # IMPORTANT
+chmod 400 .podman/mongo-keyfile # IMPORTANT
 podman pull docker.io/library/mongo:8.2-noble;
 podman run -e MONGO_INITDB_ROOT_USERNAME=$MONGO_INITDB_ROOT_USERNAME -e MONGO_INITDB_ROOT_PASSWORD=$MONGO_INITDB_ROOT_PASSWORD \
-	-v .devcontainer/mongo-keyfile:/data/configdb/mongo-keyfile  \
+	-v .podman/mongo-keyfile:/data/configdb/mongo-keyfile  \
 	--network host -d --name mongo docker.io/library/mongo:8.2-noble \
 	mongod --bind_ip_all --keyFile /data/configdb/mongo-keyfile --auth;
 
