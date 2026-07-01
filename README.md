@@ -198,7 +198,10 @@
 
 ### Remarks
 - sql server entity functions are unit-testable!
-- all integration tests:
+- all integration tests use podman containers [aspire testing NA].
+- dev container network is user-created. isolated from host.
+- podman containers are isolated from host [using same dev container network].
+- podman containers:
   - when dev container is created podman containers are created.
   - when dev container is started podman containers are started (avoiding ghosts ports hanging).
   - when any, podman pull images from host registry images container.
