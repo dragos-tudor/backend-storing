@@ -9,22 +9,33 @@
 		}
 	},
 	"mounts": [
-		{ "source": "nuget", "target": "/root/.nuget", "type": "volume" }
+		{ "source": "nuget", "target": "/root/.nuget", "type": "volume" },
+		"type=tmpfs,target=/run/libpod",
+    "type=tmpfs,target=/run/containers/storage",
+    "type=tmpfs,target=/run/containers/networks"
 	],
 	"containerEnv": {
     "MSSQL_SA_PASSWORD": "p@ssw0rd!",
     "MONGO_INITDB_ROOT_USERNAME": "sa",
     "MONGO_INITDB_ROOT_PASSWORD": "p@ssw0rd!",
+    "REDIS_USERNAME": "default",
+    "REDIS_PASSWORD": "p@ssw0rd!",
+    "ELASTIC_USERNAME": "elastic",
+    "ELASTIC_PASSWORD": "p@ssw0rd!",
+    "KAFKA_USERNAME": "admin",
+    "KAFKA_PASSWORD": "p@ssw0rd!",
     "CONTAINERS_REGISTRIES_CONF": "/workspaces/backend-storing/.podman/registries.conf",
-    "CONTAINERS_STORAGE_CONF": "/workspaces/backend-storing/.podman/storage.conf"
+    "CONTAINERS_STORAGE_CONF": "/workspaces/backend-storing/.podman/storage.conf",
+    "WORKSPACE_ROOT": "/workspaces/backend-storing"
 	},
 	"runArgs": [
 		"--name=backend-storing",
+		"--hostname=storing",
     "--add-host=host.containers.internal:host-gateway",
     "--network=storing-network",
 		"--privileged"
 	],
-	"initialCommand": "chmod +x .podman/*.sh; .podman/initializing.sh",
-  "postCreateCommand": ".podman/creating.sh",
+	"initializeCommand": "chmod +x .podman/*.sh; .podman/initializing.sh",
+  "postCreateCommand": "chmod +x .services/*.sh; .services/starting.sh",
   "postStartCommand": ".podman/starting.sh"
 }

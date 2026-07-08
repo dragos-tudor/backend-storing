@@ -8,7 +8,7 @@ namespace Storing.Redis;
 [TestClass]
 public sealed partial class RedisTests
 {
-  static readonly IConnectionMultiplexer Client = CreateRedisClient(["redis"]);
+  static readonly IConnectionMultiplexer Client = CreateRedisClient(["redis"], GetRedisAdminUserName(), GetRedisAdminPassword());
   internal static readonly IDatabase Database = GetRedisDatabase(Client);
   readonly TestContext TestContext;
 
