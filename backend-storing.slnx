@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Storing.MongoDb/Storing.MongoDb.csproj" />
   <Project Path="Storing.Redis/Storing.Redis.csproj" />
+  <Project Path="Storing.ElasticSearch/Storing.ElasticSearch.csproj" />
   <Project Path="Storing.SqlServer/Storing.SqlServer.csproj" />
 </Solution>

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="../Directory.Testing.props" />
+
+  <PropertyGroup>
+    <Description>Convenient functions for Elasticsearch.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Elastic.Clients.Elasticsearch" />
+    <Compile Include="../DatabaseOptions.cs" Link="DatabaseOptions.cs" />
+  </ItemGroup>
+</Project>
