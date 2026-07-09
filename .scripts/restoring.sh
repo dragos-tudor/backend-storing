@@ -1,5 +1,3 @@
 set -e
 
-WORKSPACE_DIR=/workspaces/backend-storing
-
-cd $WORKSPACE_DIR && dotnet restore backend-storing.slnx
+cd $WORKSPACE_ROOT && dotnet restore backend-storing.slnx

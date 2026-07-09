@@ -1,2 +1,2 @@
 
-cd /workspaces/backend-storing/.runner && ./run.sh
+cd $WORKSPACE_ROOT/.runner && ./run.sh
