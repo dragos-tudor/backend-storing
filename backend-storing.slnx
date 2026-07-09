@@ -3,4 +3,5 @@
   <Project Path="Storing.Redis/Storing.Redis.csproj" />
   <Project Path="Storing.ElasticSearch/Storing.ElasticSearch.csproj" />
   <Project Path="Storing.SqlServer/Storing.SqlServer.csproj" />
+  <Project Path="Storing.Kafka/Storing.Kafka.csproj" />
 </Solution>

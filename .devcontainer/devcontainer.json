@@ -3,8 +3,7 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-dotnettools.csharp",
-        "mongodb.mongodb-vscode"
+				"ms-dotnettools.csharp"
 			]
 		}
 	},

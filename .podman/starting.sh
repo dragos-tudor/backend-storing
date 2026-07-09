@@ -10,4 +10,4 @@ echo "stop podman containers"
 podman stop -a >/dev/null 2>&1 || true
 
 echo "start podman containers"
-podman start mongo redis sql elasticsearch
+podman start mongo redis sql elasticsearch kafka

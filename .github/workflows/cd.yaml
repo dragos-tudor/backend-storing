@@ -64,7 +64,8 @@ jobs:
           for project in \
             Storing.MongoDb/Storing.MongoDb.csproj \
             Storing.Redis/Storing.Redis.csproj \
-            Storing.SqlServer/Storing.SqlServer.csproj
+            Storing.SqlServer/Storing.SqlServer.csproj \
+            Storing.Kafka/Storing.Kafka.csproj
           do
             [ -e "$project" ] || continue
             ./.scripts/packing.sh "$project" "${{ steps.version.outputs.version }}"
