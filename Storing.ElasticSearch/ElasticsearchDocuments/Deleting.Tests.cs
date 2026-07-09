@@ -9,6 +9,6 @@ public sealed partial class ElasticSearchTests
     await IndexDocumentAsync(client, document, indexName, document.Id, cancellationToken);
 
     var result = await DeleteDocumentAsync<TestDocument>(client, indexName, document.Id, cancellationToken);
-    result.ShouldBeTrue();
+    result.IsSuccess().ShouldBeTrue(result.DebugInformation);
   }
 }

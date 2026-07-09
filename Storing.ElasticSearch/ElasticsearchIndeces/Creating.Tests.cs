@@ -6,7 +6,8 @@ public sealed partial class ElasticSearchTests
   public async Task elasticsearch__create_index__index_created()
   {
     var indexName = "index-to-create";
+
     var created = await CreateIndexAsync(client, indexName, cancellationToken);
-    created.ShouldBeTrue();
+    created.IsSuccess().ShouldBeTrue(created.DebugInformation);
   }
 }

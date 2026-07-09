@@ -10,6 +10,6 @@ public sealed partial class ElasticSearchTests
 
     var updatedDocument = document with { Name = "updated" };
     var result = await UpdateDocumentAsync(client, updatedDocument, indexName, updatedDocument.Id, cancellationToken);
-    result.ShouldBeTrue();
+    result.IsSuccess().ShouldBeTrue(result.DebugInformation);
   }
 }

@@ -9,6 +9,7 @@ public sealed partial class ElasticSearchTests
     await IndexDocumentAsync(client, document, indexName, document.Id, cancellationToken);
 
     var result = await GetDocumentAsync<TestDocument>(client, indexName, document.Id, cancellationToken);
-    result.ShouldBeEquivalentTo(document);
+    result.IsSuccess().ShouldBeTrue(result.DebugInformation);
+    result.Source.ShouldBeEquivalentTo(document);
   }
 }

@@ -9,6 +9,6 @@ public sealed partial class ElasticSearchTests
     await CreateIndexAsync(client, indexName, cancellationToken);
 
     var removed = await DeleteIndexAsync(client, indexName, cancellationToken);
-    removed.ShouldBeTrue();
+    removed.IsSuccess().ShouldBeTrue(removed.DebugInformation);
   }
 }

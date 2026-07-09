@@ -25,15 +25,23 @@ public sealed partial class ElasticSearchTests
   [AssemblyInitialize]
   public static void InitializeElasticsearch(TestContext testContext)
   {
-    var timeoutCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+    var timeoutCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(15));
     var timeoutCancellationToken = timeoutCancellationTokenSource.Token;
 
     var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationToken, testContext.CancellationToken);
     cancellationToken = cancellationTokenSource.Token;
 
-    var indices = (string[])[ "index-test", "index-to-create", "index-to-exists", "index-to-delete" ];
-    Task.WaitAll(indices.Select(indexName => client.Indices.DeleteAsync(indexName, cancellationToken)));
+    while (true)
+    {
+        var pingResponse = client.PingAsync(cancellationToken).GetAwaiter().GetResult();
+        if (pingResponse.IsValidResponse) break;
+        Task.Delay(500, cancellationToken).GetAwaiter().GetResult();
+    }
 
+    var indices = (string[])[ "index-test", "index-to-create", "index-to-exists", "index-to-delete" ];
+    var results = indices.Select(indexName => client.Indices.DeleteAsync(indexName, cancellationToken));
+
+    Task.WaitAll([.. results], cancellationToken);
     CreateIndexAsync(client, indexName, cancellationToken).GetAwaiter().GetResult();
   }
 }

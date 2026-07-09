@@ -8,6 +8,6 @@ public sealed partial class ElasticSearchTests
     var document = new TestDocument { Id = CreateDocumentId(), Name = "index" };
 
     var result = await IndexDocumentAsync(client, document, indexName, document.Id, cancellationToken);
-    result.ShouldBeTrue();
+    result.IsSuccess().ShouldBeTrue(result.DebugInformation);
   }
 }

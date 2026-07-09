@@ -9,6 +9,6 @@ public sealed partial class ElasticSearchTests
     await CreateIndexAsync(client, indexName, cancellationToken);
 
     var exists = await ExistsIndexAsync(client, indexName, cancellationToken);
-    exists.ShouldBeTrue();
+    exists.IsSuccess().ShouldBeTrue(exists.DebugInformation);
   }
 }
