@@ -25,8 +25,9 @@ SERVICES_ROOT=$WORKSPACE_ROOT/.services
 echo "starting Elasticsearch container"
 # podman pull docker.io/library/elasticsearch:9.4.3;
 podman run \
-  -e ELASTIC_PASSWORD="$ELASTIC_PASSWORD" -e "ES_JAVA_OPTS=-Xms128m -Xmx128m" \
+  -e ELASTIC_PASSWORD="$ELASTIC_PASSWORD" \
   -v $SERVICES_ROOT/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:Z \
+  -v $SERVICES_ROOT/jvm-heap.options:/usr/share/elasticsearch/config/jvm.options.d/heap.options:Z \
   --network host --ulimit memlock=536870912:536870912 -d --name elasticsearch \
   docker.io/library/elasticsearch:9.4.3
 
