@@ -10,7 +10,7 @@ partial class ElasticSearchFuncs
     CancellationToken cancellationToken = default)
   where TDocument : class
   {
-    var response = await client.IndexAsync(document, idx => idx.Index(indexName).Id(GetOrCreateDocumentId(docId)), cancellationToken);
+    var response = await client.IndexAsync(document, idx => idx.Index(indexName).Id(docId ?? CreateDocumentId()), cancellationToken);
     return response.IsSuccess();
   }
 }

@@ -3,20 +3,13 @@ namespace Storing.ElasticSearch;
 public sealed partial class ElasticSearchTests
 {
   [TestMethod]
-  public async Task elasticsearch__update_document__succeeds()
+  public async Task elasticsearch__update_document__document_updated()
   {
-    var indexName = GetTestIndexName();
-    var created = await CreateIndexAsync(Client, indexName);
-    created.ShouldBeTrue();
+    var document = new TestDocument { Id = CreateDocumentId(), Name = "not updated" };
+    await IndexDocumentAsync(client, document, indexName, document.Id, cancellationToken);
 
-    var docId = Guid.NewGuid().ToString();
-    var indexed = await IndexDocumentAsync(Client, new TestDocument { Id = docId, Name = "sample" }, indexName, docId);
-    indexed.ShouldBeTrue();
-
-    var updated = await UpdateDocumentAsync(Client, new TestDocument { Id = docId, Name = "updated" }, indexName, docId);
-    updated.ShouldBeTrue();
-
-    var removed = await DeleteIndexAsync(Client, indexName);
-    removed.ShouldBeTrue();
+    var updatedDocument = document with { Name = "updated" };
+    var result = await UpdateDocumentAsync(client, updatedDocument, indexName, updatedDocument.Id, cancellationToken);
+    result.ShouldBeTrue();
   }
 }

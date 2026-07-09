@@ -3,20 +3,12 @@ namespace Storing.ElasticSearch;
 public sealed partial class ElasticSearchTests
 {
   [TestMethod]
-  public async Task elasticsearch__delete_document__succeeds()
+  public async Task elasticsearch__delete_document__document_deleted()
   {
-    var indexName = GetTestIndexName();
-    var created = await CreateIndexAsync(Client, indexName);
-    created.ShouldBeTrue();
+    var document = new TestDocument { Id = CreateDocumentId(), Name = "delete" };
+    await IndexDocumentAsync(client, document, indexName, document.Id, cancellationToken);
 
-    var docId = Guid.NewGuid().ToString();
-    var indexed = await IndexDocumentAsync(Client, new TestDocument { Id = docId, Name = "sample" }, indexName, docId);
-    indexed.ShouldBeTrue();
-
-    var deleted = await DeleteDocumentAsync<TestDocument>(Client, indexName, docId);
-    deleted.ShouldBeTrue();
-
-    var removed = await DeleteIndexAsync(Client, indexName);
-    removed.ShouldBeTrue();
+    var result = await DeleteDocumentAsync<TestDocument>(client, indexName, document.Id, cancellationToken);
+    result.ShouldBeTrue();
   }
 }
