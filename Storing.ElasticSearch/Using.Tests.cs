@@ -31,13 +31,10 @@ public sealed partial class ElasticSearchTests
     var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationToken, testContext.CancellationToken);
     cancellationToken = cancellationTokenSource.Token;
 
-    while (true)
-    {
-        var pingResponse = client.PingAsync(cancellationToken).GetAwaiter().GetResult();
-        if (pingResponse.IsValidResponse) break;
-        Task.Delay(500, cancellationToken).GetAwaiter().GetResult();
-    }
+    while (!client.PingAsync(cancellationToken).GetAwaiter().GetResult().IsValidResponse)
+      Task.Delay(500, cancellationToken).GetAwaiter().GetResult();
 
+    //TODO: resolve delete multiple indices once issue
     var indices = (string[])[ "index-test", "index-to-create", "index-to-exists", "index-to-delete" ];
     var results = indices.Select(indexName => client.Indices.DeleteAsync(indexName, cancellationToken));
 
