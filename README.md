@@ -196,19 +196,21 @@
   Assert.IsNull(await GetStringCacheAsync(redisDb, key));
 ```
 
-### Usage [mongodb]
+### Usage [elasticsearch]
+tbi
+### Usage [kafka]
 tbi
 
 ### Remarks
 - sql server entity functions are unit-testable!
 - all integration tests use podman containers [aspire testing NA].
-- dev container network is user-created. isolated from host.
+- dev container network is user-created. ensure isolation from host.
 - podman containers are isolated from host [using same dev container network].
 - podman containers:
   - when dev container is created podman containers are created.
   - when dev container is started podman containers are started (avoiding ghosts ports hanging).
   - when any, podman pull images from host registry images container.
-- options normalization. create SqlServer, MongoDb, Redis, Elasticsearch options from configurations (json, secrets, envvars, args).
+- common options normalization. create SqlServer, MongoDb, Redis, Elasticsearch, KAFKA options from configurations (json, secrets, envvars, args).
 - similar setup:
   - create SqlServer connection string => create db context options => get SqlServer database (create DbContext).
   - create MongoDb client settings => create MongoDb client => get MongoDb database.
