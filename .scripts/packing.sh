@@ -8,5 +8,6 @@ dotnet pack $PROJECT \
   --output "${WORKSPACE_ROOT}/.packages" \
   -p:PackOnly=true \
   -p:Version="${VERSION}" \
+  -p:ContinuousIntegrationBuild=true \
   -p:PackageVersion="${VERSION}"
 
