@@ -19,8 +19,9 @@ namespace Storing.MongoDb;
 
 public static partial class MongoDbFuncs
 {
-  static MongoDbFuncs() {
-    MapUserClassTypes();
-    BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
-  }
+    static MongoDbFuncs()
+    {
+        MapUserClassTypes();
+        BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+    }
 };

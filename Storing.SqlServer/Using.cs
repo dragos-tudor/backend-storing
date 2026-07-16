@@ -9,5 +9,3 @@ global using static Storing.SqlServer.SqlServerFuncs;
 namespace Storing.SqlServer;
 
 public static partial class SqlServerFuncs;
-
-

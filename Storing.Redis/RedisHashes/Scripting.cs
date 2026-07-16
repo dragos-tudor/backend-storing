@@ -2,14 +2,14 @@ namespace Storing.Redis;
 
 partial class RedisFuncs
 {
-  const string AbsoluteExprKey = "absexp";
-  const string SlidingExprKey = "sldexp";
-  const string DataKey = "data";
+    const string AbsoluteExprKey = "absexp";
+    const string SlidingExprKey = "sldexp";
+    const string DataKey = "data";
 
-  static readonly string GetHashScript = GenerateGetHashScript();
-  static readonly string SetHashScript = GenerateSetHashScript();
+    static readonly string GetHashScript = GenerateGetHashScript();
+    static readonly string SetHashScript = GenerateSetHashScript();
 
-  static string GenerateGetHashScript () => $@"
+    static string GenerateGetHashScript() => $@"
     local result = redis.call('HGETALL', KEYS[1])
     if(result[1] == nil) then
       return nil
@@ -26,7 +26,7 @@ partial class RedisFuncs
     end
     return result[6]";
 
-  static string GenerateSetHashScript () => $@"
+    static string GenerateSetHashScript() => $@"
     redis.call('HSET', KEYS[1], '{AbsoluteExprKey}', ARGV[1], '{SlidingExprKey}', ARGV[2], '{DataKey}', ARGV[4])
     if ARGV[3] ~= '-1' then
       redis.call('EXPIRE', KEYS[1], ARGV[3])

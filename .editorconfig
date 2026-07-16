@@ -18,6 +18,16 @@ dotnet_diagnostic.IDE0039.severity = none # IDE0039: Use local function
 dotnet_diagnostic.IDE0130.severity = none # IDE0130: Namespace does not match folder structure
 dotnet_diagnostic.IDE0021.severity = none # IDE0021: Use block body for constructor
 dotnet_diagnostic.CA1515.severity = none # CA1515: Consider making public types internal
+dotnet_diagnostic.CS1591.severity = none # message severity for generated code files
 
 [*.cs]
-dotnet_public_api_analyzer.require_api_files = true
+dotnet_diagnostic.RS0016.severity = warning
+dotnet_diagnostic.RS0017.severity = warning
+dotnet_diagnostic.RS0022.severity = warning
+dotnet_diagnostic.RS0024.severity = warning
+dotnet_diagnostic.RS0025.severity = warning
+dotnet_diagnostic.RS0026.severity = warning
+dotnet_diagnostic.RS0027.severity = warning
+dotnet_diagnostic.RS0036.severity = warning
+dotnet_diagnostic.RS0037.severity = warning
+dotnet_diagnostic.RS0041.severity = warning

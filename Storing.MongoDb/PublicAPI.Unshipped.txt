@@ -1,0 +1,26 @@
+﻿#nullable enable
+Storing.MongoDb.MongoDbTests
+Storing.MongoDb.MongoDbTests.class_type__map_discriminator__registred_discriminator_type() -> void
+Storing.MongoDb.MongoDbTests.class_type__map_regular__registred_regular_type() -> void
+Storing.MongoDb.MongoDbTests.database_user_roles__grant_roles__user_with_roles() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.database_user_roles__revoke_roles__user_without_roles() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.database_user__create__user_created() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.discriminated_documents_coll__query_as_discriminable__discriminated_documents() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.documents__page__paged_documents() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_fields__update__fields_updated() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_field__update__field_updated() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_objects_array__pull_one_item__item_deleted() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_objects_array__pull__field_array_deleted() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_objects_array__push__field_array_inserted() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_values_array__pull__array_deleted() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document_values_array__push__array_inserted() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document__delete__deleted_document() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document__filter__filtered_document() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document__insert__inserted_document() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.document__replace__replaced_document() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.MongoDbTests(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext) -> void
+Storing.MongoDb.MongoDbTests.unordered_documents__order__ordered_documents() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.user_roles__grant_roles__user_with_roles() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.user_roles__revoke_roles__user_without_roles() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.user_with_roles__create__user_created() -> System.Threading.Tasks.Task
+Storing.MongoDb.MongoDbTests.user__drop__dropped_user() -> System.Threading.Tasks.Task

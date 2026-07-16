@@ -1,0 +1,172 @@
+#nullable enable
+abstract Storing.DatabaseOptions<T>.<Clone>$() -> Storing.DatabaseOptions<T>
+override sealed Storing.MongoDb.MongoOptions.Equals(Storing.DatabaseOptions<string> other) -> bool
+override Storing.DatabaseOptions<T>.Equals(object obj) -> bool
+override Storing.DatabaseOptions<T>.GetHashCode() -> int
+override Storing.DatabaseOptions<T>.ToString() -> string
+override Storing.MongoDb.BsonCommand<T>.Render(MongoDB.Bson.Serialization.IBsonSerializerRegistry serializerRegistry) -> MongoDB.Driver.RenderedCommand<T>
+override Storing.MongoDb.MongoOptions.<Clone>$() -> Storing.MongoDb.MongoOptions
+override Storing.MongoDb.MongoOptions.EqualityContract.get -> System.Type
+override Storing.MongoDb.MongoOptions.Equals(object obj) -> bool
+override Storing.MongoDb.MongoOptions.GetHashCode() -> int
+override Storing.MongoDb.MongoOptions.PrintMembers(System.Text.StringBuilder builder) -> bool
+override Storing.MongoDb.MongoOptions.ToString() -> string
+override Storing.MongoDb.UserInfo.Equals(object obj) -> bool
+override Storing.MongoDb.UserInfo.GetHashCode() -> int
+override Storing.MongoDb.UserInfo.ToString() -> string
+override Storing.MongoDb.UserInfoResult.Equals(object obj) -> bool
+override Storing.MongoDb.UserInfoResult.GetHashCode() -> int
+override Storing.MongoDb.UserInfoResult.ToString() -> string
+override Storing.MongoDb.UserRole.Equals(object obj) -> bool
+override Storing.MongoDb.UserRole.GetHashCode() -> int
+override Storing.MongoDb.UserRole.ToString() -> string
+static Storing.DatabaseOptions<T>.operator !=(Storing.DatabaseOptions<T> left, Storing.DatabaseOptions<T> right) -> bool
+static Storing.DatabaseOptions<T>.operator ==(Storing.DatabaseOptions<T> left, Storing.DatabaseOptions<T> right) -> bool
+static Storing.MongoDb.MongoDbFuncs.AddToSetEachDefinition<T1, T2>(MongoDB.Driver.FieldDefinition<T1, T2> field, System.Collections.Generic.IEnumerable<T2> items) -> MongoDB.Driver.UpdateDefinition<T1>
+static Storing.MongoDb.MongoDbFuncs.AsDiscriminable<T>(this MongoDB.Driver.IMongoCollection<T> coll) -> System.Linq.IQueryable<T>
+static Storing.MongoDb.MongoDbFuncs.CleanMongoCollection(MongoDB.Driver.IMongoDatabase db, string collName) -> MongoDB.Driver.DeleteResult
+static Storing.MongoDb.MongoDbFuncs.CleanMongoCollections(MongoDB.Driver.IMongoDatabase db, params string[] collNames) -> void
+static Storing.MongoDb.MongoDbFuncs.CombineDefinitions<T>(params MongoDB.Driver.UpdateDefinition<T>[] definitions) -> MongoDB.Driver.UpdateDefinition<T>
+static Storing.MongoDb.MongoDbFuncs.CreateCreateUserCommand(string userName, string password, System.Collections.Generic.IEnumerable<string> roles, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.CreateUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateCreateUserForDatabasesCommand(string userName, string password, System.Collections.Generic.IEnumerable<Storing.MongoDb.UserRole> roles, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.CreateUserForDatabasesCommand
+static Storing.MongoDb.MongoDbFuncs.CreateDropAllUsersCommand(MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.DropAllUsersCommand
+static Storing.MongoDb.MongoDbFuncs.CreateDropUserCommand(string userName, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.DropUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateFindUserCommand(string userName) -> Storing.MongoDb.FindUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateGrantRolesToUserCommand(string userName, System.Collections.Generic.IEnumerable<Storing.MongoDb.UserRole> roles, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.GrantRolesToUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateGrantRolesToUserCommand(string userName, System.Collections.Generic.IEnumerable<string> roles, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.GrantRolesToUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateMongoClient(MongoDB.Driver.MongoClientSettings settings, System.Action<MongoDB.Driver.MongoClientSettings> configBuilder = null) -> MongoDB.Driver.MongoClient
+static Storing.MongoDb.MongoDbFuncs.CreateMongoClient(string connString, System.Func<MongoDB.Driver.MongoUrlBuilder, MongoDB.Driver.MongoUrlBuilder> setBuilder = null) -> MongoDB.Driver.MongoClient
+static Storing.MongoDb.MongoDbFuncs.CreateMongoClientSettings(Storing.MongoDb.MongoOptions options) -> MongoDB.Driver.MongoClientSettings
+static Storing.MongoDb.MongoDbFuncs.CreateMongoClientSettings(System.Collections.Generic.IEnumerable<string> endpoints, string user = null, string password = null, string defaultDatabase = null, bool ssl = false, bool sslCertificateValidation = false, System.TimeSpan? connectTimeout = null, string replicaSet = null, System.Action<MongoDB.Driver.MongoClientSettings> configSettings = null) -> MongoDB.Driver.MongoClientSettings
+static Storing.MongoDb.MongoDbFuncs.CreateMongoCollection(MongoDB.Driver.IMongoDatabase database, string collName) -> void
+static Storing.MongoDb.MongoDbFuncs.CreateMongoCollections(MongoDB.Driver.IMongoDatabase database, params string[] collNames) -> void
+static Storing.MongoDb.MongoDbFuncs.CreateRevokeRolesFromUserCommand(string userName, System.Collections.Generic.IEnumerable<Storing.MongoDb.UserRole> roles, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.RevokeRolesFromUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateRevokeRolesFromUserCommand(string userName, System.Collections.Generic.IEnumerable<string> roles, MongoDB.Driver.WriteConcern writeConcern = null) -> Storing.MongoDb.RevokeRolesFromUserCommand
+static Storing.MongoDb.MongoDbFuncs.CreateUser(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.CreateUserCommand command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Bson.BsonDocument>
+static Storing.MongoDb.MongoDbFuncs.CreateUserForDatabases(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.CreateUserForDatabasesCommand command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Bson.BsonDocument>
+static Storing.MongoDb.MongoDbFuncs.DeleteDocument<T>(MongoDB.Driver.IClientSessionHandle session, MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.DeleteOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Driver.DeleteResult>
+static Storing.MongoDb.MongoDbFuncs.DeleteDocument<T>(MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.DeleteOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Driver.DeleteResult>
+static Storing.MongoDb.MongoDbFuncs.DropAllUsers(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.DropAllUsersCommand command, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> MongoDB.Bson.BsonDocument
+static Storing.MongoDb.MongoDbFuncs.DropUser(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.DropUserCommand command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Bson.BsonDocument>
+static Storing.MongoDb.MongoDbFuncs.ExistsMongoCollections(MongoDB.Driver.IMongoDatabase database) -> bool
+static Storing.MongoDb.MongoDbFuncs.Filter<T1, T2>(this System.Linq.IQueryable<T1> source, T2 value, System.Func<T2, System.Linq.Expressions.Expression<System.Func<T1, bool>>> expression) -> System.Linq.IQueryable<T1>
+static Storing.MongoDb.MongoDbFuncs.FindUser(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.FindUserCommand command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Storing.MongoDb.UserInfoResult>
+static Storing.MongoDb.MongoDbFuncs.GenerateSequentialGuid() -> System.Guid
+static Storing.MongoDb.MongoDbFuncs.GetIdFilterDefinition<T>(T document) -> MongoDB.Driver.FilterDefinition<T>
+static Storing.MongoDb.MongoDbFuncs.GetMongoCollection<T>(MongoDB.Driver.IMongoDatabase db, string collName) -> MongoDB.Driver.IMongoCollection<T>
+static Storing.MongoDb.MongoDbFuncs.GetMongoDatabase(MongoDB.Driver.IMongoClient mongoClient, string dbName) -> MongoDB.Driver.IMongoDatabase
+static Storing.MongoDb.MongoDbFuncs.GetMongoDatabase(Storing.MongoDb.MongoOptions options) -> MongoDB.Driver.IMongoDatabase
+static Storing.MongoDb.MongoDbFuncs.GetMongoDatabase(string host, int port, string dbName) -> MongoDB.Driver.IMongoDatabase
+static Storing.MongoDb.MongoDbFuncs.GetMongoDbAdminPassword(string password = "MONGO_INITDB_ROOT_PASSWORD") -> string
+static Storing.MongoDb.MongoDbFuncs.GetMongoDbAdminUserName(string userName = "MONGO_INITDB_ROOT_USERNAME") -> string
+static Storing.MongoDb.MongoDbFuncs.GetUserRoles(string userName, Storing.MongoDb.UserInfoResult userInfoResult) -> System.Collections.Generic.IEnumerable<string>
+static Storing.MongoDb.MongoDbFuncs.GrantRolesToUser(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.GrantRolesToUserCommand command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Bson.BsonDocument>
+static Storing.MongoDb.MongoDbFuncs.InsertDocument<T>(MongoDB.Driver.IClientSessionHandle session, MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.InsertOneOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.MongoDb.MongoDbFuncs.InsertDocument<T>(MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.InsertOneOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.MongoDb.MongoDbFuncs.InsertDocuments<T>(MongoDB.Driver.IClientSessionHandle session, MongoDB.Driver.IMongoCollection<T> collection, System.Collections.Generic.IEnumerable<T> documents, MongoDB.Driver.InsertManyOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.MongoDb.MongoDbFuncs.InsertDocuments<T>(MongoDB.Driver.IMongoCollection<T> collection, System.Collections.Generic.IEnumerable<T> documents, MongoDB.Driver.InsertManyOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.MongoDb.MongoDbFuncs.MapClassType<T>(MongoDB.Bson.Serialization.BsonClassMap<T> classMap) -> void
+static Storing.MongoDb.MongoDbFuncs.MapClassType<T>(MongoDB.Bson.Serialization.BsonClassMap<T> classMap, System.Action<MongoDB.Bson.Serialization.BsonClassMap<T>> additionallyMapping) -> void
+static Storing.MongoDb.MongoDbFuncs.MapDiscriminatorType<T>(MongoDB.Bson.Serialization.BsonClassMap<T> classMap) -> void
+static Storing.MongoDb.MongoDbFuncs.MapUserClassTypes() -> void
+static Storing.MongoDb.MongoDbFuncs.Order<T1, T2>(this System.Linq.IQueryable<T1> source, bool? ascending, System.Linq.Expressions.Expression<System.Func<T1, T2>> keySelector) -> System.Linq.IQueryable<T1>
+static Storing.MongoDb.MongoDbFuncs.Page<T>(this System.Linq.IQueryable<T> source, int pageSize, int? pageIndex = 0) -> System.Linq.IQueryable<T>
+static Storing.MongoDb.MongoDbFuncs.PullAllDefinition<T1, T2>(MongoDB.Driver.FieldDefinition<T1, T2> field, System.Collections.Generic.IEnumerable<T2> items) -> MongoDB.Driver.UpdateDefinition<T1>
+static Storing.MongoDb.MongoDbFuncs.PullOneFromSetDefinition<T1, T2>(MongoDB.Driver.FieldDefinition<T1, T2> field, T2 item) -> MongoDB.Driver.UpdateDefinition<T1>
+static Storing.MongoDb.MongoDbFuncs.ReplaceDocument<T>(MongoDB.Driver.IClientSessionHandle session, MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.ReplaceOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.MongoDb.MongoDbFuncs.ReplaceDocument<T>(MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.ReplaceOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.MongoDb.MongoDbFuncs.RevokeRolesFromUser(MongoDB.Driver.IMongoDatabase db, Storing.MongoDb.RevokeRolesFromUserCommand command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Bson.BsonDocument>
+static Storing.MongoDb.MongoDbFuncs.RunCommandAsync<T1, T2>(MongoDB.Driver.IMongoDatabase db, T1 command, MongoDB.Driver.ReadPreference readPreference = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<T2>
+static Storing.MongoDb.MongoDbFuncs.SetFieldDefinition<T1, T2>(MongoDB.Driver.FieldDefinition<T1, T2> field, T2 value) -> MongoDB.Driver.UpdateDefinition<T1>
+static Storing.MongoDb.MongoDbFuncs.ToBsonDocument<T>(T document) -> MongoDB.Bson.BsonDocument
+static Storing.MongoDb.MongoDbFuncs.UpdateDocument<T>(MongoDB.Driver.IClientSessionHandle session, MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.UpdateDefinition<T> updateDefinition, MongoDB.Driver.UpdateOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Driver.UpdateResult>
+static Storing.MongoDb.MongoDbFuncs.UpdateDocument<T>(MongoDB.Driver.IMongoCollection<T> collection, T document, MongoDB.Driver.UpdateDefinition<T> updateDefinition, MongoDB.Driver.UpdateOptions options = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<MongoDB.Driver.UpdateResult>
+static Storing.MongoDb.MongoDbTests.InitializeMongoServer(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext) -> void
+static Storing.MongoDb.MongoOptions.operator !=(Storing.MongoDb.MongoOptions left, Storing.MongoDb.MongoOptions right) -> bool
+static Storing.MongoDb.MongoOptions.operator ==(Storing.MongoDb.MongoOptions left, Storing.MongoDb.MongoOptions right) -> bool
+static Storing.MongoDb.UserInfo.operator !=(Storing.MongoDb.UserInfo left, Storing.MongoDb.UserInfo right) -> bool
+static Storing.MongoDb.UserInfo.operator ==(Storing.MongoDb.UserInfo left, Storing.MongoDb.UserInfo right) -> bool
+static Storing.MongoDb.UserInfoResult.operator !=(Storing.MongoDb.UserInfoResult left, Storing.MongoDb.UserInfoResult right) -> bool
+static Storing.MongoDb.UserInfoResult.operator ==(Storing.MongoDb.UserInfoResult left, Storing.MongoDb.UserInfoResult right) -> bool
+static Storing.MongoDb.UserRole.operator !=(Storing.MongoDb.UserRole left, Storing.MongoDb.UserRole right) -> bool
+static Storing.MongoDb.UserRole.operator ==(Storing.MongoDb.UserRole left, Storing.MongoDb.UserRole right) -> bool
+Storing.DatabaseOptions<T>
+Storing.DatabaseOptions<T>.ConnectTimeout.get -> System.TimeSpan?
+Storing.DatabaseOptions<T>.ConnectTimeout.init -> void
+Storing.DatabaseOptions<T>.DatabaseOptions() -> void
+Storing.DatabaseOptions<T>.DatabaseOptions(Storing.DatabaseOptions<T> original) -> void
+Storing.DatabaseOptions<T>.DefaultDatabase.get -> T
+Storing.DatabaseOptions<T>.DefaultDatabase.init -> void
+Storing.DatabaseOptions<T>.EndPoints.get -> System.Collections.Generic.IEnumerable<string>
+Storing.DatabaseOptions<T>.EndPoints.init -> void
+Storing.DatabaseOptions<T>.Password.get -> string
+Storing.DatabaseOptions<T>.Password.init -> void
+Storing.DatabaseOptions<T>.Ssl.get -> bool
+Storing.DatabaseOptions<T>.Ssl.init -> void
+Storing.DatabaseOptions<T>.SslCertificateValidation.get -> bool
+Storing.DatabaseOptions<T>.SslCertificateValidation.init -> void
+Storing.DatabaseOptions<T>.User.get -> string
+Storing.DatabaseOptions<T>.User.init -> void
+Storing.MongoDb.BsonCommand<T>
+Storing.MongoDb.BsonCommand<T>.BsonCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.CreateUserCommand
+Storing.MongoDb.CreateUserCommand.CreateUserCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.CreateUserForDatabasesCommand
+Storing.MongoDb.CreateUserForDatabasesCommand.CreateUserForDatabasesCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.DropAllUsersCommand
+Storing.MongoDb.DropAllUsersCommand.DropAllUsersCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.DropUserCommand
+Storing.MongoDb.DropUserCommand.DropUserCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.FindUserCommand
+Storing.MongoDb.FindUserCommand.FindUserCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.GrantRolesToUserCommand
+Storing.MongoDb.GrantRolesToUserCommand.GrantRolesToUserCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.MongoDbFuncs
+Storing.MongoDb.MongoOptions
+Storing.MongoDb.MongoOptions.MongoOptions() -> void
+Storing.MongoDb.MongoOptions.MongoOptions(Storing.MongoDb.MongoOptions original) -> void
+Storing.MongoDb.MongoOptions.ReplicaSet.get -> string
+Storing.MongoDb.MongoOptions.ReplicaSet.init -> void
+Storing.MongoDb.RevokeRolesFromUserCommand
+Storing.MongoDb.RevokeRolesFromUserCommand.RevokeRolesFromUserCommand(MongoDB.Bson.BsonDocument document) -> void
+Storing.MongoDb.UserInfo
+Storing.MongoDb.UserInfo.Db.get -> string
+Storing.MongoDb.UserInfo.Db.set -> void
+Storing.MongoDb.UserInfo.Id.get -> string
+Storing.MongoDb.UserInfo.Id.set -> void
+Storing.MongoDb.UserInfo.Roles.get -> Storing.MongoDb.UserRole[]
+Storing.MongoDb.UserInfo.Roles.set -> void
+Storing.MongoDb.UserInfo.User.get -> string
+Storing.MongoDb.UserInfo.User.set -> void
+Storing.MongoDb.UserInfo.UserId.get -> System.Guid
+Storing.MongoDb.UserInfo.UserId.set -> void
+Storing.MongoDb.UserInfo.UserInfo() -> void
+Storing.MongoDb.UserInfo.UserInfo(Storing.MongoDb.UserInfo original) -> void
+Storing.MongoDb.UserInfoResult
+Storing.MongoDb.UserInfoResult.UserInfoResult() -> void
+Storing.MongoDb.UserInfoResult.UserInfoResult(Storing.MongoDb.UserInfoResult original) -> void
+Storing.MongoDb.UserInfoResult.Users.get -> Storing.MongoDb.UserInfo[]
+Storing.MongoDb.UserInfoResult.Users.set -> void
+Storing.MongoDb.UserRole
+Storing.MongoDb.UserRole.Db.get -> string
+Storing.MongoDb.UserRole.Db.set -> void
+Storing.MongoDb.UserRole.Role.get -> string
+Storing.MongoDb.UserRole.Role.set -> void
+Storing.MongoDb.UserRole.UserRole() -> void
+Storing.MongoDb.UserRole.UserRole(Storing.MongoDb.UserRole original) -> void
+virtual Storing.DatabaseOptions<T>.EqualityContract.get -> System.Type
+virtual Storing.DatabaseOptions<T>.Equals(Storing.DatabaseOptions<T> other) -> bool
+virtual Storing.DatabaseOptions<T>.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.MongoDb.MongoOptions.Equals(Storing.MongoDb.MongoOptions other) -> bool
+virtual Storing.MongoDb.UserInfo.<Clone>$() -> Storing.MongoDb.UserInfo
+virtual Storing.MongoDb.UserInfo.EqualityContract.get -> System.Type
+virtual Storing.MongoDb.UserInfo.Equals(Storing.MongoDb.UserInfo other) -> bool
+virtual Storing.MongoDb.UserInfo.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.MongoDb.UserInfoResult.<Clone>$() -> Storing.MongoDb.UserInfoResult
+virtual Storing.MongoDb.UserInfoResult.EqualityContract.get -> System.Type
+virtual Storing.MongoDb.UserInfoResult.Equals(Storing.MongoDb.UserInfoResult other) -> bool
+virtual Storing.MongoDb.UserInfoResult.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.MongoDb.UserRole.<Clone>$() -> Storing.MongoDb.UserRole
+virtual Storing.MongoDb.UserRole.EqualityContract.get -> System.Type
+virtual Storing.MongoDb.UserRole.Equals(Storing.MongoDb.UserRole other) -> bool
+virtual Storing.MongoDb.UserRole.PrintMembers(System.Text.StringBuilder builder) -> bool

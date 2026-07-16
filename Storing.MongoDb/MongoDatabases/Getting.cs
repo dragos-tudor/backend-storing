@@ -4,11 +4,11 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
-  public static IMongoDatabase GetMongoDatabase(IMongoClient mongoClient, string dbName) => mongoClient.GetDatabase(dbName);
+    public static IMongoDatabase GetMongoDatabase(IMongoClient mongoClient, string dbName) => mongoClient.GetDatabase(dbName);
 
-  public static IMongoDatabase GetMongoDatabase(MongoOptions options) =>
-    GetMongoDatabase(CreateMongoClient(CreateMongoClientSettings(options)), options.DefaultDatabase!);
+    public static IMongoDatabase GetMongoDatabase(MongoOptions options) =>
+      GetMongoDatabase(CreateMongoClient(CreateMongoClientSettings(options)), options.DefaultDatabase!);
 
-  public static IMongoDatabase GetMongoDatabase(string host, int port, string dbName) =>
-    GetMongoDatabase(CreateMongoClient(CreateMongoClientSettings([new MongoServerAddress(host, port).ToString()], defaultDatabase: dbName)), dbName);
+    public static IMongoDatabase GetMongoDatabase(string host, int port, string dbName) =>
+      GetMongoDatabase(CreateMongoClient(CreateMongoClientSettings([new MongoServerAddress(host, port).ToString()], defaultDatabase: dbName)), dbName);
 }

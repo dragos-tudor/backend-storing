@@ -1,0 +1,37 @@
+﻿#nullable enable
+Storing.Redis.RedisCacheTests
+Storing.Redis.RedisCacheTests.GetFromCacheReturnsObject() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.GetMissingCacheKeyReturnsNull() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.GetMissingStringCacheKeyReturnsNull() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.GetStringFromCacheReturnsString() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.RedisCacheTests() -> void
+Storing.Redis.RedisCacheTests.RemoveCacheKey() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.SetAndGetFromCacheWorksWithCaseSensitiveKeys() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.SetAndGetStringFromCacheWorksWithCaseSensitiveKeys() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.SetStringToCacheAlwaysOverwrites() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests.SetToCacheAlwaysOverwrites() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests1
+Storing.Redis.RedisCacheTests1.AbsoluteExpirationExpires() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests1.AbsoluteSubSecondExpirationExpiresImmediately() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests1.RedisCacheTests1() -> void
+Storing.Redis.RedisCacheTests2
+Storing.Redis.RedisCacheTests2.RedisCacheTests2() -> void
+Storing.Redis.RedisCacheTests2.RelativeExpirationExpires() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests2.RelativeSubSecondExpirationExpiresImmediately() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests3
+Storing.Redis.RedisCacheTests3.RedisCacheTests3() -> void
+Storing.Redis.RedisCacheTests3.SlidingExpirationExpiresIfNotAccessed() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests3.SlidingSubSecondExpirationExpiresImmediately() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests4
+Storing.Redis.RedisCacheTests4.RedisCacheTests4() -> void
+Storing.Redis.RedisCacheTests4.SlidingExpirationReneweDatabaseyAccess() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests5
+Storing.Redis.RedisCacheTests5.AbsoluteExpirationInThePastThrows() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests5.NegativeRelativeExpirationThrows() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests5.NegativeSlidingExpirationThrows() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests5.RedisCacheTests5() -> void
+Storing.Redis.RedisCacheTests5.SlidingExpirationReneweDatabaseyAccessUntilAbsoluteExpiration() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests5.ZeroRelativeExpirationThrows() -> System.Threading.Tasks.Task
+Storing.Redis.RedisCacheTests5.ZeroSlidingExpirationThrows() -> System.Threading.Tasks.Task
+Storing.Redis.RedisTests
+Storing.Redis.RedisTests.RedisTests(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext) -> void

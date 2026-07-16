@@ -1,0 +1,58 @@
+#nullable enable
+abstract Storing.DatabaseOptions<T>.<Clone>$() -> Storing.DatabaseOptions<T>
+override sealed Storing.Redis.RedisOptions.Equals(Storing.DatabaseOptions<int> other) -> bool
+override Storing.DatabaseOptions<T>.Equals(object obj) -> bool
+override Storing.DatabaseOptions<T>.GetHashCode() -> int
+override Storing.DatabaseOptions<T>.ToString() -> string
+override Storing.Redis.RedisOptions.<Clone>$() -> Storing.Redis.RedisOptions
+override Storing.Redis.RedisOptions.EqualityContract.get -> System.Type
+override Storing.Redis.RedisOptions.Equals(object obj) -> bool
+override Storing.Redis.RedisOptions.GetHashCode() -> int
+override Storing.Redis.RedisOptions.PrintMembers(System.Text.StringBuilder builder) -> bool
+override Storing.Redis.RedisOptions.ToString() -> string
+static Storing.DatabaseOptions<T>.operator !=(Storing.DatabaseOptions<T> left, Storing.DatabaseOptions<T> right) -> bool
+static Storing.DatabaseOptions<T>.operator ==(Storing.DatabaseOptions<T> left, Storing.DatabaseOptions<T> right) -> bool
+static Storing.Redis.RedisFuncs.CreateRedisClient(StackExchange.Redis.ConfigurationOptions options) -> StackExchange.Redis.IConnectionMultiplexer
+static Storing.Redis.RedisFuncs.CreateRedisClient(System.Collections.Generic.IEnumerable<string> endPoints, string user = null, string password = null, int? defaultDatabase = null) -> StackExchange.Redis.IConnectionMultiplexer
+static Storing.Redis.RedisFuncs.CreateRedisConfigurationOptions(Storing.Redis.RedisOptions options) -> StackExchange.Redis.ConfigurationOptions
+static Storing.Redis.RedisFuncs.CreateRedisConfigurationOptions(System.Collections.Generic.IEnumerable<string> endpoints, string user = null, string password = null, int? defaultDatabase = null, bool ssl = false, System.TimeSpan? connectTimeout = null, System.Action<StackExchange.Redis.ConfigurationOptions> configOptons = null) -> StackExchange.Redis.ConfigurationOptions
+static Storing.Redis.RedisFuncs.GetCacheAsync(StackExchange.Redis.IDatabase db, string key, System.TimeProvider timeProvider = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<byte[]>
+static Storing.Redis.RedisFuncs.GetHashAsync(StackExchange.Redis.IDatabase db, string key, System.TimeProvider timeProvider = null, System.Threading.CancellationToken? cancellationToken = null) -> System.Threading.Tasks.Task<byte[]>
+static Storing.Redis.RedisFuncs.GetRedisAdminPassword(string password = "REDIS_PASSWORD") -> string
+static Storing.Redis.RedisFuncs.GetRedisAdminUserName(string userName = "REDIS_USERNAME") -> string
+static Storing.Redis.RedisFuncs.GetRedisDatabase(StackExchange.Redis.IConnectionMultiplexer client, int databaseId = 0) -> StackExchange.Redis.IDatabase
+static Storing.Redis.RedisFuncs.GetStringCacheAsync(StackExchange.Redis.IDatabase db, string key, System.TimeProvider timeProvider = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<string>
+static Storing.Redis.RedisFuncs.RemoveCacheAsync(StackExchange.Redis.IDatabase db, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<bool>
+static Storing.Redis.RedisFuncs.RemoveKeyAsync(StackExchange.Redis.IDatabase db, string key, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<bool>
+static Storing.Redis.RedisFuncs.SetCacheAsync(StackExchange.Redis.IDatabase db, string key, byte[] value, Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions options = null, System.TimeProvider timeProvider = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.Redis.RedisFuncs.SetHashAsync(StackExchange.Redis.IDatabase db, string key, byte[] value, Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions options, System.TimeProvider timeProvider = null, System.Threading.CancellationToken? cancellationToken = null) -> System.Threading.Tasks.Task<string[]>
+static Storing.Redis.RedisFuncs.SetStringCacheAsync(StackExchange.Redis.IDatabase db, string key, string value, Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions options = null, System.TimeProvider timeProvider = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task
+static Storing.Redis.RedisOptions.operator !=(Storing.Redis.RedisOptions left, Storing.Redis.RedisOptions right) -> bool
+static Storing.Redis.RedisOptions.operator ==(Storing.Redis.RedisOptions left, Storing.Redis.RedisOptions right) -> bool
+Storing.DatabaseOptions<T>
+Storing.DatabaseOptions<T>.ConnectTimeout.get -> System.TimeSpan?
+Storing.DatabaseOptions<T>.ConnectTimeout.init -> void
+Storing.DatabaseOptions<T>.DatabaseOptions() -> void
+Storing.DatabaseOptions<T>.DatabaseOptions(Storing.DatabaseOptions<T> original) -> void
+Storing.DatabaseOptions<T>.DefaultDatabase.get -> T
+Storing.DatabaseOptions<T>.DefaultDatabase.init -> void
+Storing.DatabaseOptions<T>.EndPoints.get -> System.Collections.Generic.IEnumerable<string>
+Storing.DatabaseOptions<T>.EndPoints.init -> void
+Storing.DatabaseOptions<T>.Password.get -> string
+Storing.DatabaseOptions<T>.Password.init -> void
+Storing.DatabaseOptions<T>.Ssl.get -> bool
+Storing.DatabaseOptions<T>.Ssl.init -> void
+Storing.DatabaseOptions<T>.SslCertificateValidation.get -> bool
+Storing.DatabaseOptions<T>.SslCertificateValidation.init -> void
+Storing.DatabaseOptions<T>.User.get -> string
+Storing.DatabaseOptions<T>.User.init -> void
+Storing.Redis.AbsoluteExpirationException
+Storing.Redis.AbsoluteExpirationException.AbsoluteExpirationException(Microsoft.Extensions.Caching.Distributed.DistributedCacheEntryOptions options) -> void
+Storing.Redis.RedisFuncs
+Storing.Redis.RedisOptions
+Storing.Redis.RedisOptions.RedisOptions() -> void
+Storing.Redis.RedisOptions.RedisOptions(Storing.Redis.RedisOptions original) -> void
+virtual Storing.DatabaseOptions<T>.EqualityContract.get -> System.Type
+virtual Storing.DatabaseOptions<T>.Equals(Storing.DatabaseOptions<T> other) -> bool
+virtual Storing.DatabaseOptions<T>.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.Redis.RedisOptions.Equals(Storing.Redis.RedisOptions other) -> bool

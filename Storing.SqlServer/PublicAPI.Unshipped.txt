@@ -1,0 +1,181 @@
+#nullable enable
+override Storing.SqlServer.Author.Equals(object obj) -> bool
+override Storing.SqlServer.Author.GetHashCode() -> int
+override Storing.SqlServer.Author.ToString() -> string
+override Storing.SqlServer.Book.Equals(object obj) -> bool
+override Storing.SqlServer.Book.GetHashCode() -> int
+override Storing.SqlServer.Book.ToString() -> string
+override Storing.SqlServer.Course.Equals(object obj) -> bool
+override Storing.SqlServer.Course.GetHashCode() -> int
+override Storing.SqlServer.Course.ToString() -> string
+override Storing.SqlServer.Filter.Equals(object? obj) -> bool
+override Storing.SqlServer.Filter.GetHashCode() -> int
+override Storing.SqlServer.Filter.ToString() -> string!
+override Storing.SqlServer.Order.Equals(object? obj) -> bool
+override Storing.SqlServer.Order.GetHashCode() -> int
+override Storing.SqlServer.Order.ToString() -> string!
+override Storing.SqlServer.Page.Equals(object? obj) -> bool
+override Storing.SqlServer.Page.GetHashCode() -> int
+override Storing.SqlServer.Page.ToString() -> string!
+override Storing.SqlServer.Professor.Equals(object obj) -> bool
+override Storing.SqlServer.Professor.GetHashCode() -> int
+override Storing.SqlServer.Professor.ToString() -> string
+override Storing.SqlServer.Student.Equals(object obj) -> bool
+override Storing.SqlServer.Student.GetHashCode() -> int
+override Storing.SqlServer.Student.ToString() -> string
+static Storing.SqlServer.Author.operator !=(Storing.SqlServer.Author left, Storing.SqlServer.Author right) -> bool
+static Storing.SqlServer.Author.operator ==(Storing.SqlServer.Author left, Storing.SqlServer.Author right) -> bool
+static Storing.SqlServer.Book.operator !=(Storing.SqlServer.Book left, Storing.SqlServer.Book right) -> bool
+static Storing.SqlServer.Book.operator ==(Storing.SqlServer.Book left, Storing.SqlServer.Book right) -> bool
+static Storing.SqlServer.Course.operator !=(Storing.SqlServer.Course left, Storing.SqlServer.Course right) -> bool
+static Storing.SqlServer.Course.operator ==(Storing.SqlServer.Course left, Storing.SqlServer.Course right) -> bool
+static Storing.SqlServer.Filter.operator !=(Storing.SqlServer.Filter? left, Storing.SqlServer.Filter? right) -> bool
+static Storing.SqlServer.Filter.operator ==(Storing.SqlServer.Filter? left, Storing.SqlServer.Filter? right) -> bool
+static Storing.SqlServer.Order.operator !=(Storing.SqlServer.Order? left, Storing.SqlServer.Order? right) -> bool
+static Storing.SqlServer.Order.operator ==(Storing.SqlServer.Order? left, Storing.SqlServer.Order? right) -> bool
+static Storing.SqlServer.Page.operator !=(Storing.SqlServer.Page? left, Storing.SqlServer.Page? right) -> bool
+static Storing.SqlServer.Page.operator ==(Storing.SqlServer.Page? left, Storing.SqlServer.Page? right) -> bool
+static Storing.SqlServer.Professor.operator !=(Storing.SqlServer.Professor left, Storing.SqlServer.Professor right) -> bool
+static Storing.SqlServer.Professor.operator ==(Storing.SqlServer.Professor left, Storing.SqlServer.Professor right) -> bool
+static Storing.SqlServer.SqlServerTests.InitializeSqlDatabase<TContext>(TContext dbContext) -> System.Threading.Tasks.Task
+static Storing.SqlServer.SqlServerTests.InitializeSqlServer(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext _) -> void
+static Storing.SqlServer.Student.operator !=(Storing.SqlServer.Student left, Storing.SqlServer.Student right) -> bool
+static Storing.SqlServer.Student.operator ==(Storing.SqlServer.Student left, Storing.SqlServer.Student right) -> bool
+Storing.SqlServer.Author
+Storing.SqlServer.Author.Author() -> void
+Storing.SqlServer.Author.Author(Storing.SqlServer.Author original) -> void
+Storing.SqlServer.Author.AuthorId.get -> System.Guid
+Storing.SqlServer.Author.AuthorId.set -> void
+Storing.SqlServer.Author.AuthorName.get -> string
+Storing.SqlServer.Author.AuthorName.set -> void
+Storing.SqlServer.Author.BirthDate.get -> System.DateTime?
+Storing.SqlServer.Author.BirthDate.set -> void
+Storing.SqlServer.Author.Books.get -> System.Collections.Generic.IReadOnlyCollection<Storing.SqlServer.Book>
+Storing.SqlServer.Author.Books.set -> void
+Storing.SqlServer.Book
+Storing.SqlServer.Book.Authors.get -> System.Collections.Generic.IReadOnlyCollection<Storing.SqlServer.Author>
+Storing.SqlServer.Book.Authors.set -> void
+Storing.SqlServer.Book.Book() -> void
+Storing.SqlServer.Book.Book(Storing.SqlServer.Book original) -> void
+Storing.SqlServer.Book.BookId.get -> short
+Storing.SqlServer.Book.BookId.set -> void
+Storing.SqlServer.Book.BookName.get -> string
+Storing.SqlServer.Book.BookName.set -> void
+Storing.SqlServer.Book.ReleaseDate.get -> System.DateTime?
+Storing.SqlServer.Book.ReleaseDate.set -> void
+Storing.SqlServer.Class123
+Storing.SqlServer.Course
+Storing.SqlServer.Course.Course() -> void
+Storing.SqlServer.Course.Course(Storing.SqlServer.Course original) -> void
+Storing.SqlServer.Course.CourseId.get -> int
+Storing.SqlServer.Course.CourseId.set -> void
+Storing.SqlServer.Course.Professor.get -> Storing.SqlServer.Professor
+Storing.SqlServer.Course.Professor.set -> void
+Storing.SqlServer.Course.Students.get -> System.Collections.Generic.IReadOnlyCollection<Storing.SqlServer.Student>
+Storing.SqlServer.Course.Students.set -> void
+Storing.SqlServer.EntitiesContext
+Storing.SqlServer.EntitiesContext.Authors.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Author>
+Storing.SqlServer.EntitiesContext.Books.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Book>
+Storing.SqlServer.EntitiesContext.EntitiesContext(Microsoft.EntityFrameworkCore.DbContextOptions<Storing.SqlServer.EntitiesContext> options) -> void
+Storing.SqlServer.Filter
+Storing.SqlServer.Filter.Bool.get -> bool?
+Storing.SqlServer.Filter.Bool.init -> void
+Storing.SqlServer.Filter.Date.get -> System.DateTime?
+Storing.SqlServer.Filter.Date.init -> void
+Storing.SqlServer.Filter.Filter() -> void
+Storing.SqlServer.Filter.Filter(Storing.SqlServer.Filter original) -> void
+Storing.SqlServer.Filter.FilterId.get -> int
+Storing.SqlServer.Filter.FilterId.init -> void
+Storing.SqlServer.Filter.Int.get -> int
+Storing.SqlServer.Filter.Int.init -> void
+Storing.SqlServer.Filter.Text.get -> string
+Storing.SqlServer.Filter.Text.init -> void
+Storing.SqlServer.Order
+Storing.SqlServer.Order.Order() -> void
+Storing.SqlServer.Order.Order(Storing.SqlServer.Order original) -> void
+Storing.SqlServer.Order.OrderId.get -> int
+Storing.SqlServer.Order.OrderId.init -> void
+Storing.SqlServer.Order.Text.get -> string
+Storing.SqlServer.Order.Text.init -> void
+Storing.SqlServer.Page
+Storing.SqlServer.Page.Page() -> void
+Storing.SqlServer.Page.Page(Storing.SqlServer.Page original) -> void
+Storing.SqlServer.Page.PageId.get -> int
+Storing.SqlServer.Page.PageId.init -> void
+Storing.SqlServer.Page.Text.get -> string
+Storing.SqlServer.Page.Text.init -> void
+Storing.SqlServer.Professor
+Storing.SqlServer.Professor.NonEntities.get -> System.Collections.Generic.IReadOnlyCollection<object>
+Storing.SqlServer.Professor.NonEntities.set -> void
+Storing.SqlServer.Professor.NonEntity.get -> object
+Storing.SqlServer.Professor.NonEntity.set -> void
+Storing.SqlServer.Professor.Professor() -> void
+Storing.SqlServer.Professor.Professor(Storing.SqlServer.Professor original) -> void
+Storing.SqlServer.Professor.ProfessorId.get -> int
+Storing.SqlServer.Professor.ProfessorId.set -> void
+Storing.SqlServer.QueriesContext
+Storing.SqlServer.QueriesContext.Filters.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Filter>
+Storing.SqlServer.QueriesContext.Orders.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Order>
+Storing.SqlServer.QueriesContext.Pages.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Page>
+Storing.SqlServer.QueriesContext.QueriesContext(Microsoft.EntityFrameworkCore.DbContextOptions<Storing.SqlServer.QueriesContext> options) -> void
+Storing.SqlServer.SqlServerTests
+Storing.SqlServer.SqlServerTests.all_items__page__items_page() -> System.Threading.Tasks.Task
+Storing.SqlServer.SqlServerTests.entities__add_entities__entities_added() -> void
+Storing.SqlServer.SqlServerTests.entities__delete_entities__entities_deleted() -> void
+Storing.SqlServer.SqlServerTests.entity_without_many_to_many_collection_item__update_entity_adding_existing_item__collection_link_added_and_collection_item_unchanged() -> void
+Storing.SqlServer.SqlServerTests.entity_without_many_to_many_collection_item__update_entity_adding_new_item__collection_link_added_and_collection_item_added() -> void
+Storing.SqlServer.SqlServerTests.entity_with_collection_item__track_entity__collection_item_tracked() -> void
+Storing.SqlServer.SqlServerTests.entity_with_empty_collection_item__track_entity__not_throw_error() -> void
+Storing.SqlServer.SqlServerTests.entity_with_empty_many_to_many_collection__add_entity_with_collection_item__collection_link_and_item_added() -> void
+Storing.SqlServer.SqlServerTests.entity_with_empty_navigation_item__track_entity__not_throw_error() -> void
+Storing.SqlServer.SqlServerTests.entity_with_many_to_many_collection_item__add_entity_with_collection_item__collection_link_added_and_collection_item_unchanged() -> void
+Storing.SqlServer.SqlServerTests.entity_with_many_to_many_collection_item__delete_entity__collection_link_deleted_and_collection_item_unchanged() -> void
+Storing.SqlServer.SqlServerTests.entity_with_many_to_many_collection_item__update_entity_removing_item__collection_link_deleted_and_collection_item_unchanged() -> void
+Storing.SqlServer.SqlServerTests.entity_with_many_to_many_collection_item__update_entity_without_changing_item__collection_link_and_collection_item_unchanged() -> void
+Storing.SqlServer.SqlServerTests.entity_with_navigation_item__track_entity__navigation_item_tracked() -> void
+Storing.SqlServer.SqlServerTests.entity_with_non_mapped_collection_item__track_entity__not_throw_error() -> void
+Storing.SqlServer.SqlServerTests.entity_with_non_mapped_navigation_item__track_entity__not_throw_error() -> void
+Storing.SqlServer.SqlServerTests.entity__add_entity__entity_added() -> void
+Storing.SqlServer.SqlServerTests.entity__delete_entity__entity_deleted() -> void
+Storing.SqlServer.SqlServerTests.entity__update_entity_prop__entity_modified() -> void
+Storing.SqlServer.SqlServerTests.entity__update_entity_prop__only_entity_prop_modified() -> void
+Storing.SqlServer.SqlServerTests.filter_sort_page_entitites__query_entities__query_result() -> System.Threading.Tasks.Task
+Storing.SqlServer.SqlServerTests.items__filter__filtered_items() -> System.Threading.Tasks.Task
+Storing.SqlServer.SqlServerTests.SqlServerTests(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext) -> void
+Storing.SqlServer.SqlServerTests.unoredered_items__order__ordered_items() -> System.Threading.Tasks.Task
+Storing.SqlServer.Student
+Storing.SqlServer.Student.Courses.get -> System.Collections.Generic.IReadOnlyCollection<Storing.SqlServer.Course>
+Storing.SqlServer.Student.Courses.set -> void
+Storing.SqlServer.Student.Student() -> void
+Storing.SqlServer.Student.Student(Storing.SqlServer.Student original) -> void
+Storing.SqlServer.Student.StudentId.get -> int
+Storing.SqlServer.Student.StudentId.set -> void
+Storing.SqlServer.TrackingContext
+Storing.SqlServer.TrackingContext.Courses.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Course>
+Storing.SqlServer.TrackingContext.Professors.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Professor>
+Storing.SqlServer.TrackingContext.Students.get -> Microsoft.EntityFrameworkCore.DbSet<Storing.SqlServer.Student>
+Storing.SqlServer.TrackingContext.TrackingContext(Microsoft.EntityFrameworkCore.DbContextOptions<Storing.SqlServer.TrackingContext> options) -> void
+virtual Storing.SqlServer.Author.<Clone>$() -> Storing.SqlServer.Author
+virtual Storing.SqlServer.Author.EqualityContract.get -> System.Type
+virtual Storing.SqlServer.Author.Equals(Storing.SqlServer.Author other) -> bool
+virtual Storing.SqlServer.Author.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.SqlServer.Book.<Clone>$() -> Storing.SqlServer.Book
+virtual Storing.SqlServer.Book.EqualityContract.get -> System.Type
+virtual Storing.SqlServer.Book.Equals(Storing.SqlServer.Book other) -> bool
+virtual Storing.SqlServer.Book.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.SqlServer.Course.<Clone>$() -> Storing.SqlServer.Course
+virtual Storing.SqlServer.Course.EqualityContract.get -> System.Type
+virtual Storing.SqlServer.Course.Equals(Storing.SqlServer.Course other) -> bool
+virtual Storing.SqlServer.Course.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.SqlServer.Filter.EqualityContract.get -> System.Type!
+virtual Storing.SqlServer.Order.EqualityContract.get -> System.Type!
+virtual Storing.SqlServer.Page.EqualityContract.get -> System.Type!
+virtual Storing.SqlServer.Professor.<Clone>$() -> Storing.SqlServer.Professor
+virtual Storing.SqlServer.Professor.EqualityContract.get -> System.Type
+virtual Storing.SqlServer.Professor.Equals(Storing.SqlServer.Professor other) -> bool
+virtual Storing.SqlServer.Professor.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.SqlServer.SqlServerOptions.Equals(Storing.SqlServer.SqlServerOptions other) -> bool
+virtual Storing.SqlServer.Student.<Clone>$() -> Storing.SqlServer.Student
+virtual Storing.SqlServer.Student.EqualityContract.get -> System.Type
+virtual Storing.SqlServer.Student.Equals(Storing.SqlServer.Student other) -> bool
+virtual Storing.SqlServer.Student.PrintMembers(System.Text.StringBuilder builder) -> bool

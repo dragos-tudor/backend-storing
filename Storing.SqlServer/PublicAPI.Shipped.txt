@@ -1,0 +1,58 @@
+#nullable enable
+abstract Storing.DatabaseOptions<T>.<Clone>$() -> Storing.DatabaseOptions<T>!
+override sealed Storing.SqlServer.SqlServerOptions.Equals(Storing.DatabaseOptions<string!>? other) -> bool
+override Storing.DatabaseOptions<T>.Equals(object? obj) -> bool
+override Storing.DatabaseOptions<T>.GetHashCode() -> int
+override Storing.DatabaseOptions<T>.ToString() -> string!
+override Storing.SqlServer.SqlServerOptions.<Clone>$() -> Storing.SqlServer.SqlServerOptions!
+override Storing.SqlServer.SqlServerOptions.EqualityContract.get -> System.Type!
+override Storing.SqlServer.SqlServerOptions.Equals(object? obj) -> bool
+override Storing.SqlServer.SqlServerOptions.GetHashCode() -> int
+override Storing.SqlServer.SqlServerOptions.PrintMembers(System.Text.StringBuilder! builder) -> bool
+override Storing.SqlServer.SqlServerOptions.ToString() -> string!
+static Storing.DatabaseOptions<T>.operator !=(Storing.DatabaseOptions<T>? left, Storing.DatabaseOptions<T>? right) -> bool
+static Storing.DatabaseOptions<T>.operator ==(Storing.DatabaseOptions<T>? left, Storing.DatabaseOptions<T>? right) -> bool
+static Storing.SqlServer.SqlServerFuncs.AddEntities<TContext, T>(TContext! dbContext, System.Collections.Generic.IEnumerable<T!>? entities) -> System.Collections.Generic.IEnumerable<T!>?
+static Storing.SqlServer.SqlServerFuncs.AddEntity<TContext, T>(TContext! dbContext, T! entity) -> T!
+static Storing.SqlServer.SqlServerFuncs.AttachEntity<TContext, T>(TContext! dbContext, T! entity) -> T!
+static Storing.SqlServer.SqlServerFuncs.CreateDbContextFactory<T>(Microsoft.EntityFrameworkCore.DbContextOptions<T!>! options) -> Microsoft.EntityFrameworkCore.Infrastructure.PooledDbContextFactory<T!>!
+static Storing.SqlServer.SqlServerFuncs.CreateSqlConnectionString(Storing.SqlServer.SqlServerOptions! options, System.Action<Microsoft.Data.SqlClient.SqlConnectionStringBuilder!>? configBuilder = null) -> string!
+static Storing.SqlServer.SqlServerFuncs.CreateSqlConnectionString(string! endpoint, string! userName, string! password, string? dbName = null, System.TimeSpan? connectTimeout = null, bool sslCertificateValidation = true, System.Action<Microsoft.Data.SqlClient.SqlConnectionStringBuilder!>? configBuilder = null) -> string!
+static Storing.SqlServer.SqlServerFuncs.CreateSqlContextOptions<T>(string! connString, Microsoft.EntityFrameworkCore.Metadata.IModel? model = null, System.Action<Microsoft.EntityFrameworkCore.DbContextOptionsBuilder!>? setDbContextOptions = null, System.Action<Microsoft.EntityFrameworkCore.Infrastructure.SqlServerDbContextOptionsBuilder!>? setSqlContextOptions = null) -> Microsoft.EntityFrameworkCore.DbContextOptions<T!>!
+static Storing.SqlServer.SqlServerFuncs.CreateSqlDatabaseUser<TContext>(TContext! context, string! dbName, string! userName, string! password) -> void
+static Storing.SqlServer.SqlServerFuncs.DeleteEntities<TContext, T>(TContext! dbContext, System.Collections.Generic.IEnumerable<T!>? entities) -> System.Collections.Generic.IEnumerable<T!>?
+static Storing.SqlServer.SqlServerFuncs.DeleteEntity<TContext, T>(TContext! dbContext, T! entity) -> T!
+static Storing.SqlServer.SqlServerFuncs.EntityEntry<T>(this Microsoft.EntityFrameworkCore.DbContext! dbContext, string! keyName, T keyValue) -> Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry?
+static Storing.SqlServer.SqlServerFuncs.Filter<T1, T2>(this System.Linq.IQueryable<T1>! source, T2 value, System.Func<T2, System.Linq.Expressions.Expression<System.Func<T1, bool>!>!>! expression) -> System.Linq.IQueryable<T1>!
+static Storing.SqlServer.SqlServerFuncs.GenerateSequentialGuid<TContext, TEntity>(TContext! dbContext, TEntity entity) -> System.Guid
+static Storing.SqlServer.SqlServerFuncs.GetSqlServerAdminPassword(string! password = "MSSQL_SA_PASSWORD") -> string?
+static Storing.SqlServer.SqlServerFuncs.Order<T1, T2>(this System.Linq.IQueryable<T1>! source, bool? ascending, System.Linq.Expressions.Expression<System.Func<T1, T2>!>! keySelector) -> System.Linq.IQueryable<T1>!
+static Storing.SqlServer.SqlServerFuncs.Page<T>(this System.Linq.IQueryable<T>! source, short? limit = 10, short? page = 0) -> System.Linq.IQueryable<T>!
+static Storing.SqlServer.SqlServerFuncs.UpdateEntity<TContext, T>(TContext! dbContext, T! entity, System.Action<T!>! update) -> T!
+static Storing.SqlServer.SqlServerOptions.operator !=(Storing.SqlServer.SqlServerOptions? left, Storing.SqlServer.SqlServerOptions? right) -> bool
+static Storing.SqlServer.SqlServerOptions.operator ==(Storing.SqlServer.SqlServerOptions? left, Storing.SqlServer.SqlServerOptions? right) -> bool
+Storing.DatabaseOptions<T>
+Storing.DatabaseOptions<T>.ConnectTimeout.get -> System.TimeSpan?
+Storing.DatabaseOptions<T>.ConnectTimeout.init -> void
+Storing.DatabaseOptions<T>.DatabaseOptions() -> void
+Storing.DatabaseOptions<T>.DatabaseOptions(Storing.DatabaseOptions<T>! original) -> void
+Storing.DatabaseOptions<T>.DefaultDatabase.get -> T?
+Storing.DatabaseOptions<T>.DefaultDatabase.init -> void
+Storing.DatabaseOptions<T>.EndPoints.get -> System.Collections.Generic.IEnumerable<string!>!
+Storing.DatabaseOptions<T>.EndPoints.init -> void
+Storing.DatabaseOptions<T>.Password.get -> string!
+Storing.DatabaseOptions<T>.Password.init -> void
+Storing.DatabaseOptions<T>.Ssl.get -> bool
+Storing.DatabaseOptions<T>.Ssl.init -> void
+Storing.DatabaseOptions<T>.SslCertificateValidation.get -> bool
+Storing.DatabaseOptions<T>.SslCertificateValidation.init -> void
+Storing.DatabaseOptions<T>.User.get -> string!
+Storing.DatabaseOptions<T>.User.init -> void
+Storing.SqlServer.SqlServerFuncs
+Storing.SqlServer.SqlServerOptions
+Storing.SqlServer.SqlServerOptions.SqlServerOptions() -> void
+Storing.SqlServer.SqlServerOptions.SqlServerOptions(Storing.SqlServer.SqlServerOptions! original) -> void
+virtual Storing.DatabaseOptions<T>.EqualityContract.get -> System.Type!
+virtual Storing.DatabaseOptions<T>.Equals(Storing.DatabaseOptions<T>? other) -> bool
+virtual Storing.DatabaseOptions<T>.PrintMembers(System.Text.StringBuilder! builder) -> bool
+virtual Storing.SqlServer.SqlServerOptions.Equals(Storing.SqlServer.SqlServerOptions? other) -> bool

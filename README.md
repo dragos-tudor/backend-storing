@@ -210,9 +210,10 @@ tbi
   - when dev container is created podman containers are created.
   - when dev container is started podman containers are started (avoiding ghosts ports hanging).
   - when any, podman pull images from host registry images container.
-- common options normalization. create SqlServer, MongoDb, Redis, Elasticsearch, KAFKA options from configurations (json, secrets, envvars, args).
+- common options normalization. create SqlServer, MongoDb, Redis, Elasticsearch, Kafka options from configurations (json, secrets, envvars, args).
 - similar setup:
   - create SqlServer connection string => create db context options => get SqlServer database (create DbContext).
   - create MongoDb client settings => create MongoDb client => get MongoDb database.
   - create Redis config options => create Redis client => get Redis database.
   - create Elasticsearch config options => create Elasticsearch client => get Elasticsearch index.
+  - create Kafka config options => create Kafka client => create/use Kafka topic.

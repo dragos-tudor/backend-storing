@@ -4,49 +4,49 @@ namespace Storing.MongoDb;
 [BsonDiscriminator(nameof(Filter), Required = true)]
 sealed record Filter
 {
-  public string Id { get; set; } = default!;
-  public int @int { get; set; }
-  public string text { get; set;} = string.Empty;
-  public bool? @bool { get; set; }
-  public DateTime? date { get; set; }
+    public string Id { get; set; } = default!;
+    public int @int { get; set; }
+    public string text { get; set; } = string.Empty;
+    public bool? @bool { get; set; }
+    public DateTime? date { get; set; }
 }
 
 partial class MongoDbTests
 {
-  [TestMethod]
-  public async Task document__filter__filtered_document()
-  {
-    var coll = GetMongoCollection<Filter>(Database, "queries");
-    var query = coll.AsDiscriminable();
-    var dates = new[] { new DateTime(2022, 07, 01), new DateTime(2022, 07, 02) };
-    await InsertDocuments(coll, [
-      new Filter { Id = Guid.NewGuid().ToString(), @int = 0, text = "a", @bool = true, date = dates[0] },
+    [TestMethod]
+    public async Task document__filter__filtered_document()
+    {
+        var coll = GetMongoCollection<Filter>(Database, "queries");
+        var query = coll.AsDiscriminable();
+        var dates = new[] { new DateTime(2022, 07, 01), new DateTime(2022, 07, 02) };
+        await InsertDocuments(coll, [
+          new Filter { Id = Guid.NewGuid().ToString(), @int = 0, text = "a", @bool = true, date = dates[0] },
       new Filter { Id = Guid.NewGuid().ToString(), @int = 1, text = "ab", @bool = false, date = dates[1] },
       new Filter { Id = Guid.NewGuid().ToString(), @int = 2, text = "abc" }
-    ]);
+        ]);
 
-    Func<int?, Expression<Func<Filter, bool>>> filterInt = val => x => x.@int >= val;
-    (await query.Filter(1, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([1, 2]);
-    (await query.Filter(2, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([2]);
-    (await query.Filter(3, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([]);
-    (await query.Filter(null, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([0, 1, 2]);
+        Func<int?, Expression<Func<Filter, bool>>> filterInt = val => x => x.@int >= val;
+        (await query.Filter(1, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([1, 2]);
+        (await query.Filter(2, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([2]);
+        (await query.Filter(3, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([]);
+        (await query.Filter(null, filterInt).Select(x => x.@int).ToListAsync()).ShouldBe([0, 1, 2]);
 
-    Func<string?, Expression<Func<Filter, bool>>> filterString = val => x => x.text.Contains(val!);
-    (await query.Filter("ab", filterString).Select(x => x.text).ToListAsync()).ShouldBe(["ab", "abc"]);
-    (await query.Filter("abc", filterString).Select(x => x.text).ToListAsync()).ShouldBe(["abc"]);
-    (await query.Filter("abcd", filterString).Select(x => x.text).ToListAsync()).ShouldBe([]);
-    (await query.Filter(null, filterString).Select(x => x.text).ToListAsync()).ShouldBe(["a", "ab", "abc"]);
+        Func<string?, Expression<Func<Filter, bool>>> filterString = val => x => x.text.Contains(val!);
+        (await query.Filter("ab", filterString).Select(x => x.text).ToListAsync()).ShouldBe(["ab", "abc"]);
+        (await query.Filter("abc", filterString).Select(x => x.text).ToListAsync()).ShouldBe(["abc"]);
+        (await query.Filter("abcd", filterString).Select(x => x.text).ToListAsync()).ShouldBe([]);
+        (await query.Filter(null, filterString).Select(x => x.text).ToListAsync()).ShouldBe(["a", "ab", "abc"]);
 
-    Func<bool?, Expression<Func<Filter, bool>>> filterBool = val => x => x.@bool == val!;
-    (await query.Filter(true, filterBool).Select(x => x.@bool).ToListAsync()).ShouldBe([true]);
-    (await query.Filter(false, filterBool).Select(x => x.@bool).ToListAsync()).ShouldBe([false]);
-    (await query.Filter(null, filterBool).Select(x => x.@bool).ToListAsync()).ShouldBe([true, false, null]);
-    (await query.Where(x => x.@bool == null).Select(x => x.@bool).ToListAsync()).ShouldBe([null]);
+        Func<bool?, Expression<Func<Filter, bool>>> filterBool = val => x => x.@bool == val!;
+        (await query.Filter(true, filterBool).Select(x => x.@bool).ToListAsync()).ShouldBe([true]);
+        (await query.Filter(false, filterBool).Select(x => x.@bool).ToListAsync()).ShouldBe([false]);
+        (await query.Filter(null, filterBool).Select(x => x.@bool).ToListAsync()).ShouldBe([true, false, null]);
+        (await query.Where(x => x.@bool == null).Select(x => x.@bool).ToListAsync()).ShouldBe([null]);
 
-    Func<DateTime?, Expression<Func<Filter, bool>>> filterDate = val => x => x.date == val!;
-    (await query.Filter(dates[0], filterDate).Select(x => x.date).ToListAsync()).ShouldBe([dates[0]]);
-    (await query.Filter(dates[1], filterDate).Select(x => x.date).ToListAsync()).ShouldBe([dates[1]]);
-    (await query.Filter(null, filterDate).Select(x => x.date).ToListAsync()).ShouldBe([dates[0], dates[1], null]);
-    (await query.Where(x => x.date == null).Select(x => x.date).ToListAsync()).ShouldBe([null]);
-  }
+        Func<DateTime?, Expression<Func<Filter, bool>>> filterDate = val => x => x.date == val!;
+        (await query.Filter(dates[0], filterDate).Select(x => x.date).ToListAsync()).ShouldBe([dates[0]]);
+        (await query.Filter(dates[1], filterDate).Select(x => x.date).ToListAsync()).ShouldBe([dates[1]]);
+        (await query.Filter(null, filterDate).Select(x => x.date).ToListAsync()).ShouldBe([dates[0], dates[1], null]);
+        (await query.Where(x => x.date == null).Select(x => x.date).ToListAsync()).ShouldBe([null]);
+    }
 }

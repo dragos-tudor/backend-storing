@@ -1,0 +1,11 @@
+﻿#nullable enable
+static Storing.ElasticSearch.ElasticSearchTests.InitializeElasticsearch(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext! testContext) -> void
+Storing.ElasticSearch.ElasticSearchTests
+Storing.ElasticSearch.ElasticSearchTests.ElasticSearchTests() -> void
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__create_index__index_created() -> System.Threading.Tasks.Task!
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__delete_document__document_deleted() -> System.Threading.Tasks.Task!
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__delete_index__index_deleted() -> System.Threading.Tasks.Task!
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__get_document__returns_stored_document() -> System.Threading.Tasks.Task!
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__index_document__document_indexed() -> System.Threading.Tasks.Task!
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__update_document__document_updated() -> System.Threading.Tasks.Task!
+Storing.ElasticSearch.ElasticSearchTests.elasticsearch__verify_exists_index__index_exists() -> System.Threading.Tasks.Task!

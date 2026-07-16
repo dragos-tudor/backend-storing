@@ -1,7 +1,11 @@
 <Project>
+
   <PropertyGroup Label="Project props">
     <TargetFramework>net10.0</TargetFramework>
     <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <NoWarn>$(NoWarn);RS0036;RS0037</NoWarn>
+
     <!-- compiling -->
     <ImplicitUsings>disable</ImplicitUsings>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -11,18 +15,17 @@
 
     <!-- analysing -->
     <AnalysisMode>All</AnalysisMode>
-    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <!-- <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild> -->
 
     <!-- packing -->
     <IsPackable>true</IsPackable>
     <IncludeSymbols>true</IncludeSymbols>
-    <DebugType>embedded</DebugType>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <Deterministic>true</Deterministic>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 
     <!-- package -->
     <Authors>Dragos Tudor</Authors>
@@ -30,28 +33,24 @@
     <Copyright>Copyright @2023</Copyright>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageLicense>https://github.com/dragos-tudor/backend-storing/blob/master/LICENSE</PackageLicense>
 
+    <!-- repository -->
+    <PackageProjectUrl>https://github.com/dragos-tudor/backend-storing/tree/main/$(MSBuildProjectName)</PackageProjectUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryRoot>$(MSBuildThisFileDirectory)</RepositoryRoot>
     <RepositoryUrl>https://github.com/dragos-tudor/backend-storing.git</RepositoryUrl>
-    <PackageLicense>https://github.com/dragos-tudor/backend-storing/blob/master/LICENSE</PackageLicense>
-    <PackageProjectUrl>https://github.com/dragos-tudor/backend-storing/tree/main/$(MSBuildProjectName)</PackageProjectUrl>
-
-    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
   	<None Include="../README.md" Pack="true" PackagePath="\"/>
     <None Include="../LICENSE" Pack="true" PackagePath="\"/>
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.SourceLink.GitHub">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
-    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+
+    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" PrivateAssets="All" />
+
+    <None Include="PublicAPI.Shipped.txt" Pack="true" PackagePath="apidocs\" />
   </ItemGroup>
 
 </Project>

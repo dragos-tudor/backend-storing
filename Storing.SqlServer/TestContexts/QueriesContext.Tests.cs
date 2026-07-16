@@ -1,3 +1,4 @@
+#pragma warning disable CA1720
 
 namespace Storing.SqlServer;
 

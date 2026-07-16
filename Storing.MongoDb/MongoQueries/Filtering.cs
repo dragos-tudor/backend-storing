@@ -2,12 +2,13 @@ namespace Storing.MongoDb;
 
 partial class MongoDbFuncs
 {
-  public static IQueryable<T1> Filter<T1, T2> (
-    this IQueryable<T1> source,
-    T2 value,
-    Func<T2, Expression<Func<T1, bool>>> expression) =>
-      (value is null) switch {
-        true => source,
-        false => source.Where(expression(value))
-      };
+    public static IQueryable<T1> Filter<T1, T2>(
+      this IQueryable<T1> source,
+      T2 value,
+      Func<T2, Expression<Func<T1, bool>>> expression) =>
+        (value is null) switch
+        {
+            true => source,
+            false => source.Where(expression(value))
+        };
 }

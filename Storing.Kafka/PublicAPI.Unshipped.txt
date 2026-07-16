@@ -1,0 +1,25 @@
+﻿#nullable enable
+static Storing.Kafka.KafkaTests.InitializeKafka(Microsoft.VisualStudio.TestTools.UnitTesting.TestContext testContext) -> void
+Storing.Kafka.KafkaTests
+Storing.Kafka.KafkaTests.consumer__run_consumer_loop__commits_message_after_success() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.deadletter__create_deadletter_message__includes_source_metadata_headers() -> void
+Storing.Kafka.KafkaTests.handling__handle_consumed_message__returns_succeeded_when_handler_is_true() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.handling__handle_consumed_message__routes_to_deadletter_when_handler_throws_and_retry_exhausted() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.handling__handle_consumed_message__routes_to_deadletter_when_retry_exhausted() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.handling__handle_consumed_message__routes_to_retry_when_retry_available() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.handling__process_consume_batch__returns_only_successful_messages() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.handling__resolve_handling_result__returns_deadletter_when_retry_is_exhausted() -> void
+Storing.Kafka.KafkaTests.handling__resolve_handling_result__returns_retry_when_retry_is_available() -> void
+Storing.Kafka.KafkaTests.json__serialize_deserialize__returns_original_payload() -> void
+Storing.Kafka.KafkaTests.KafkaTests() -> void
+Storing.Kafka.KafkaTests.kafka_headers__set_header_string__overwrites_existing_value() -> void
+Storing.Kafka.KafkaTests.kafka_options__create_from_environment__uses_env_specific_values() -> void
+Storing.Kafka.KafkaTests.kafka_options__split_kafka_endpoints__splits_csv_and_semicolon_values() -> void
+Storing.Kafka.KafkaTests.message__publish_message__message_consumed() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.retry__get_retry_delay__caps_retry_delay_to_max() -> void
+Storing.Kafka.KafkaTests.retry__increment_retry_attempt__increases_retry_header_value() -> void
+Storing.Kafka.KafkaTests.topic__create_topic__topic_exists() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.topic__delete_topic__topic_deleted() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.topic__verify_topic_exists__returns_true_for_existing_topic() -> System.Threading.Tasks.Task
+Storing.Kafka.KafkaTests.typed_consuming__deserialize_invalid_json__returns_false() -> void
+Storing.Kafka.KafkaTests.typed_consuming__deserialize_string_json__returns_payload() -> void

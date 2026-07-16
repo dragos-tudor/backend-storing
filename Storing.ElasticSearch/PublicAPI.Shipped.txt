@@ -1,0 +1,56 @@
+#nullable enable
+abstract Storing.DatabaseOptions<T>.<Clone>$() -> Storing.DatabaseOptions<T>
+override sealed Storing.ElasticSearch.ElasticsearchOptions.Equals(Storing.DatabaseOptions<string> other) -> bool
+override Storing.DatabaseOptions<T>.Equals(object obj) -> bool
+override Storing.DatabaseOptions<T>.GetHashCode() -> int
+override Storing.DatabaseOptions<T>.ToString() -> string
+override Storing.ElasticSearch.ElasticsearchOptions.<Clone>$() -> Storing.ElasticSearch.ElasticsearchOptions
+override Storing.ElasticSearch.ElasticsearchOptions.EqualityContract.get -> System.Type
+override Storing.ElasticSearch.ElasticsearchOptions.Equals(object obj) -> bool
+override Storing.ElasticSearch.ElasticsearchOptions.GetHashCode() -> int
+override Storing.ElasticSearch.ElasticsearchOptions.PrintMembers(System.Text.StringBuilder builder) -> bool
+override Storing.ElasticSearch.ElasticsearchOptions.ToString() -> string
+static Storing.DatabaseOptions<T>.operator !=(Storing.DatabaseOptions<T> left, Storing.DatabaseOptions<T> right) -> bool
+static Storing.DatabaseOptions<T>.operator ==(Storing.DatabaseOptions<T> left, Storing.DatabaseOptions<T> right) -> bool
+static Storing.ElasticSearch.ElasticSearchFuncs.CreateDocumentId() -> string
+static Storing.ElasticSearch.ElasticSearchFuncs.CreateElasticsearchClient(Storing.ElasticSearch.ElasticsearchOptions options, System.Action<Elastic.Clients.Elasticsearch.ElasticsearchClientSettings> configBuilder = null) -> Elastic.Clients.Elasticsearch.ElasticsearchClient
+static Storing.ElasticSearch.ElasticSearchFuncs.CreateElasticsearchClient(System.Collections.Generic.IEnumerable<string> endpoints, string user = null, string password = null, bool ssl = false, System.Action<Elastic.Clients.Elasticsearch.ElasticsearchClientSettings> configBuilder = null) -> Elastic.Clients.Elasticsearch.ElasticsearchClient
+static Storing.ElasticSearch.ElasticSearchFuncs.CreateIndexAsync(Elastic.Clients.Elasticsearch.ElasticsearchClient client, string indexName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.IndexManagement.CreateIndexResponse>
+static Storing.ElasticSearch.ElasticSearchFuncs.DeleteDocumentAsync<TDocument>(Elastic.Clients.Elasticsearch.ElasticsearchClient client, string indexName, string docId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.DeleteResponse>
+static Storing.ElasticSearch.ElasticSearchFuncs.DeleteIndexAsync(Elastic.Clients.Elasticsearch.ElasticsearchClient client, string indexName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.IndexManagement.DeleteIndexResponse>
+static Storing.ElasticSearch.ElasticSearchFuncs.ExistsIndexAsync(Elastic.Clients.Elasticsearch.ElasticsearchClient client, string indexName, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.IndexManagement.ExistsResponse>
+static Storing.ElasticSearch.ElasticSearchFuncs.GetDocumentAsync<TDocument>(Elastic.Clients.Elasticsearch.ElasticsearchClient client, string indexName, string docId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.GetResponse<TDocument>>
+static Storing.ElasticSearch.ElasticSearchFuncs.GetElasticAdminPassword(string password = "ELASTIC_PASSWORD") -> string
+static Storing.ElasticSearch.ElasticSearchFuncs.GetElasticAdminUserName(string userName = "ELASTIC_USERNAME") -> string
+static Storing.ElasticSearch.ElasticSearchFuncs.GetElasticsearchEndpoint(string endpoint, bool ssl = false) -> System.Uri
+static Storing.ElasticSearch.ElasticSearchFuncs.IndexDocumentAsync<TDocument>(Elastic.Clients.Elasticsearch.ElasticsearchClient client, TDocument document, string indexName, string docId = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.IndexResponse>
+static Storing.ElasticSearch.ElasticSearchFuncs.UpdateDocumentAsync<TDocument>(Elastic.Clients.Elasticsearch.ElasticsearchClient client, TDocument document, string indexName, string docId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<Elastic.Clients.Elasticsearch.UpdateResponse<TDocument>>
+static Storing.ElasticSearch.ElasticsearchOptions.operator !=(Storing.ElasticSearch.ElasticsearchOptions left, Storing.ElasticSearch.ElasticsearchOptions right) -> bool
+static Storing.ElasticSearch.ElasticsearchOptions.operator ==(Storing.ElasticSearch.ElasticsearchOptions left, Storing.ElasticSearch.ElasticsearchOptions right) -> bool
+Storing.DatabaseOptions<T>
+Storing.DatabaseOptions<T>.ConnectTimeout.get -> System.TimeSpan?
+Storing.DatabaseOptions<T>.ConnectTimeout.init -> void
+Storing.DatabaseOptions<T>.DatabaseOptions() -> void
+Storing.DatabaseOptions<T>.DatabaseOptions(Storing.DatabaseOptions<T> original) -> void
+Storing.DatabaseOptions<T>.DefaultDatabase.get -> T
+Storing.DatabaseOptions<T>.DefaultDatabase.init -> void
+Storing.DatabaseOptions<T>.EndPoints.get -> System.Collections.Generic.IEnumerable<string>
+Storing.DatabaseOptions<T>.EndPoints.init -> void
+Storing.DatabaseOptions<T>.Password.get -> string
+Storing.DatabaseOptions<T>.Password.init -> void
+Storing.DatabaseOptions<T>.Ssl.get -> bool
+Storing.DatabaseOptions<T>.Ssl.init -> void
+Storing.DatabaseOptions<T>.SslCertificateValidation.get -> bool
+Storing.DatabaseOptions<T>.SslCertificateValidation.init -> void
+Storing.DatabaseOptions<T>.User.get -> string
+Storing.DatabaseOptions<T>.User.init -> void
+Storing.ElasticSearch.ElasticSearchFuncs
+Storing.ElasticSearch.ElasticsearchOptions
+Storing.ElasticSearch.ElasticsearchOptions.DefaultIndex.get -> string
+Storing.ElasticSearch.ElasticsearchOptions.DefaultIndex.init -> void
+Storing.ElasticSearch.ElasticsearchOptions.ElasticsearchOptions() -> void
+Storing.ElasticSearch.ElasticsearchOptions.ElasticsearchOptions(Storing.ElasticSearch.ElasticsearchOptions original) -> void
+virtual Storing.DatabaseOptions<T>.EqualityContract.get -> System.Type
+virtual Storing.DatabaseOptions<T>.Equals(Storing.DatabaseOptions<T> other) -> bool
+virtual Storing.DatabaseOptions<T>.PrintMembers(System.Text.StringBuilder builder) -> bool
+virtual Storing.ElasticSearch.ElasticsearchOptions.Equals(Storing.ElasticSearch.ElasticsearchOptions other) -> bool
