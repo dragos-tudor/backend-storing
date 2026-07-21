@@ -2,7 +2,6 @@
 
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
 global using Shouldly;
-using Elastic.Clients.Elasticsearch.IndexManagement;
 
 namespace Storing.ElasticSearch;
 
