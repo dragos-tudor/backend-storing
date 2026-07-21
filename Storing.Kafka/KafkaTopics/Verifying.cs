@@ -2,22 +2,27 @@ namespace Storing.Kafka;
 
 partial class KafkaFuncs
 {
-    public static bool TopicExists(
-      IAdminClient client,
-      string topicName,
-      TimeSpan? timeout = default,
-      CancellationToken cancellationToken = default)
-    {
-        cancellationToken.ThrowIfCancellationRequested();
-        var metadata = client.GetMetadata(topicName, timeout ?? TimeSpan.FromSeconds(10));
+  static Func<TopicMetadata, bool> IsTopicWithName(
+    string topicName,
+    ErrorCode errorCode = ErrorCode.NoError)
+  =>
+    topic => topic.Topic == topicName &&
+    topic.Error.Code == errorCode;
 
-        return metadata.Topics.Any(topic => topic.Topic == topicName && topic.Error.Code == ErrorCode.NoError);
-    }
+  public static bool ExistsTopic(
+    IAdminClient client,
+    string topicName,
+    TimeSpan timeout)
+  {
+    var metadata = client.GetMetadata(timeout);
+    var result = metadata.Topics.Any(IsTopicWithName(topicName));
+    return result;
+  }
 
-    public static Task<bool> TopicExistsAsync(
-      IAdminClient client,
-      string topicName,
-      TimeSpan? timeout = default,
-      CancellationToken cancellationToken = default)
-      => Task.FromResult(TopicExists(client, topicName, timeout, cancellationToken));
+  public static bool ExistsTopic(
+    IAdminClient client,
+    string topicName,
+    KafkaOptions options)
+  =>
+    ExistsTopic(client, topicName, options.ConnectTimeout);
 }

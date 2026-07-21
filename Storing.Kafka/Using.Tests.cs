@@ -1,87 +1,52 @@
 #pragma warning disable CA2000
+#pragma warning disable CA2025
 
 global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using static System.Threading.CancellationTokenSource;
 global using Shouldly;
 
 namespace Storing.Kafka;
 
 [TestClass]
-public sealed partial class KafkaTests
+public partial class KafkaTests
 {
-    static KafkaOptions options = new KafkaOptions
-    {
-        EndPoints = ["kafka:9092"],
-        User = GetKafkaUserName()!,
-        Password = GetKafkaPassword()!,
-        SecurityProtocol = SecurityProtocol.SaslPlaintext,
-        SaslMechanism = SaslMechanism.ScramSha512,
-        GroupId = "storing-kafka-tests-group",
-        ClientId = "storing-kafka-tests",
-        EnableAutoCommit = false,
-        AutoOffsetReset = AutoOffsetReset.Earliest,
-        ConnectTimeout = TimeSpan.FromSeconds(10),
-        ConsumeTimeout = TimeSpan.FromMilliseconds(500),
-    };
-    static CancellationToken cancellationToken = default!;
+  static KafkaOptions options = new KafkaOptions
+  {
+    EndPoints = ["kafka"],
+    User = GetKafkaUserName()!,
+    Password = GetKafkaPassword()!,
+    SecurityProtocol = SecurityProtocol.SaslPlaintext,
+    SaslMechanism = SaslMechanism.ScramSha512,
+    GroupId = "storing-kafka-tests-group",
+    ClientId = "storing-kafka-tests",
+    EnableAutoCommit = false,
+    AutoOffsetReset = AutoOffsetReset.Earliest,
+    ConnectTimeout = TimeSpan.FromSeconds(10),
+    OperationTimeout = TimeSpan.FromSeconds(1),
+  };
+  static CancellationToken cancellationToken = default!;
+  static string publishTopicName = GetKafkaTopicName("storing-kafka-tests-publish");
 
-    [AssemblyInitialize]
-    public static void InitializeKafka(TestContext testContext)
-    {
-        var timeoutCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(1));
-        var cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(timeoutCancellationTokenSource.Token, testContext.CancellationToken);
-        cancellationToken = cancellationTokenSource.Token;
-    }
 
-    internal static string CreateTopicName(string prefix) => $"{prefix}-{Guid.NewGuid():N}";
+  [AssemblyInitialize]
+  public static void InitializeKafka(TestContext testContext)
+  {
+    var timeoutCancellationTokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(1));
+    var cancellationTokenSource = CreateLinkedTokenSource(timeoutCancellationTokenSource.Token, testContext.CancellationToken);
+    cancellationToken = cancellationTokenSource.Token;
 
-    static async Task WaitForTopicStateAsync(
-      IAdminClient client,
-      string topicName,
-      TimeSpan? timeout = default,
-      CancellationToken token = default)
-    {
-        while (!token.IsCancellationRequested)
-        {
-            if (await TopicExistsAsync(client, topicName, TimeSpan.FromSeconds(2), token))
-                return;
+    using var adminClient = CreateKafkaAdminClient(options);
+    if (!ExistsTopic(adminClient, publishTopicName, options))
+      CreateTopicAsync(adminClient, publishTopicName, options, cancellationToken).GetAwaiter().GetResult();
+  }
 
-            await Task.Delay(200, token);
-        }
-        Assert.Fail($"Topic state did not converge for '{topicName}'.");
-    }
+  [AssemblyCleanup]
+  public static void CleanupKafka()
+  {
+    using var adminClient = CreateKafkaAdminClient(options);
+    if (ExistsTopic(adminClient, publishTopicName, options))
+      DeleteTopicAsync(adminClient, publishTopicName, options, cancellationToken).GetAwaiter().GetResult();
+  }
 
-    static async Task<ConsumeResult<string, string>?> ConsumeMessageAsync(
-      IConsumer<string, string> consumer,
-      TimeSpan? timeout = default,
-      int maxPolls = 20,
-      CancellationToken token = default)
-    {
-        for (var index = 0; index < maxPolls && !token.IsCancellationRequested; index++)
-        {
-            var message = ConsumeOnce(consumer, timeout ?? TimeSpan.FromMilliseconds(500), token);
-
-            if (message is { IsPartitionEOF: false })
-                return message;
-        }
-
-        return default;
-    }
-
-    static async Task WaitForConsumerAssignmentAsync(
-      IConsumer<string, string> consumer,
-      TimeSpan? timeout = default,
-      CancellationToken token = default)
-    {
-        while (!token.IsCancellationRequested)
-        {
-            _ = ConsumeOnce(consumer, TimeSpan.FromMilliseconds(100), token);
-
-            if (consumer.Assignment.Count > 0)
-                return;
-
-            await Task.Delay(100, token);
-        }
-
-        Assert.Fail("Consumer assignment was not established before timeout.");
-    }
+  static string GetKafkaTopicName(string topicName) => $"{topicName}-{Guid.NewGuid():N}";
 }
