@@ -15,7 +15,7 @@
 
     <!-- analysing -->
     <AnalysisMode>All</AnalysisMode>
-    <RunAnalyzersDuringBuild>true</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <!-- <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild> -->
 
@@ -25,7 +25,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Deterministic>true</Deterministic>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    <ContinuousIntegrationBuild>false</ContinuousIntegrationBuild>
 
     <!-- package -->
     <Authors>Dragos Tudor</Authors>

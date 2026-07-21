@@ -11,7 +11,7 @@
     <PackageVersion Include="MongoDb.Driver" Version="3.9.0" />
     <PackageVersion Include="Elastic.Clients.Elasticsearch" Version="8.15.0" />
     <PackageVersion Include="Stackexchange.Redis" Version="3.0.0" />
-    <PackageVersion Include="Confluent.Kafka" Version="2.5.0" />
+    <PackageVersion Include="Confluent.Kafka" Version="2.15.0" />
 
     <PackageVersion Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.8.0" />
     <PackageVersion Include="Microsoft.CodeCoverage.MSBuild" Version="18.8.0" />
