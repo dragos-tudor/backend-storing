@@ -6,5 +6,5 @@ partial class KafkaFuncs
     headers.LastOrDefault(value => value.Key == headerName)?.GetValueBytes();
 
   public static string? GetKafkaHeaderString(Headers headers, string headerName) =>
-    DecodeKafkaHeaderValue(GetKafkaHeaderValue(headers, headerName));
+    DecodeKafkaValue(GetKafkaHeaderValue(headers, headerName));
 }

@@ -2,59 +2,31 @@ namespace Storing.Kafka;
 
 partial class KafkaFuncs
 {
-  public static Task<DeliveryResult<TKey, TValue>> PublishMessageAsync<TKey, TValue>(
-    IProducer<TKey, TValue> producer,
+  public static Task<DeliveryResult<TKey, byte[]>> PublishMessageAsync<TKey>(
+    IProducer<TKey, byte[]> producer,
     string topicName,
-    TKey key,
-    TValue value,
-    Headers headers,
+    Message<TKey, byte[]> message,
     CancellationToken cancellationToken = default)
-  {
-    var message = new Message<TKey, TValue>
-    {
-      Key = key,
-      Value = value,
-      Headers = headers,
-    };
-    return producer.ProduceAsync(topicName, message, cancellationToken);
-  }
+  => producer.ProduceAsync(topicName, message, cancellationToken);
 
-  public static Task<DeliveryResult<TKey, TSerialized>> PublishMessageAsync<TKey, TPayload, TSerialized>(
-    IProducer<TKey, TSerialized> producer,
+  public static Message<TKey, byte[]> PublishMessage<TKey>(
+    IProducer<TKey, byte[]> producer,
     string topicName,
-    TKey key,
-    TPayload value,
-    Headers headers,
-    Func<TPayload, TSerialized> serializer,
-    CancellationToken cancellationToken = default)
-    => PublishMessageAsync(producer, topicName, key, serializer(value), headers, cancellationToken);
-
-
-  public static Message<TKey, TValue> PublishMessage<TKey, TValue>(
-    IProducer<TKey, TValue> producer,
-    string topicName,
-    TKey key,
-    TValue value,
-    Headers headers,
-    Action<DeliveryReport<TKey, TValue>>? deliveryHandler = default)
+    Message<TKey, byte[]> message,
+    Action<DeliveryReport<TKey, byte[]>>? deliveryHandler = default)
   {
-    var message = new Message<TKey, TValue>
-    {
-      Key = key,
-      Value = value,
-      Headers = headers
-    };
     producer.Produce(topicName, message, deliveryHandler);
     return message;
   }
 
-  public static Message<TKey, TSerialized> PublishMessage<TKey, TPayload, TSerialized>(
-    IProducer<TKey, TSerialized> producer,
+  public static IEnumerable<Message<TKey, byte[]>> PublishMessages<TKey>(
+    IProducer<TKey, byte[]> producer,
     string topicName,
-    TKey key,
-    TPayload value,
-    Headers headers,
-    Func<TPayload, TSerialized> serializer,
-    Action<DeliveryReport<TKey, TSerialized>>? deliveryHandler = default)
-    => PublishMessage(producer, topicName, key, serializer(value), headers, deliveryHandler);
+    IEnumerable<Message<TKey, byte[]>> messages,
+    Action<DeliveryReport<TKey, byte[]>>? deliveryHandler = default)
+  {
+    foreach (var message in messages)
+      PublishMessage(producer, topicName, message, deliveryHandler);
+    return messages;
+  }
 }

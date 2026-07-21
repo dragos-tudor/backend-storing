@@ -4,14 +4,15 @@ namespace Storing.Kafka;
 partial class KafkaFuncs
 {
   public static Message<TKey, TValue> CreateDeadLetter<TKey, TValue>(
-    ConsumeResult<TKey, TValue> consumeResult,
-    string reason)
+    string reason,
+    Message<TKey, TValue> message,
+    TopicPartitionOffset topicPartitionOffset)
   =>
     new()
     {
-      Key = consumeResult.Message.Key,
-      Value = consumeResult.Message.Value,
-      Timestamp = consumeResult.Message.Timestamp,
-      Headers = SetDeadLetterHeaders([], consumeResult, reason),
+      Key = message.Key,
+      Value = message.Value,
+      Timestamp = message.Timestamp,
+      Headers = SetDeadLetterHeaders(reason, message, topicPartitionOffset)
     };
 }

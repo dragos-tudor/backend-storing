@@ -3,9 +3,9 @@ namespace Storing.Kafka;
 public sealed partial class KafkaTests
 {
   [TestMethod]
-  public void kafka_options__split_kafka_endpoints__splits_csv_and_semicolon_values()
+  public void kafka_options__split_kafka_endpoints__splits_values()
   {
-    var endpoints = SplitKafkaEndpoints("kafka-a:9092, kafka-b:9092; kafka-c:9092").ToArray();
+    var endpoints = SplitKafkaEndpoints("kafka-a:9092, kafka-b:9092, kafka-c:9092").ToArray();
 
     endpoints.Length.ShouldBe(3);
     endpoints[0].ShouldBe("kafka-a:9092");

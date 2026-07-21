@@ -9,32 +9,35 @@ public sealed partial class KafkaTests
   [TestMethod]
   public async Task producer__publish_message_async__message_persisted()
   {
-    using var producer = CreateKafkaProducer<string, string>(options);
-    var result = await PublishMessageAsync(producer, publishTopicName, "key", "value", null!, cancellationToken);
+    using var producer = CreateKafkaProducer<string, byte[]>(options);
+    var payload = new TestMessage(1, "test");
+    var message = CreateKafkaMessage("key1", payload, [], serializer: v => SerializeJson(v));
+    var result = await PublishMessageAsync(producer, publishTopicName, message, cancellationToken);
 
     result.Status.ShouldBe(PersistenceStatus.Persisted);
-    result.Message.Key.ShouldBe("key");
-    result.Message.Value.ShouldBe("value");
   }
 
   [TestMethod]
-  public async Task producer__publish_message_async_with_serializer__message_persisted()
+  public async Task producer__publish_message_async__message_with_key_and_value()
   {
     using var producer = CreateKafkaProducer<string, byte[]>(options);
     var payload = new TestMessage(1, "test");
-    var result = await PublishMessageAsync(producer, publishTopicName, "key", payload, null!, v => SerializeJson(v), cancellationToken);
+    var message = CreateKafkaMessage("key2", payload, [], serializer: v => SerializeJson(v));
+    var result = await PublishMessageAsync(producer, publishTopicName, message, cancellationToken);
 
-    result.Status.ShouldBe(PersistenceStatus.Persisted);
-    DeserializeJson<TestMessage>(result.Value).ShouldBe(payload);
+    result.Message.Key.ShouldBe("key2");
+    DeserializeJson<TestMessage>(result.Message.Value).ShouldBe(payload);
   }
 
   [TestMethod]
   public async Task producer__publish_message_sync__message_persisted()
   {
-    using var producer = CreateKafkaProducer<string, string>(options);
-    var tcs = new TaskCompletionSource<DeliveryResult<string, string>>();
+    using var producer = CreateKafkaProducer<string, byte[]>(options);
+    var payload = new TestMessage(1, "test");
+    var message = CreateKafkaMessage("key3", payload, [], serializer: v => SerializeJson(v));
+    var tcs = new TaskCompletionSource<DeliveryResult<string, byte[]>>();
 
-    var message = PublishMessage(producer, publishTopicName, "key", "value", null!, report =>
+    PublishMessage(producer, publishTopicName, message, report =>
     {
       try {
         tcs.SetResult(report);
@@ -48,18 +51,17 @@ public sealed partial class KafkaTests
     producer.Flush(cancellationToken);
     var result = await tcs.Task;
     result.Status.ShouldBe(PersistenceStatus.Persisted);
-    result.Key.ShouldBe("key");
-    result.Value.ShouldBe("value");
   }
 
   [TestMethod]
-  public async Task producer__publish_message_sync_with_serializer__message_persisted()
+  public async Task producer__publish_message_sync__message_with_key_and_value()
   {
     using var producer = CreateKafkaProducer<string, byte[]>(options);
     var tcs = new TaskCompletionSource<DeliveryResult<string, byte[]>>();
     var payload = new TestMessage(1, "test");
 
-    var message = PublishMessage(producer, publishTopicName, "key", payload, null!, v => SerializeJson(v), report =>
+    var message = CreateKafkaMessage("key4", payload, new Headers(), serializer: v => SerializeJson(v));
+    PublishMessage(producer, publishTopicName, message, report =>
     {
       try {
         tcs.SetResult(report);
@@ -72,8 +74,7 @@ public sealed partial class KafkaTests
 
     producer.Flush(cancellationToken);
     var result = await tcs.Task;
-    result.Status.ShouldBe(PersistenceStatus.Persisted);
-    result.Key.ShouldBe("key");
-    DeserializeJson<TestMessage>(result.Value).ShouldBe(payload);
+    result.Message.Key.ShouldBe("key4");
+    DeserializeJson<TestMessage>(result.Message.Value).ShouldBe(payload);
   }
 }
