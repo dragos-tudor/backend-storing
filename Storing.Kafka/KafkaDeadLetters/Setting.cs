@@ -8,9 +8,9 @@ partial class KafkaFuncs
   internal const string OriginalPartitionHeaderName = "x-original-partition";
   internal const string OriginalTopicHeaderName = "x-original-topic";
 
-  public static Headers SetDeadLetterHeaders<TKey, TValue>(
+  public static Headers SetDeadLetterHeaders<TKey>(
     string reason,
-    Message<TKey, TValue> message,
+    Message<TKey, byte[]> message,
     TopicPartitionOffset topicPartitionOffset)
   {
     Headers headers = CloneKafkaHeaders(message.Headers);

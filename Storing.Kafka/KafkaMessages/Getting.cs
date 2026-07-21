@@ -3,6 +3,9 @@ namespace Storing.Kafka;
 
 partial class KafkaFuncs
 {
+  static Timestamp GetKafkaMessageTimestamp(DateTime date) =>
+    new(date == default ? DateTime.UtcNow : date);
+
   static string GetKafkaSchemaType<TPayload>() =>
     typeof(TPayload).Name;
 

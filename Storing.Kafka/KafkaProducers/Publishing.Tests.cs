@@ -77,4 +77,33 @@ public sealed partial class KafkaTests
     result.Message.Key.ShouldBe("key4");
     DeserializeJson<TestMessage>(result.Message.Value).ShouldBe(payload);
   }
+
+  [TestMethod]
+  public async Task producer__publish_messages_sync__messages_persisted()
+  {
+    using var producer = CreateKafkaProducer<string, byte[]>(options);
+    Message<string, byte[]>[] messages = [
+      CreateKafkaMessage("key5", new TestMessage(1, "test"), [], serializer: v => SerializeJson(v)),
+      CreateKafkaMessage("key6", new TestMessage(2, "test"), [], serializer: v => SerializeJson(v)),
+    ];
+    var tcs = new TaskCompletionSource<DeliveryResult<string, byte[]>>();
+    var results = new List<DeliveryResult<string, byte[]>>();
+
+    PublishMessages(producer, publishTopicName, messages, report =>
+    {
+      try {
+        results.Add(report);
+        if (results.Count == messages.Length)
+          tcs.SetResult(report);
+      }
+      catch (Exception ex)
+      {
+        tcs.SetException(ex);
+      }
+    });
+
+    producer.Flush(cancellationToken);
+    await tcs.Task;
+    results.All(r => r.Status == PersistenceStatus.Persisted).ShouldBeTrue();
+  }
 }

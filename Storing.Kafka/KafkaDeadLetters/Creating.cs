@@ -3,16 +3,15 @@ namespace Storing.Kafka;
 
 partial class KafkaFuncs
 {
-  public static Message<TKey, TValue> CreateDeadLetter<TKey, TValue>(
+  public static Message<TKey, byte[]> CreateKafkaDeadLetter<TKey>(
     string reason,
-    Message<TKey, TValue> message,
+    Message<TKey, byte[]> message,
     TopicPartitionOffset topicPartitionOffset)
   =>
-    new()
-    {
-      Key = message.Key,
-      Value = message.Value,
-      Timestamp = message.Timestamp,
-      Headers = SetDeadLetterHeaders(reason, message, topicPartitionOffset)
-    };
+    CreateKafkaMessage(
+      message.Key,
+      message.Value,
+      SetDeadLetterHeaders(reason, message, topicPartitionOffset),
+      message.Timestamp.UtcDateTime
+    );
 }
