@@ -25,7 +25,6 @@ public sealed partial class KafkaTests
     var result = await PublishMessageAsync(producer, publishTopicName, "key", payload, null!, v => SerializeJson(v), cancellationToken);
 
     result.Status.ShouldBe(PersistenceStatus.Persisted);
-    Console.WriteLine(Encoding.UTF8.GetString(result.Message.Value));
     DeserializeJson<TestMessage>(result.Value).ShouldBe(payload);
   }
 
@@ -33,15 +32,12 @@ public sealed partial class KafkaTests
   public async Task producer__publish_message_sync__message_persisted()
   {
     using var producer = CreateKafkaProducer<string, string>(options);
-    var tcs = new TaskCompletionSource<string>();
+    var tcs = new TaskCompletionSource<DeliveryResult<string, string>>();
 
     var message = PublishMessage(producer, publishTopicName, "key", "value", null!, report =>
     {
       try {
-        report.Status.ShouldBe(PersistenceStatus.Persisted);
-        report.Key.ShouldBe("key");
-        report.Value.ShouldBe("value");
-        tcs.SetResult(default!);
+        tcs.SetResult(report);
       }
       catch (Exception ex)
       {
@@ -50,23 +46,23 @@ public sealed partial class KafkaTests
     });
 
     producer.Flush(cancellationToken);
-    await tcs.Task;
+    var result = await tcs.Task;
+    result.Status.ShouldBe(PersistenceStatus.Persisted);
+    result.Key.ShouldBe("key");
+    result.Value.ShouldBe("value");
   }
 
   [TestMethod]
   public async Task producer__publish_message_sync_with_serializer__message_persisted()
   {
     using var producer = CreateKafkaProducer<string, byte[]>(options);
-    var tcs = new TaskCompletionSource<string>();
+    var tcs = new TaskCompletionSource<DeliveryResult<string, byte[]>>();
     var payload = new TestMessage(1, "test");
 
     var message = PublishMessage(producer, publishTopicName, "key", payload, null!, v => SerializeJson(v), report =>
     {
       try {
-        report.Status.ShouldBe(PersistenceStatus.Persisted);
-        report.Key.ShouldBe("key");
-        DeserializeJson<TestMessage>(report.Value).ShouldBe(payload);
-        tcs.SetResult(default!);
+        tcs.SetResult(report);
       }
       catch (Exception ex)
       {
@@ -75,6 +71,9 @@ public sealed partial class KafkaTests
     });
 
     producer.Flush(cancellationToken);
-    await tcs.Task;
+    var result = await tcs.Task;
+    result.Status.ShouldBe(PersistenceStatus.Persisted);
+    result.Key.ShouldBe("key");
+    DeserializeJson<TestMessage>(result.Value).ShouldBe(payload);
   }
 }
