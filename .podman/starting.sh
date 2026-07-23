@@ -1,5 +1,5 @@
 echo "access containers by names"
-echo "127.0.0.1 mongo sql redis elasticsearch kafka" >> /etc/hosts
+echo "127.0.0.1 mongo sql redis elasticsearch" >> /etc/hosts
 
 echo "waiting for rootless podman to be ready..."
 until podman info >/dev/null 2>&1; do
@@ -10,4 +10,4 @@ echo "stop podman containers"
 podman stop -a >/dev/null 2>&1 || true
 
 echo "start podman containers"
-podman start mongo redis sql elasticsearch kafka
+podman start mongo sql redis elasticsearch
