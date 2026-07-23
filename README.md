@@ -1,5 +1,5 @@
 ## Backend storing library.
-- convenient functions for SQLServer, MongoDb and Redis databases.
+- convenient functions for SQLServer, MongoDb, Redis and Elasticsearch databases.
 - functional-style library [OOP-free].
 - podman-inside-of-podman.
 
